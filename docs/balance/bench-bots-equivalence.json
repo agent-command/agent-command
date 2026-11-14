@@ -1,0 +1,385 @@
+{
+  "baselineRunner": "tools/balance/src/run.ts (before the shared-runner cutover)",
+  "candidateRunner": "@playerthree/bench runBotMatches",
+  "seeds": [
+    1001,
+    1002
+  ],
+  "terrain": "open",
+  "opponent": "standard",
+  "tickCap": 1200,
+  "workersCompared": [
+    0,
+    1
+  ],
+  "excludedFields": [
+    "wallMs"
+  ],
+  "identical": true,
+  "canonicalMetricsSha256": "16ca45977576381571c0de6ba69333839847418407efb7da8bc61a126a6d700f",
+  "matches": [
+    {
+      "ticks": 1200,
+      "units": {
+        "1": {
+          "blue": {
+            "depths": 9,
+            "surface": 8,
+            "sky": 4,
+            "orbit": 3
+          },
+          "red": {
+            "depths": 9,
+            "surface": 8,
+            "sky": 4,
+            "orbit": 3
+          }
+        }
+      },
+      "firstMinute": {
+        "blue": {
+          "depths": 10,
+          "surface": 0,
+          "sky": 5,
+          "orbit": 3
+        },
+        "red": {
+          "depths": 10,
+          "surface": 0,
+          "sky": 5,
+          "orbit": 3
+        }
+      },
+      "cross": {
+        "collapse": 0,
+        "chasm": 0,
+        "breach": 0,
+        "tunnel_breach": 0,
+        "fell": 0,
+        "transfer": 0,
+        "defuse": 0,
+        "impact": 0,
+        "intercept": 2,
+        "scan": 0,
+        "flak_sky": 0,
+        "ground_air": 0,
+        "bomber": 0,
+        "bridge": 0,
+        "magma": 0,
+        "troops_down": 0,
+        "collapse_kills": 0,
+        "impact_kills": 0
+      },
+      "kinds": {
+        "queue_added": 26,
+        "produced": 20,
+        "dig": 62,
+        "island_captured": 6,
+        "constructed": 4,
+        "deliver": 18,
+        "grapple": 2,
+        "impact_incoming": 2,
+        "kill": 2,
+        "asteroid_intercepted": 2
+      },
+      "produced": {
+        "blue": {
+          "digger": 5,
+          "interceptor": 2,
+          "tank": 1,
+          "trooper": 1,
+          "lancer": 1
+        },
+        "red": {
+          "digger": 5,
+          "interceptor": 2,
+          "tank": 1,
+          "trooper": 1,
+          "lancer": 1
+        }
+      },
+      "built": {
+        "blue": {
+          "bulkhead": 1,
+          "relay": 1
+        },
+        "red": {
+          "bulkhead": 1,
+          "relay": 1
+        }
+      },
+      "kills": {
+        "blue": {
+          "lancer": 1
+        },
+        "red": {
+          "lancer": 1
+        }
+      },
+      "unattributed": 0,
+      "lodes": {
+        "outcrops": [
+          {
+            "x": 15.5,
+            "y": 9.5,
+            "rich": false,
+            "flank": false,
+            "loads": 80
+          },
+          {
+            "x": 32.5,
+            "y": 38.5,
+            "rich": false,
+            "flank": false,
+            "loads": 80
+          },
+          {
+            "x": 13.5,
+            "y": 3.5,
+            "rich": false,
+            "flank": false,
+            "loads": 80
+          },
+          {
+            "x": 34.5,
+            "y": 44.5,
+            "rich": false,
+            "flank": false,
+            "loads": 80
+          },
+          {
+            "x": 38.5,
+            "y": 7.5,
+            "rich": true,
+            "flank": true,
+            "loads": 150
+          },
+          {
+            "x": 9.5,
+            "y": 40.5,
+            "rich": true,
+            "flank": true,
+            "loads": 150
+          }
+        ],
+        "sides": {
+          "blue": {
+            "earnedAlloy": 450.00000000001097,
+            "lodeAlloy": 0,
+            "headframesBuilt": 0,
+            "headframesLost": 0,
+            "flankBuilt": 0,
+            "flankLost": 0,
+            "flankSitesLost": 0
+          },
+          "red": {
+            "earnedAlloy": 450.00000000001097,
+            "lodeAlloy": 0,
+            "headframesBuilt": 0,
+            "headframesLost": 0,
+            "flankBuilt": 0,
+            "flankLost": 0,
+            "flankSitesLost": 0
+          }
+        }
+      },
+      "set": "mirror-standard",
+      "seed": 1001,
+      "aSide": "blue",
+      "blue": {
+        "level": "standard"
+      },
+      "red": {
+        "level": "standard"
+      },
+      "options": {
+        "terrain": "open"
+      },
+      "winner": "draw",
+      "capped": true,
+      "spire": {
+        "blue": 14500,
+        "red": 14500
+      }
+    },
+    {
+      "ticks": 1200,
+      "units": {
+        "1": {
+          "blue": {
+            "depths": 9,
+            "surface": 10,
+            "sky": 3,
+            "orbit": 4
+          },
+          "red": {
+            "depths": 9,
+            "surface": 10,
+            "sky": 3,
+            "orbit": 4
+          }
+        }
+      },
+      "firstMinute": {
+        "blue": {
+          "depths": 16,
+          "surface": 0,
+          "sky": 3,
+          "orbit": 1
+        },
+        "red": {
+          "depths": 16,
+          "surface": 0,
+          "sky": 3,
+          "orbit": 1
+        }
+      },
+      "cross": {
+        "collapse": 0,
+        "chasm": 0,
+        "breach": 0,
+        "tunnel_breach": 0,
+        "fell": 0,
+        "transfer": 0,
+        "defuse": 0,
+        "impact": 0,
+        "intercept": 0,
+        "scan": 0,
+        "flak_sky": 0,
+        "ground_air": 0,
+        "bomber": 0,
+        "bridge": 0,
+        "magma": 0,
+        "troops_down": 0,
+        "collapse_kills": 0,
+        "impact_kills": 0
+      },
+      "kinds": {
+        "queue_added": 28,
+        "dig": 32,
+        "produced": 22,
+        "island_captured": 4,
+        "constructed": 4,
+        "deliver": 30,
+        "grapple": 2
+      },
+      "produced": {
+        "blue": {
+          "digger": 5,
+          "interceptor": 1,
+          "tank": 1,
+          "trooper": 2,
+          "lancer": 1,
+          "flak": 1
+        },
+        "red": {
+          "digger": 5,
+          "interceptor": 1,
+          "tank": 1,
+          "trooper": 2,
+          "lancer": 1,
+          "flak": 1
+        }
+      },
+      "built": {
+        "blue": {
+          "bulkhead": 1,
+          "relay": 1
+        },
+        "red": {
+          "bulkhead": 1,
+          "relay": 1
+        }
+      },
+      "kills": {
+        "blue": {},
+        "red": {}
+      },
+      "unattributed": 0,
+      "lodes": {
+        "outcrops": [
+          {
+            "x": 14.5,
+            "y": 3.5,
+            "rich": false,
+            "flank": false,
+            "loads": 80
+          },
+          {
+            "x": 33.5,
+            "y": 44.5,
+            "rich": false,
+            "flank": false,
+            "loads": 80
+          },
+          {
+            "x": 7.5,
+            "y": 14.5,
+            "rich": false,
+            "flank": false,
+            "loads": 80
+          },
+          {
+            "x": 40.5,
+            "y": 33.5,
+            "rich": false,
+            "flank": false,
+            "loads": 80
+          },
+          {
+            "x": 40.5,
+            "y": 7.5,
+            "rich": true,
+            "flank": true,
+            "loads": 150
+          },
+          {
+            "x": 7.5,
+            "y": 40.5,
+            "rich": true,
+            "flank": true,
+            "loads": 150
+          }
+        ],
+        "sides": {
+          "blue": {
+            "earnedAlloy": 660.000000000013,
+            "lodeAlloy": 0,
+            "headframesBuilt": 0,
+            "headframesLost": 0,
+            "flankBuilt": 0,
+            "flankLost": 0,
+            "flankSitesLost": 0
+          },
+          "red": {
+            "earnedAlloy": 660.000000000013,
+            "lodeAlloy": 0,
+            "headframesBuilt": 0,
+            "headframesLost": 0,
+            "flankBuilt": 0,
+            "flankLost": 0,
+            "flankSitesLost": 0
+          }
+        }
+      },
+      "set": "mirror-standard",
+      "seed": 1002,
+      "aSide": "blue",
+      "blue": {
+        "level": "standard"
+      },
+      "red": {
+        "level": "standard"
+      },
+      "options": {
+        "terrain": "open"
+      },
+      "winner": "draw",
+      "capped": true,
+      "spire": {
+        "blue": 14500,
+        "red": 14500
+      }
+    }
+  ]
+}

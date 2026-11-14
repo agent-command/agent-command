@@ -1,0 +1,17 @@
+{
+  "name": "@agent-command/loadtest",
+  "license": "AGPL-3.0-only",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Browser-free public HTTP/Colyseus load and 20Hz capacity runner",
+  "engines": { "node": ">=24" },
+  "scripts": { "start": "node src/main.mjs", "views": "node src/views.ts", "test": "node --test test/*.test.mjs" },
+  "dependencies": {
+    "@agent-command/game": "workspace:*",
+    "@playerthree/colyseus": "link:../../../player-three/packages/colyseus",
+    "@colyseus/core": "0.18.25",
+    "@colyseus/sdk": "0.18.9",
+    "playerthree": "link:../../../player-three/packages/playerthree"
+  }
+}

@@ -1,0 +1,7 @@
+/* The shared slot occupant selector (occupant-select.ts). Spacing comes only from the --gap-* scale. */
+.occupant-select { display: grid; gap: var(--gap-md); width: 100%; min-width: 0; }
+.occupant-select select { width: 100%; max-width: 100%; }
+.occupant-select > .btn { justify-self: stretch; }
+.occupant-bot-tune { padding: var(--gap-md); border: 1px solid var(--rule-soft); border-radius: var(--gap-md); }
+.occupant-bot-tune summary { display: flex; align-items: center; gap: var(--gap-md); min-height: 40px; cursor: var(--cursor-link, pointer); }
+.occupant-bot-tune label { display: grid; grid-template-columns: minmax(90px, 1fr) minmax(80px, 1fr) 4ch; align-items: center; gap: var(--gap-md); margin-block: var(--gap-md); }

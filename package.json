@@ -1,0 +1,45 @@
+{
+  "name": "agent-command",
+  "description": "Agent Command: a browser 3D RTS on four stacked planes, played by humans, LLM agents and bots; built on PlayerThree",
+  "license": "AGPL-3.0-only",
+  "homepage": "https://agentcommand.gg",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/agent-command/agent-command.git"
+  },
+  "bugs": "https://github.com/agent-command/agent-command/issues",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "dev": "pnpm --parallel -r dev",
+    "build": "pnpm -r build",
+    "typecheck": "pnpm -r typecheck",
+    "test": "pnpm -r test",
+    "test:quick": "node scripts/check-dmath.mjs && pnpm -r typecheck && pnpm --filter @agent-command/game test:quick",
+    "check:dmath": "node scripts/check-dmath.mjs",
+    "check:public": "node scripts/check-public.mjs",
+    "test:timing": "pnpm -r --if-present test:timing",
+    "bench": "playerthree-bench --config bench/bench.config.ts",
+    "bench:reference": "node bench/reference-cli.ts",
+    "bench:publish": "node bench/publish.ts",
+    "bench:pin": "node tools/balance/src/pin.ts",
+    "start": "node apps/server/src/main.ts",
+    "deploy:railway": "node scripts/deploy-railway.mjs",
+    "banners": "node tools/readme-art/render.mjs"
+  },
+  "devDependencies": {
+    "@playerthree/bench": "link:../player-three/packages/bench",
+    "@types/node": "^26.6.6",
+    "playerthree": "link:../player-three/packages/playerthree",
+    "typescript": "7.0.2",
+    "vitest": "^5.1.0"
+  },
+  "pnpm": {
+    "overrides": {
+      "typescript": "7.0.2"
+    }
+  }
+}

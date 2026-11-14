@@ -1,0 +1,50 @@
+/* Home backdrop plane picker: four icons floating at the right edge, stacked in plane order (Orbit on top). A pinned
+   plane holds the preview there; pressing it again resumes the tour. Translucent like the other HUD faces. */
+.home-planes {
+  position: fixed;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 8px;
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--paper) 55%, transparent);
+  box-shadow: 0 2px 10px color-mix(in srgb, var(--chrome-black) 35%, transparent);
+}
+.home-planes[hidden] {
+  display: none;
+}
+.home-plane {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  color: var(--accent);
+  background: color-mix(in srgb, var(--paper-hi) 70%, transparent);
+  cursor: var(--cursor-link, pointer);
+}
+.home-plane:hover {
+  border-color: color-mix(in srgb, var(--accent) 55%, transparent);
+}
+.home-plane.active {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 22%, var(--paper));
+}
+.home-plane:focus-visible {
+  outline: 2px solid var(--brand-gold);
+  outline-offset: 2px;
+}
+@media (max-width: 760px) {
+  .home-planes {
+    top: auto;
+    bottom: 14px;
+    transform: none;
+    flex-direction: row;
+  }
+}
