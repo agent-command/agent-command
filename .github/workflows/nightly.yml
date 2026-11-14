@@ -22,18 +22,18 @@ jobs:
     timeout-minutes: 90
     steps:
       # Both repos side by side under the workspace so AC's link:../player-three/... (and ../../../player-three from apps/*) resolve.
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           path: agent-command
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           repository: player-three-gg/player-three
           ref: main
           path: player-three
-      - uses: pnpm/action-setup@v4
+      - uses: pnpm/action-setup@v6
         with:
           version: 10.22.0
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: 26
           cache: pnpm
