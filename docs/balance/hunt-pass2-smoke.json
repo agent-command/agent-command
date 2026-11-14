@@ -1,0 +1,688 @@
+{
+  "label": "hunt-pass2-smoke",
+  "model": "gpt-5-mini",
+  "maxUsd": 0.15,
+  "spentUsd": 0.05698925,
+  "wallMs": 46399,
+  "roles": [
+    {
+      "role": "surface",
+      "stop": "finished",
+      "summary": {
+        "reason": "aborted",
+        "outcome": "running",
+        "turns": 11,
+        "toolCalls": 10,
+        "inputTokens": 205669,
+        "outputTokens": 2786,
+        "spentUsd": 0.05698925
+      },
+      "closing": "I finished preparation: tried three focused surface policies against the built-in veteran (practice_run, 24k ticks). Summary of the three ideas, their records and why the best one performed relatively better:\n\n- Trooper rush (strategy: trooper_rush). Runs: seed 42 — loss (spireDamageDealt 14, produced 94, unitsLost 92); seed 7 — loss (spireDamageDealt 10, produced 124, unitsLost 138). Notes: very cheap, fast production and constant rally/attack, but troopers die quickly to the veteran’s mixed counters and the veteran’s multi-plane pressure (asteroids, orbital/sky damage). Too fragile to threaten the spire reliably.\n\n- Tank bombard (strategy: tank_bombard). Run: seed 42 — loss (spireDamageDealt ~1200, produced 42, unitsLost 45). Notes: concentrated heavy damage and ranged persistence let this deal the most surface spire damage of the three, but tanks are slow/expensive so production was limited; the veteran exploited multi-plane damage (asteroids / sky/orbit pressure) and other map effects to overwhelm or out-economize the tank-only push.\n\n- Turret wall forward (strategy: turret_wall_forward). Run: seed 42 — loss (spireDamageDealt ~412, produced 107, unitsLost 105). Notes: defensive turrets + trooper spam buys survivability and local control but doesn’t translate into consistent spire kills; the veteran’s broader play (islands, asteroids, multi-plane strikes and sappers) still wins.\n\nWhy the best one worked relatively better: the tank-only policy did the most structural/spire damage because tanks are high-damage, survive longer vs small arms, and attack at range—so massing tanks concentrates DPS on the spire. However, it’s still not degenerate enough to beat the veteran reliably because the veteran uses multi-plane pressure (asteroids, sky/orbit attacks, relay/energy game and depths sappers) that the single-plane, one-unit-type plan cannot counter.\n\nI’ve left the last deployed version as the turret_wall_forward (version 3) per the instruction to keep something running; I stopped after these three ideas. If you want, I can (a) iterate on the tank idea (improve production/energy handling, mix in escorts), (b) search for a different one-dimensional exploit (e.g., abusing a build/visibility rule or a specific mechanics gap), or (c run more seeds on the tank policy to evaluate variance. Which next step do you prefer?",
+      "deploys": [
+        {
+          "turn": 4,
+          "ok": true,
+          "version": 1,
+          "code": "log('strategy: trooper_rush');\nvar TPS=20;\nvar rallied=false;\nfunction think(obs){\n  var out=[];\n  var blue = obs.team==='blue';\n  function mirror(x,y){return blue?{x:x,y:y}:{x:48-x,y:48-y};}\n  var enemyHome=mirror(40,40);\n  if(!rallied){out.push({kind:'rally',x:enemyHome.x,y:enemyHome.y});rallied=true;}\n  // produce troopers greedily\n  var queued = obs.queue.reduce((n,q)=>n+q.queued,0);\n  var army = obs.entities.filter(e=>e.side===obs.team && e.plane==='surface' && e.kind==='trooper');\n  if(queued<5 && obs.res.alloy>=40){out.push({kind:'produce',unit:'trooper',count:1});}\n  // gather and attack\n  var ids = obs.entities.filter(e=>e.side===obs.team && e.plane==='surface' && e.kind==='trooper').map(e=>e.id);\n  if(ids.length>=10){\n    // attack enemy spire if visible\n    var spire = obs.entities.find(e=>e.side!==obs.team && e.kind==='spire' && e.plane==='surface');\n    if(spire) out.push({kind:'attack',units:ids.slice(0,64),target:spire.id});\n    else out.push({kind:'move',units:ids.slice(0,64),x:enemyHome.x,y:enemyHome.y});\n  } else if(ids.length>0){\n    out.push({kind:'move',units:ids.slice(0,64),x:enemyHome.x,y:enemyHome.y});\n  }\n  return out;\n}\n"
+        },
+        {
+          "turn": 7,
+          "ok": true,
+          "version": 2,
+          "code": "log('strategy: tank_bombard');\nvar rallied=false;\nfunction think(obs){\n  var out=[];\n  var blue = obs.team==='blue';\n  function mirror(x,y){return blue?{x:x,y:y}:{x:48-x,y:48-y};}\n  var enemyHome=mirror(40,40);\n  var front=mirror(18,18);\n  if(!rallied){out.push({kind:'rally',x:front.x,y:front.y});rallied=true;}\n  var queued = obs.queue.reduce((n,q)=>n+q.queued,0);\n  // produce tanks when energy and alloy allow\n  if(queued<3 && obs.res.alloy>=90 && obs.res.energy>=60) out.push({kind:'produce',unit:'tank',count:1});\n  // move tanks to enemy\n  var tanks = obs.entities.filter(e=>e.side===obs.team && e.plane==='surface' && e.kind==='tank').map(e=>e.id);\n  if(tanks.length){\n    var spire = obs.entities.find(e=>e.side!==obs.team && e.kind==='spire' && e.plane==='surface');\n    if(spire) out.push({kind:'attack',units:tanks.slice(0,64),target:spire.id});\n    else out.push({kind:'move',units:tanks.slice(0,64),x:enemyHome.x,y:enemyHome.y});\n  }\n  return out;\n}\n"
+        },
+        {
+          "turn": 9,
+          "ok": true,
+          "version": 3,
+          "code": "log('strategy: turret_wall_forward');\nvar built=false;\nfunction think(obs){\n  var out=[];\n  var blue = obs.team==='blue';\n  function mirror(x,y){return blue?{x:x,y:y}:{x:48-x,y:48-y};}\n  var front=mirror(18,18);\n  if(!built){\n    // try to build two turrets near front if visible and afford\n    if(obs.res.alloy>=80 && obs.res.energy>=20){\n      out.push({kind:'build',structure:'turret',x:front.x-1,y:front.y});\n      out.push({kind:'build',structure:'turret',x:front.x+1,y:front.y});\n      built=true;\n    }\n  }\n  // produce troopers greedily\n  var queued = obs.queue.reduce((n,q)=>n+q.queued,0);\n  if(queued<4 && obs.res.alloy>=40) out.push({kind:'produce',unit:'trooper',count:1});\n  // move troopers to front\n  var ids = obs.entities.filter(e=>e.side===obs.team && e.plane==='surface' && e.kind==='trooper').map(e=>e.id);\n  if(ids.length) out.push({kind:'move',units:ids.slice(0,64),x:front.x,y:front.y});\n  return out;\n}\n"
+        }
+      ],
+      "practices": [
+        {
+          "turn": 5,
+          "version": 1,
+          "opponent": "veteran",
+          "seed": 42,
+          "ticks": 24000,
+          "outcome": "loss",
+          "played": 7620,
+          "us": {
+            "alloyMined": 3890,
+            "energyDelivered": 1014,
+            "produced": 94,
+            "unitsLost": 92,
+            "kills": 77,
+            "structuresLost": 8,
+            "collapses": 0,
+            "impacts": 0,
+            "interceptions": 5,
+            "islandTicks": 10100,
+            "spireDamageDealt": 14
+          },
+          "them": {
+            "alloyMined": 5840,
+            "energyDelivered": 2162,
+            "produced": 92,
+            "unitsLost": 78,
+            "kills": 92,
+            "structuresLost": 7,
+            "collapses": 1,
+            "impacts": 8,
+            "interceptions": 2,
+            "islandTicks": 33599,
+            "spireDamageDealt": 12014
+          }
+        },
+        {
+          "turn": 6,
+          "version": 1,
+          "opponent": "veteran",
+          "seed": 7,
+          "ticks": 24000,
+          "outcome": "loss",
+          "played": 9140,
+          "us": {
+            "alloyMined": 5240,
+            "energyDelivered": 991,
+            "produced": 124,
+            "unitsLost": 138,
+            "kills": 88,
+            "structuresLost": 12,
+            "collapses": 0,
+            "impacts": 0,
+            "interceptions": 3,
+            "islandTicks": 9974,
+            "spireDamageDealt": 10
+          },
+          "them": {
+            "alloyMined": 6640,
+            "energyDelivered": 2824,
+            "produced": 112,
+            "unitsLost": 88,
+            "kills": 138,
+            "structuresLost": 9,
+            "collapses": 1,
+            "impacts": 10,
+            "interceptions": 3,
+            "islandTicks": 42872,
+            "spireDamageDealt": 12002
+          }
+        },
+        {
+          "turn": 8,
+          "version": 2,
+          "opponent": "veteran",
+          "seed": 42,
+          "ticks": 24000,
+          "outcome": "loss",
+          "played": 7030,
+          "us": {
+            "alloyMined": 3740,
+            "energyDelivered": 1246,
+            "produced": 42,
+            "unitsLost": 45,
+            "kills": 46,
+            "structuresLost": 15,
+            "collapses": 0,
+            "impacts": 1,
+            "interceptions": 3,
+            "islandTicks": 11654,
+            "spireDamageDealt": 1200
+          },
+          "them": {
+            "alloyMined": 4360,
+            "energyDelivered": 1790,
+            "produced": 66,
+            "unitsLost": 48,
+            "kills": 45,
+            "structuresLost": 10,
+            "collapses": 0,
+            "impacts": 6,
+            "interceptions": 6,
+            "islandTicks": 28514,
+            "spireDamageDealt": 10830
+          }
+        },
+        {
+          "turn": 10,
+          "version": 3,
+          "opponent": "veteran",
+          "seed": 42,
+          "ticks": 24000,
+          "outcome": "loss",
+          "played": 8770,
+          "us": {
+            "alloyMined": 4450,
+            "energyDelivered": 1150,
+            "produced": 107,
+            "unitsLost": 105,
+            "kills": 95,
+            "structuresLost": 8,
+            "collapses": 1,
+            "impacts": 0,
+            "interceptions": 2,
+            "islandTicks": 13640,
+            "spireDamageDealt": 412
+          },
+          "them": {
+            "alloyMined": 6560,
+            "energyDelivered": 2420,
+            "produced": 112,
+            "unitsLost": 95,
+            "kills": 105,
+            "structuresLost": 10,
+            "collapses": 0,
+            "impacts": 8,
+            "interceptions": 3,
+            "islandTicks": 36959,
+            "spireDamageDealt": 10585
+          }
+        }
+      ],
+      "final": {
+        "version": 3,
+        "code": "log('strategy: turret_wall_forward');\nvar built=false;\nfunction think(obs){\n  var out=[];\n  var blue = obs.team==='blue';\n  function mirror(x,y){return blue?{x:x,y:y}:{x:48-x,y:48-y};}\n  var front=mirror(18,18);\n  if(!built){\n    // try to build two turrets near front if visible and afford\n    if(obs.res.alloy>=80 && obs.res.energy>=20){\n      out.push({kind:'build',structure:'turret',x:front.x-1,y:front.y});\n      out.push({kind:'build',structure:'turret',x:front.x+1,y:front.y});\n      built=true;\n    }\n  }\n  // produce troopers greedily\n  var queued = obs.queue.reduce((n,q)=>n+q.queued,0);\n  if(queued<4 && obs.res.alloy>=40) out.push({kind:'produce',unit:'trooper',count:1});\n  // move troopers to front\n  var ids = obs.entities.filter(e=>e.side===obs.team && e.plane==='surface' && e.kind==='trooper').map(e=>e.id);\n  if(ids.length) out.push({kind:'move',units:ids.slice(0,64),x:front.x,y:front.y});\n  return out;\n}\n",
+        "eval": [
+          {
+            "key": "hunt-surface-v3-standard",
+            "kind": "probe",
+            "title": "surface v3 vs standard",
+            "a": {
+              "level": "standard",
+              "probe": "hunt-surface-v3",
+              "policies": {
+                "surface": "log('strategy: turret_wall_forward');\nvar built=false;\nfunction think(obs){\n  var out=[];\n  var blue = obs.team==='blue';\n  function mirror(x,y){return blue?{x:x,y:y}:{x:48-x,y:48-y};}\n  var front=mirror(18,18);\n  if(!built){\n    // try to build two turrets near front if visible and afford\n    if(obs.res.alloy>=80 && obs.res.energy>=20){\n      out.push({kind:'build',structure:'turret',x:front.x-1,y:front.y});\n      out.push({kind:'build',structure:'turret',x:front.x+1,y:front.y});\n      built=true;\n    }\n  }\n  // produce troopers greedily\n  var queued = obs.queue.reduce((n,q)=>n+q.queued,0);\n  if(queued<4 && obs.res.alloy>=40) out.push({kind:'produce',unit:'trooper',count:1});\n  // move troopers to front\n  var ids = obs.entities.filter(e=>e.side===obs.team && e.plane==='surface' && e.kind==='trooper').map(e=>e.id);\n  if(ids.length) out.push({kind:'move',units:ids.slice(0,64),x:front.x,y:front.y});\n  return out;\n}\n"
+              }
+            },
+            "b": {
+              "level": "standard"
+            },
+            "n": 4,
+            "aWins": 0,
+            "bWins": 4,
+            "draws": 0,
+            "capped": 0,
+            "aRate": {
+              "p": 0,
+              "lo": 0,
+              "hi": 0.4898908403969213
+            },
+            "aAsBlue": {
+              "n": 2,
+              "wins": 0
+            },
+            "aAsRed": {
+              "n": 2,
+              "wins": 0
+            },
+            "blueWins": 2,
+            "redWins": 2,
+            "bias": {
+              "decisive": 4,
+              "blue": {
+                "p": 0.5,
+                "lo": 0.15003898774401986,
+                "hi": 0.8499610122559802
+              },
+              "p": 1
+            },
+            "length": {
+              "median": 7.071666666666667,
+              "p10": 6.272333333333334,
+              "p25": 6.293333333333334,
+              "p75": 7.905833333333334,
+              "p90": 8.027333333333333,
+              "min": 6.258333333333334,
+              "max": 8.108333333333333,
+              "hist": [
+                0,
+                4,
+                0,
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            "units": {
+              "1": {
+                "n": 4,
+                "a": {
+                  "depths": 9,
+                  "surface": 14.5,
+                  "sky": 3.5,
+                  "orbit": 2.5
+                },
+                "b": {
+                  "depths": 9,
+                  "surface": 9.25,
+                  "sky": 4,
+                  "orbit": 2.75
+                }
+              },
+              "3": {
+                "n": 4,
+                "a": {
+                  "depths": 9,
+                  "surface": 8,
+                  "sky": 2.25,
+                  "orbit": 3.5
+                },
+                "b": {
+                  "depths": 9,
+                  "surface": 5.5,
+                  "sky": 4,
+                  "orbit": 4
+                }
+              },
+              "5": {
+                "n": 4,
+                "a": {
+                  "depths": 9,
+                  "surface": 4,
+                  "sky": 2,
+                  "orbit": 2.5
+                },
+                "b": {
+                  "depths": 9,
+                  "surface": 11.5,
+                  "sky": 4,
+                  "orbit": 4.75
+                }
+              }
+            },
+            "firstMinute": {
+              "a": {
+                "depths": 18.5,
+                "surface": 2.25,
+                "sky": 4.5,
+                "orbit": 4
+              },
+              "b": {
+                "depths": 19,
+                "surface": 5.5,
+                "sky": 5.25,
+                "orbit": 4.25
+              },
+              "allPlanes": 0.75,
+              "active": {
+                "depths": 1,
+                "surface": 0.75,
+                "sky": 1,
+                "orbit": 1
+              }
+            },
+            "cross": {
+              "collapse": {
+                "mean": 0,
+                "share": 0
+              },
+              "chasm": {
+                "mean": 0,
+                "share": 0
+              },
+              "breach": {
+                "mean": 0,
+                "share": 0
+              },
+              "tunnel_breach": {
+                "mean": 2.75,
+                "share": 0.5
+              },
+              "fell": {
+                "mean": 0,
+                "share": 0
+              },
+              "transfer": {
+                "mean": 0,
+                "share": 0
+              },
+              "defuse": {
+                "mean": 0,
+                "share": 0
+              },
+              "impact": {
+                "mean": 4.5,
+                "share": 0.75
+              },
+              "intercept": {
+                "mean": 6,
+                "share": 1
+              },
+              "scan": {
+                "mean": 0,
+                "share": 0
+              },
+              "flak_sky": {
+                "mean": 9.75,
+                "share": 1
+              },
+              "ground_air": {
+                "mean": 11.75,
+                "share": 1
+              },
+              "bomber": {
+                "mean": 0,
+                "share": 0
+              },
+              "troops_down": {
+                "mean": 0,
+                "share": 0
+              },
+              "orbit_from_sky": {
+                "mean": 11,
+                "share": 1
+              },
+              "collapse_kills": {
+                "mean": 0,
+                "share": 0
+              },
+              "impact_kills": {
+                "mean": 5.25,
+                "share": 0.75
+              }
+            },
+            "produced": {
+              "trooper": 0.6474926253687315,
+              "interceptor": 0.08997050147492626,
+              "tank": 0.08112094395280237,
+              "digger": 0.06637168141592921,
+              "flak": 0.048672566371681415,
+              "solar": 0.04424778761061947,
+              "tug": 0.022123893805309734
+            },
+            "kills": {
+              "tank": 0.37771345875542695,
+              "trooper": 0.2590448625180897,
+              "interceptor": 0.14327062228654125,
+              "spire": 0.13314037626628075,
+              "flak": 0.056439942112879886,
+              "impact": 0.02604920405209841,
+              "turret": 0.004341534008683068
+            },
+            "unattributed": 0.014265335235378032,
+            "structureEdge": {
+              "shaft": {
+                "n": 4,
+                "wins": 4
+              },
+              "turret": {
+                "n": 4,
+                "wins": 4
+              },
+              "relay": {
+                "n": 4,
+                "wins": 4
+              }
+            },
+            "probe": {
+              "calls": 3422,
+              "errors": 0,
+              "timeouts": 0,
+              "intents": 3408,
+              "rejected": 8,
+              "codes": {
+                "game:not_visible": 8
+              }
+            },
+            "wallMs": {
+              "mean": 2881.5,
+              "total": 11526
+            }
+          },
+          {
+            "key": "hunt-surface-v3-veteran",
+            "kind": "probe",
+            "title": "surface v3 vs veteran",
+            "a": {
+              "level": "veteran",
+              "probe": "hunt-surface-v3",
+              "policies": {
+                "surface": "log('strategy: turret_wall_forward');\nvar built=false;\nfunction think(obs){\n  var out=[];\n  var blue = obs.team==='blue';\n  function mirror(x,y){return blue?{x:x,y:y}:{x:48-x,y:48-y};}\n  var front=mirror(18,18);\n  if(!built){\n    // try to build two turrets near front if visible and afford\n    if(obs.res.alloy>=80 && obs.res.energy>=20){\n      out.push({kind:'build',structure:'turret',x:front.x-1,y:front.y});\n      out.push({kind:'build',structure:'turret',x:front.x+1,y:front.y});\n      built=true;\n    }\n  }\n  // produce troopers greedily\n  var queued = obs.queue.reduce((n,q)=>n+q.queued,0);\n  if(queued<4 && obs.res.alloy>=40) out.push({kind:'produce',unit:'trooper',count:1});\n  // move troopers to front\n  var ids = obs.entities.filter(e=>e.side===obs.team && e.plane==='surface' && e.kind==='trooper').map(e=>e.id);\n  if(ids.length) out.push({kind:'move',units:ids.slice(0,64),x:front.x,y:front.y});\n  return out;\n}\n"
+              }
+            },
+            "b": {
+              "level": "veteran"
+            },
+            "n": 4,
+            "aWins": 0,
+            "bWins": 4,
+            "draws": 0,
+            "capped": 0,
+            "aRate": {
+              "p": 0,
+              "lo": 0,
+              "hi": 0.4898908403969213
+            },
+            "aAsBlue": {
+              "n": 2,
+              "wins": 0
+            },
+            "aAsRed": {
+              "n": 2,
+              "wins": 0
+            },
+            "blueWins": 2,
+            "redWins": 2,
+            "bias": {
+              "decisive": 4,
+              "blue": {
+                "p": 0.5,
+                "lo": 0.15003898774401986,
+                "hi": 0.8499610122559802
+              },
+              "p": 1
+            },
+            "length": {
+              "median": 7.8375,
+              "p10": 6.716666666666667,
+              "p25": 7.241666666666666,
+              "p75": 8.477916666666667,
+              "p90": 9.083166666666669,
+              "min": 6.366666666666666,
+              "max": 9.486666666666668,
+              "hist": [
+                0,
+                4,
+                0,
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            "units": {
+              "1": {
+                "n": 4,
+                "a": {
+                  "depths": 10,
+                  "surface": 13.25,
+                  "sky": 4.5,
+                  "orbit": 2.5
+                },
+                "b": {
+                  "depths": 10,
+                  "surface": 9.25,
+                  "sky": 4,
+                  "orbit": 2.5
+                }
+              },
+              "3": {
+                "n": 4,
+                "a": {
+                  "depths": 10,
+                  "surface": 4.25,
+                  "sky": 2,
+                  "orbit": 3.75
+                },
+                "b": {
+                  "depths": 10,
+                  "surface": 5.75,
+                  "sky": 4.75,
+                  "orbit": 5.75
+                }
+              },
+              "5": {
+                "n": 4,
+                "a": {
+                  "depths": 8.25,
+                  "surface": 0.5,
+                  "sky": 0.5,
+                  "orbit": 1.75
+                },
+                "b": {
+                  "depths": 11,
+                  "surface": 10,
+                  "sky": 3.25,
+                  "orbit": 5.5
+                }
+              }
+            },
+            "firstMinute": {
+              "a": {
+                "depths": 18.5,
+                "surface": 2,
+                "sky": 8.25,
+                "orbit": 5.25
+              },
+              "b": {
+                "depths": 19,
+                "surface": 5,
+                "sky": 8.75,
+                "orbit": 4.75
+              },
+              "allPlanes": 0.5,
+              "active": {
+                "depths": 1,
+                "surface": 0.5,
+                "sky": 1,
+                "orbit": 1
+              }
+            },
+            "cross": {
+              "collapse": {
+                "mean": 0.5,
+                "share": 0.25
+              },
+              "chasm": {
+                "mean": 0,
+                "share": 0
+              },
+              "breach": {
+                "mean": 0,
+                "share": 0
+              },
+              "tunnel_breach": {
+                "mean": 20.5,
+                "share": 1
+              },
+              "fell": {
+                "mean": 0.25,
+                "share": 0.25
+              },
+              "transfer": {
+                "mean": 0,
+                "share": 0
+              },
+              "defuse": {
+                "mean": 1.5,
+                "share": 0.75
+              },
+              "impact": {
+                "mean": 9.5,
+                "share": 1
+              },
+              "intercept": {
+                "mean": 6.75,
+                "share": 1
+              },
+              "scan": {
+                "mean": 12,
+                "share": 1
+              },
+              "flak_sky": {
+                "mean": 9.5,
+                "share": 1
+              },
+              "ground_air": {
+                "mean": 13.25,
+                "share": 1
+              },
+              "bomber": {
+                "mean": 15.25,
+                "share": 1
+              },
+              "troops_down": {
+                "mean": 0,
+                "share": 0
+              },
+              "orbit_from_sky": {
+                "mean": 12,
+                "share": 1
+              },
+              "collapse_kills": {
+                "mean": 0,
+                "share": 0
+              },
+              "impact_kills": {
+                "mean": 5.5,
+                "share": 1
+              }
+            },
+            "produced": {
+              "trooper": 0.5618932038834952,
+              "digger": 0.11529126213592233,
+              "interceptor": 0.10194174757281553,
+              "sapper": 0.055825242718446605,
+              "flak": 0.04733009708737864,
+              "tank": 0.03762135922330097,
+              "solar": 0.03033980582524272,
+              "tug": 0.02669902912621359,
+              "bomber": 0.023058252427184466
+            },
+            "kills": {
+              "trooper": 0.26217228464419473,
+              "spire": 0.21473158551810237,
+              "tank": 0.18726591760299627,
+              "interceptor": 0.15480649188514356,
+              "bomber": 0.07615480649188515,
+              "flak": 0.04744069912609238,
+              "digger": 0.03245942571785269,
+              "impact": 0.024968789013732832
+            },
+            "unattributed": 0.023170731707317073,
+            "structureEdge": {
+              "shaft": {
+                "n": 4,
+                "wins": 4
+              },
+              "turret": {
+                "n": 4,
+                "wins": 4
+              },
+              "relay": {
+                "n": 3,
+                "wins": 3
+              }
+            },
+            "probe": {
+              "calls": 3784,
+              "errors": 0,
+              "timeouts": 0,
+              "intents": 3701,
+              "rejected": 8,
+              "codes": {
+                "game:not_visible": 8
+              }
+            },
+            "wallMs": {
+              "mean": 2680.75,
+              "total": 10723
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,67 @@
+/* Consent-only additions use the shared light/dark theme and keyboard focus tokens. */
+.consent-connection,
+.consent-create,
+.consent-recovery {
+  display: grid;
+  gap: 10px;
+  min-width: 0;
+}
+.consent-connection,
+.consent-recovery {
+  border-top: 1px solid var(--rule);
+  padding-top: 12px;
+}
+.consent-connection label {
+  font-weight: 600;
+}
+.consent-connection input,
+.consent-connection select,
+.consent-pair input {
+  min-width: 0;
+  width: 100%;
+  padding: 9px 10px;
+  border: 1px solid var(--rule);
+  border-radius: var(--wobble);
+  background: var(--paper-hi);
+  color: var(--ink);
+  font: inherit;
+}
+.consent-connection input:focus-visible,
+.consent-connection select:focus-visible,
+.consent-pair input:focus-visible,
+.consent-plane:focus-visible {
+  outline: 2px solid var(--brand-gold);
+  outline-offset: 3px;
+}
+.consent-create {
+  margin-top: 4px;
+}
+.consent-create .btn {
+  justify-self: start;
+}
+.consent-pair {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.consent-pair input {
+  flex: 1 1 140px;
+}
+.consent-model,
+.consent-identity,
+.consent-connection p {
+  overflow-wrap: anywhere;
+}
+.consent-plane:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+@media (max-width: 480px) {
+  .consent-card {
+    padding: 20px 16px;
+    transform: none;
+  }
+  .consent-actions {
+    grid-template-columns: 1fr;
+  }
+}

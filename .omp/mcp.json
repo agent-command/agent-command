@@ -1,0 +1,11 @@
+{
+  "$schema": "https://raw.githubusercontent.com/can1357/oh-my-pi/main/packages/coding-agent/src/config/mcp-schema.json",
+  "mcpServers": {
+    "agent-command-dev": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["tools/dev-mcp/src/main.ts"],
+      "timeout": 120000
+    }
+  }
+}

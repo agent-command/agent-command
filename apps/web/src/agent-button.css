@@ -1,0 +1,74 @@
+/* The one commander identity chip (agent-button.ts): an ink slip, identical on every surface. */
+.agent-button {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gap-sm);
+  min-width: 0;
+  max-width: 100%;
+  padding: var(--gap-xs) var(--gap-md) var(--gap-xs) var(--gap-sm);
+  border: 1px solid var(--rule);
+  border-radius: var(--wobble);
+  background: var(--grain), var(--paper-hi);
+  box-shadow: var(--slip-shadow);
+  color: var(--ink);
+  font: 600 13px/1.2 var(--serif);
+  text-align: start;
+  white-space: nowrap;
+  user-select: none;
+}
+.agent-button > .icon { flex: none; }
+button.agent-button { cursor: var(--cursor-link, pointer); }
+button.agent-button:hover { background: var(--grain), var(--chrome-hover); }
+button.agent-button[aria-pressed='true'] { box-shadow: var(--on-ring), var(--slip-shadow); background: var(--grain), var(--paper-on); }
+.agent-button-text { display: inline-flex; align-items: baseline; gap: var(--gap-sm); min-width: 0; overflow: hidden; }
+.agent-button-name { overflow: hidden; text-overflow: ellipsis; font-weight: 700; }
+.agent-button-detail { color: var(--ink-soft); font-weight: 400; font-size: 0.9em; }
+/* Provider / model: a badge, never part of the name. */
+.agent-button-model {
+  flex: none;
+  max-width: 14em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0 var(--gap-sm);
+  border: 1px solid var(--rule-soft);
+  border-radius: 999px;
+  color: var(--ink-soft);
+  font-size: 0.82em;
+  font-weight: 600;
+}
+.agent-button-status {
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1px solid var(--ink-soft);
+}
+.agent-button[data-status='online'] .agent-button-status { background: var(--good); border-color: var(--ink); }
+/* Who is not a commander reads as a dashed slip; empty seats recede. */
+.agent-button[data-kind='bot'],
+.agent-button[data-kind='human'],
+.agent-button[data-kind='none'],
+.agent-button[data-kind='open'],
+.agent-button[data-kind='closed'] {
+  border-style: dashed;
+  background: var(--grain), var(--paper);
+  box-shadow: none;
+}
+.agent-button[data-kind='human'] { color: var(--good); }
+.agent-button[data-kind='bot'] { color: var(--alloy-ink); }
+.agent-button[data-kind='none'],
+.agent-button[data-kind='open'],
+.agent-button[data-kind='closed'] { color: var(--muted); }
+.agent-button.small {
+  gap: var(--gap-xs);
+  padding: 1px var(--gap-sm) 1px var(--gap-xs);
+  font-size: 11.5px;
+  box-shadow: none;
+}
+.agent-button.small .agent-button-status { width: 6px; height: 6px; }
+.agent-card { display: grid; justify-items: start; gap: var(--gap-xs); min-width: 0; }
+.agent-card-notes { margin: 0; color: var(--muted); font-size: 12px; overflow-wrap: anywhere; }
+/* Roster dock (roster-dock.ts): chips drag onto seats; ones that don't fit the seat recede. */
+.roster-dock { display: flex; flex-wrap: wrap; align-items: center; gap: var(--gap-sm); min-width: 0; }
+.agent-button[draggable='true'] { cursor: var(--cursor-grab, grab); }
+.agent-button.unfit { opacity: 0.45; }

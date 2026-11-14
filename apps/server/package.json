@@ -1,0 +1,40 @@
+{
+  "name": "@agent-command/server",
+  "description": "Agent Command server: lobbies, matches on simulation workers, the PlayerThree MCP endpoint, observers, ACBench pages and the ladder",
+  "license": "AGPL-3.0-only",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "dev": "PUBLIC_URL=${PUBLIC_URL:-http://localhost:5173} CORS_ORIGINS=${CORS_ORIGINS:-http://localhost:5173} DATA_DIR=${DATA_DIR:-../../.data} MATCHES_PER_IP=${MATCHES_PER_IP:-1000} node scripts/dev.ts",
+    "start": "node src/main.ts",
+    "typecheck": "tsc --noEmit -p .",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@agent-command/game": "workspace:*",
+    "@colyseus/core": "0.18.25",
+    "@colyseus/redis-driver": "0.18.7",
+    "@colyseus/redis-presence": "0.18.6",
+    "@colyseus/ws-transport": "0.18.4",
+    "@playerthree/bench": "link:../../../player-three/packages/bench",
+    "@playerthree/colyseus": "link:../../../player-three/packages/colyseus",
+    "@playerthree/connect": "link:../../../player-three/packages/connect",
+    "ioredis": "5.11.1",
+    "playerthree": "link:../../../player-three/packages/playerthree",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "sharp": "^0.35.5"
+  },
+  "devDependencies": {
+    "@colyseus/sdk": "0.18.9",
+    "@electric-sql/pglite": "0.5.15",
+    "@electric-sql/pglite-socket": "0.2.18",
+    "@playerthree/runner": "link:../../../player-three/packages/runner",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0"
+  }
+}

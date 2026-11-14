@@ -1,0 +1,40 @@
+.ac-tooltip {
+  position: fixed;
+  z-index: 10000;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: max-content;
+  max-width: min(320px, calc(100vw - 16px));
+  max-height: calc(100dvh - 16px);
+  overflow: auto;
+  padding: 9px 12px;
+  border: 2px solid var(--chrome-black);
+  border-radius: var(--wobble);
+  background: var(--paper-hi);
+  color: var(--ink);
+  box-shadow: var(--sheet-shadow);
+  font: 12px/1.45 var(--serif);
+  text-align: left;
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+  pointer-events: auto;
+  animation: ac-tooltip-in 100ms ease-out;
+}
+.ac-tooltip[hidden] { display: none; }
+.ac-tooltip-title { font-size: 13px; }
+.ac-tooltip-description { opacity: .9; }
+.ac-tooltip-hotkey { align-self: flex-start; font: 11px/1.4 var(--mono, monospace); }
+.ac-tooltip-cost { font-variant-numeric: tabular-nums; }
+.ac-tooltip-status { border-top: 1px solid currentColor; padding-top: 4px; }
+.income-table { display: grid; gap: 4px; font-variant-numeric: tabular-nums; }
+.income-row { display: flex; align-items: center; gap: 7px; }
+.income-row > svg { flex: none; }
+.income-positive { color: var(--good); }
+.income-negative { color: var(--bad); }
+.income-capacity { border-top: 1px solid var(--rule-soft); padding-top: 5px; }
+@keyframes ac-tooltip-in { from { opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  .ac-tooltip { animation: none; }
+}

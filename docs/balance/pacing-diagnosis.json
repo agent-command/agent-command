@@ -1,0 +1,1164 @@
+{
+  "measuredCandidate": {
+    "siegeRange": 2,
+    "spireSiege": true,
+    "fairFirstEntryFunding": true,
+    "needsBasedArmyMix": true,
+    "orbitBeam": false
+  },
+  "committedCandidateMeasured": false,
+  "baseline": [
+    {
+      "root": "../ac-pacing-b1",
+      "level": "standard",
+      "seed": 1003,
+      "ticks": 36000,
+      "outcome": {
+        "blue": "draw",
+        "red": "draw"
+      },
+      "damage": {
+        "orbit:missile": {
+          "amount": 801,
+          "first": 2674,
+          "last": 12622
+        },
+        "sky:instant-weapon": {
+          "amount": 21,
+          "first": 4922,
+          "last": 14742
+        },
+        "sky:flak": {
+          "amount": 315,
+          "first": 5873,
+          "last": 14845
+        },
+        "sky:missile": {
+          "amount": 63,
+          "first": 6996,
+          "last": 12687
+        },
+        "surface:instant-weapon": {
+          "amount": 104,
+          "first": 12475,
+          "last": 14780
+        },
+        "surface:cannon": {
+          "amount": 375,
+          "first": 12543,
+          "last": 12912
+        },
+        "depths:instant-weapon": {
+          "amount": 108,
+          "first": 15622,
+          "last": 35992
+        }
+      },
+      "snapshots": [
+        {
+          "minute": 5,
+          "alloy": 18.075000000000458,
+          "energy": 185.67499999999967,
+          "units": {
+            "trooper": 0,
+            "tank": 1,
+            "flak": 2,
+            "digger": 9,
+            "sapper": 0,
+            "interceptor": 2,
+            "bomber": 0,
+            "tug": 2,
+            "lancer": 0,
+            "turret": 1,
+            "bulkhead": 1
+          },
+          "spire": {
+            "depths": 2500,
+            "surface": 7000,
+            "sky": 2454.5,
+            "orbit": 2176
+          }
+        },
+        {
+          "minute": 10,
+          "alloy": 128.0749999999921,
+          "energy": 25.074999999998866,
+          "units": {
+            "trooper": 7,
+            "tank": 1,
+            "flak": 1,
+            "digger": 9,
+            "sapper": 0,
+            "interceptor": 5,
+            "bomber": 0,
+            "tug": 0,
+            "lancer": 0,
+            "turret": 1,
+            "bulkhead": 1
+          },
+          "spire": {
+            "depths": 2500,
+            "surface": 7000,
+            "sky": 2436.5,
+            "orbit": 1870
+          }
+        },
+        {
+          "minute": 15,
+          "alloy": 38.07499999998826,
+          "energy": 399.53750000002367,
+          "units": {
+            "trooper": 0,
+            "tank": 0,
+            "flak": 1,
+            "digger": 4,
+            "sapper": 0,
+            "interceptor": 2,
+            "bomber": 0,
+            "tug": 0,
+            "lancer": 0,
+            "turret": 0,
+            "bulkhead": 1
+          },
+          "spire": {
+            "depths": 2470,
+            "surface": 6521,
+            "sky": 2101,
+            "orbit": 1699
+          }
+        },
+        {
+          "minute": 20,
+          "alloy": 38.074999999993715,
+          "energy": 999.5375000001601,
+          "units": {
+            "trooper": 0,
+            "tank": 0,
+            "flak": 1,
+            "digger": 1,
+            "sapper": 0,
+            "interceptor": 1,
+            "bomber": 0,
+            "tug": 0,
+            "lancer": 0,
+            "turret": 0,
+            "bulkhead": 1
+          },
+          "spire": {
+            "depths": 2440,
+            "surface": 6521,
+            "sky": 2101,
+            "orbit": 1699
+          }
+        },
+        {
+          "minute": 25,
+          "alloy": 38.07499999999917,
+          "energy": 1599.5374999996423,
+          "units": {
+            "trooper": 0,
+            "tank": 0,
+            "flak": 1,
+            "digger": 1,
+            "sapper": 0,
+            "interceptor": 0,
+            "bomber": 0,
+            "tug": 0,
+            "lancer": 0,
+            "turret": 0,
+            "bulkhead": 1
+          },
+          "spire": {
+            "depths": 2416,
+            "surface": 6521,
+            "sky": 2101,
+            "orbit": 1699
+          }
+        },
+        {
+          "minute": 30,
+          "alloy": 38.07500000000463,
+          "energy": 2199.537499999097,
+          "units": {
+            "trooper": 0,
+            "tank": 0,
+            "flak": 1,
+            "digger": 1,
+            "sapper": 0,
+            "interceptor": 0,
+            "bomber": 0,
+            "tug": 0,
+            "lancer": 0,
+            "turret": 0,
+            "bulkhead": 1
+          },
+          "spire": {
+            "depths": 2392,
+            "surface": 6521,
+            "sky": 2101,
+            "orbit": 1699
+          }
+        }
+      ],
+      "stats": {
+        "alloyMined": 6690,
+        "energyDelivered": 5034.200000001618,
+        "produced": 164,
+        "unitsLost": 175,
+        "kills": 173,
+        "structuresLost": 12,
+        "collapses": 0,
+        "impacts": 0,
+        "interceptions": 9,
+        "islandTicks": 105920,
+        "spireDamageDealt": 1787,
+        "lodeAlloy": 1688.0750000000376,
+        "fortified": 11,
+        "bulkheads": 1,
+        "headframes": 2
+      }
+    },
+    {
+      "root": "../ac-pacing-b1",
+      "level": "veteran",
+      "seed": 1003,
+      "ticks": 36000,
+      "outcome": {
+        "blue": "draw",
+        "red": "draw"
+      },
+      "damage": {
+        "surface:instant-weapon": {
+          "amount": 280,
+          "first": 1885,
+          "last": 11661
+        },
+        "sky:flak": {
+          "amount": 280,
+          "first": 3310,
+          "last": 11704
+        },
+        "surface:cannon": {
+          "amount": 375,
+          "first": 3414,
+          "last": 11697
+        },
+        "sky:instant-weapon": {
+          "amount": 3.5,
+          "first": 3527,
+          "last": 3527
+        },
+        "orbit:missile": {
+          "amount": 207,
+          "first": 5255,
+          "last": 5541
+        },
+        "sky:missile": {
+          "amount": 45,
+          "first": 5554,
+          "last": 5606
+        },
+        "depths:instant-weapon": {
+          "amount": 96,
+          "first": 13570,
+          "last": 24575
+        },
+        "surface:impact": {
+          "amount": 600,
+          "first": 24060,
+          "last": 24060
+        },
+        "sky:impact": {
+          "amount": 600,
+          "first": 24060,
+          "last": 24060
+        }
+      },
+      "snapshots": [
+        {
+          "minute": 5,
+          "alloy": 6.399999999994187,
+          "energy": 30.31249999999777,
+          "units": {
+            "trooper": 3,
+            "tank": 0,
+            "flak": 1,
+            "digger": 4,
+            "sapper": 0,
+            "interceptor": 0,
+            "bomber": 0,
+            "tug": 0,
+            "lancer": 0,
+            "turret": 1,
+            "bulkhead": 2
+          },
+          "spire": {
+            "depths": 2500,
+            "surface": 6632.5,
+            "sky": 2297.5,
+            "orbit": 2293
+          }
+        },
+        {
+          "minute": 10,
+          "alloy": 39.44999999999844,
+          "energy": 106.0124999999853,
+          "units": {
+            "trooper": 9,
+            "tank": 0,
+            "flak": 1,
+            "digger": 10,
+            "sapper": 1,
+            "interceptor": 1,
+            "bomber": 0,
+            "tug": 0,
+            "lancer": 0,
+            "turret": 1,
+            "bulkhead": 2
+          },
+          "spire": {
+            "depths": 2500,
+            "surface": 6345,
+            "sky": 2171.5,
+            "orbit": 2293
+          }
+        },
+        {
+          "minute": 15,
+          "alloy": 49.450000000003804,
+          "energy": 244.11250000003184,
+          "units": {
+            "trooper": 1,
+            "tank": 0,
+            "flak": 0,
+            "digger": 8,
+            "sapper": 0,
+            "interceptor": 0,
+            "bomber": 0,
+            "tug": 1,
+            "lancer": 0,
+            "turret": 1,
+            "bulkhead": 2
+          },
+          "spire": {
+            "depths": 2410,
+            "surface": 6345,
+            "sky": 2171.5,
+            "orbit": 2293
+          }
+        },
+        {
+          "minute": 20,
+          "alloy": 49.45000000000968,
+          "energy": 167.5125000000422,
+          "units": {
+            "trooper": 2,
+            "tank": 0,
+            "flak": 0,
+            "digger": 10,
+            "sapper": 1,
+            "interceptor": 0,
+            "bomber": 0,
+            "tug": 1,
+            "lancer": 0,
+            "turret": 1,
+            "bulkhead": 2
+          },
+          "spire": {
+            "depths": 2410,
+            "surface": 6345,
+            "sky": 2171.5,
+            "orbit": 2293
+          }
+        },
+        {
+          "minute": 25,
+          "alloy": 19.45000000001555,
+          "energy": 12.512500000034377,
+          "units": {
+            "trooper": 1,
+            "tank": 0,
+            "flak": 0,
+            "digger": 10,
+            "sapper": 0,
+            "interceptor": 3,
+            "bomber": 0,
+            "tug": 1,
+            "lancer": 0,
+            "turret": 1,
+            "bulkhead": 2
+          },
+          "spire": {
+            "depths": 2404,
+            "surface": 5745,
+            "sky": 1571.5,
+            "orbit": 2293
+          }
+        },
+        {
+          "minute": 30,
+          "alloy": 59.45000000002252,
+          "energy": 37.512500000035125,
+          "units": {
+            "trooper": 1,
+            "tank": 0,
+            "flak": 0,
+            "digger": 10,
+            "sapper": 0,
+            "interceptor": 4,
+            "bomber": 0,
+            "tug": 1,
+            "lancer": 0,
+            "turret": 1,
+            "bulkhead": 2
+          },
+          "spire": {
+            "depths": 2404,
+            "surface": 5745,
+            "sky": 1571.5,
+            "orbit": 2293
+          }
+        }
+      ],
+      "stats": {
+        "alloyMined": 6820,
+        "energyDelivered": 4805.700000000994,
+        "produced": 166,
+        "unitsLost": 161,
+        "kills": 160,
+        "structuresLost": 14,
+        "collapses": 0,
+        "impacts": 1,
+        "interceptions": 51,
+        "islandTicks": 106989,
+        "spireDamageDealt": 2486.5,
+        "lodeAlloy": 1644.450000000029,
+        "fortified": 11,
+        "bulkheads": 2,
+        "headframes": 4
+      }
+    }
+  ],
+  "matches": [
+    {
+      "root": ".",
+      "level": "standard",
+      "seed": 1001,
+      "ticks": 9220,
+      "outcome": {
+        "blue": "draw",
+        "red": "draw"
+      },
+      "damage": {
+        "surface:impact": {
+          "amount": 7000,
+          "first": 4120,
+          "last": 9220
+        },
+        "sky:impact": {
+          "amount": 2500,
+          "first": 4120,
+          "last": 5500
+        }
+      },
+      "snapshots": [
+        {
+          "minute": 5,
+          "alloy": 769.7499999997756,
+          "energy": 99.90000000000518,
+          "units": {
+            "trooper": 4,
+            "tank": 3,
+            "flak": 1,
+            "digger": 9,
+            "sapper": 0,
+            "interceptor": 0,
+            "bomber": 0,
+            "tug": 2,
+            "lancer": 0,
+            "turret": 1,
+            "bulkhead": 1
+          },
+          "spire": {
+            "depths": 2500,
+            "surface": 4000,
+            "sky": 0,
+            "orbit": 2500
+          }
+        }
+      ],
+      "stats": {
+        "alloyMined": 4830,
+        "energyDelivered": 1289.9000000002247,
+        "produced": 66,
+        "unitsLost": 59,
+        "kills": 59,
+        "structuresLost": 6,
+        "collapses": 0,
+        "impacts": 13,
+        "interceptions": 4,
+        "islandTicks": 25426,
+        "spireDamageDealt": 9500,
+        "lodeAlloy": 1683.4999999999923,
+        "fortified": 8,
+        "bulkheads": 2,
+        "headframes": 2
+      }
+    },
+    {
+      "root": ".",
+      "level": "standard",
+      "seed": 1002,
+      "ticks": 21910,
+      "outcome": {
+        "blue": "draw",
+        "red": "draw"
+      },
+      "damage": {
+        "surface:impact": {
+          "amount": 7000,
+          "first": 4690,
+          "last": 21910
+        },
+        "sky:impact": {
+          "amount": 2425,
+          "first": 4690,
+          "last": 19390
+        },
+        "orbit:missile": {
+          "amount": 468,
+          "first": 10309,
+          "last": 17931
+        },
+        "sky:flak": {
+          "amount": 21,
+          "first": 10747,
+          "last": 10781
+        },
+        "sky:missile": {
+          "amount": 54,
+          "first": 15645,
+          "last": 17970
+        },
+        "depths:instant-weapon": {
+          "amount": 8,
+          "first": 17905,
+          "last": 17970
+        }
+      },
+      "snapshots": [
+        {
+          "minute": 5,
+          "alloy": 1549.999999999862,
+          "energy": 20.000000000002284,
+          "units": {
+            "trooper": 1,
+            "tank": 2,
+            "flak": 0,
+            "digger": 9,
+            "sapper": 0,
+            "interceptor": 3,
+            "bomber": 0,
+            "tug": 2,
+            "lancer": 0,
+            "turret": 0,
+            "bulkhead": 1
+          },
+          "spire": {
+            "depths": 2500,
+            "surface": 5800,
+            "sky": 1300,
+            "orbit": 2500
+          }
+        },
+        {
+          "minute": 10,
+          "alloy": 1633.5499999993447,
+          "energy": 23.14999999999929,
+          "units": {
+            "trooper": 2,
+            "tank": 1,
+            "flak": 1,
+            "digger": 9,
+            "sapper": 0,
+            "interceptor": 2,
+            "bomber": 0,
+            "tug": 2,
+            "lancer": 0,
+            "turret": 1,
+            "bulkhead": 1
+          },
+          "spire": {
+            "depths": 2500,
+            "surface": 4600,
+            "sky": 79,
+            "orbit": 2347
+          }
+        },
+        {
+          "minute": 15,
+          "alloy": 2063.5499999987987,
+          "energy": 19.44999999999925,
+          "units": {
+            "trooper": 2,
+            "tank": 2,
+            "flak": 1,
+            "digger": 6,
+            "sapper": 0,
+            "interceptor": 4,
+            "bomber": 0,
+            "tug": 1,
+            "lancer": 0,
+            "turret": 1,
+            "bulkhead": 1
+          },
+          "spire": {
+            "depths": 2492,
+            "surface": 4600,
+            "sky": 25,
+            "orbit": 2032
+          }
+        }
+      ],
+      "stats": {
+        "alloyMined": 6600,
+        "energyDelivered": 3164.099999999048,
+        "produced": 121,
+        "unitsLost": 121,
+        "kills": 120,
+        "structuresLost": 8,
+        "collapses": 0,
+        "impacts": 12,
+        "interceptions": 27,
+        "islandTicks": 60827,
+        "spireDamageDealt": 9976,
+        "lodeAlloy": 1683.5500000000386,
+        "fortified": 13,
+        "bulkheads": 1,
+        "headframes": 2
+      }
+    },
+    {
+      "root": ".",
+      "level": "standard",
+      "seed": 1003,
+      "ticks": 11403,
+      "outcome": {
+        "blue": "draw",
+        "red": "draw"
+      },
+      "damage": {
+        "orbit:missile": {
+          "amount": 387,
+          "first": 3011,
+          "last": 9989
+        },
+        "sky:missile": {
+          "amount": 27,
+          "first": 7421,
+          "last": 7447
+        },
+        "surface:instant-weapon": {
+          "amount": 128,
+          "first": 7613,
+          "last": 11261
+        },
+        "surface:cannon": {
+          "amount": 6872,
+          "first": 7657,
+          "last": 11403
+        },
+        "sky:flak": {
+          "amount": 1148,
+          "first": 7951,
+          "last": 10722
+        }
+      },
+      "snapshots": [
+        {
+          "minute": 5,
+          "alloy": 1000.6249999998286,
+          "energy": 13.950000000000271,
+          "units": {
+            "trooper": 4,
+            "tank": 3,
+            "flak": 1,
+            "digger": 9,
+            "sapper": 0,
+            "interceptor": 4,
+            "bomber": 0,
+            "tug": 0,
+            "lancer": 0,
+            "turret": 1,
+            "bulkhead": 1
+          },
+          "spire": {
+            "depths": 2500,
+            "surface": 7000,
+            "sky": 2500,
+            "orbit": 2338
+          }
+        }
+      ],
+      "stats": {
+        "alloyMined": 5060,
+        "energyDelivered": 1691.8999999996736,
+        "produced": 86,
+        "unitsLost": 80,
+        "kills": 80,
+        "structuresLost": 10,
+        "collapses": 0,
+        "impacts": 0,
+        "interceptions": 19,
+        "islandTicks": 32169,
+        "spireDamageDealt": 8562,
+        "lodeAlloy": 1617.6250000000405,
+        "fortified": 14,
+        "bulkheads": 1,
+        "headframes": 2
+      }
+    },
+    {
+      "root": ".",
+      "level": "standard",
+      "seed": 1004,
+      "ticks": 7660,
+      "outcome": {
+        "blue": "draw",
+        "red": "draw"
+      },
+      "damage": {
+        "surface:instant-weapon": {
+          "amount": 84,
+          "first": 3385,
+          "last": 3533
+        },
+        "sky:flak": {
+          "amount": 602,
+          "first": 3404,
+          "last": 4135
+        },
+        "surface:cannon": {
+          "amount": 3300,
+          "first": 3455,
+          "last": 5062
+        },
+        "orbit:instant-weapon": {
+          "amount": 2500,
+          "first": 3825,
+          "last": 6050
+        },
+        "surface:impact": {
+          "amount": 3616,
+          "first": 3970,
+          "last": 7660
+        },
+        "sky:impact": {
+          "amount": 1898,
+          "first": 3970,
+          "last": 5440
+        }
+      },
+      "snapshots": [
+        {
+          "minute": 5,
+          "alloy": 1691.1749999997662,
+          "energy": 24.399999999997927,
+          "units": {
+            "trooper": 3,
+            "tank": 1,
+            "flak": 2,
+            "digger": 9,
+            "sapper": 0,
+            "interceptor": 1,
+            "bomber": 0,
+            "tug": 2,
+            "lancer": 1,
+            "turret": 1,
+            "bulkhead": 1
+          },
+          "spire": {
+            "depths": 2500,
+            "surface": 616,
+            "sky": 0,
+            "orbit": 36
+          }
+        }
+      ],
+      "stats": {
+        "alloyMined": 4830,
+        "energyDelivered": 947.0000000000056,
+        "produced": 55,
+        "unitsLost": 49,
+        "kills": 49,
+        "structuresLost": 8,
+        "collapses": 0,
+        "impacts": 7,
+        "interceptions": 8,
+        "islandTicks": 20507,
+        "spireDamageDealt": 12000,
+        "lodeAlloy": 1676.1749999999827,
+        "fortified": 4,
+        "bulkheads": 1,
+        "headframes": 2
+      }
+    },
+    {
+      "root": ".",
+      "level": "veteran",
+      "seed": 1001,
+      "ticks": 8350,
+      "outcome": {
+        "blue": "draw",
+        "red": "draw"
+      },
+      "damage": {
+        "surface:impact": {
+          "amount": 7000,
+          "first": 2540,
+          "last": 8350
+        },
+        "sky:impact": {
+          "amount": 2500,
+          "first": 2540,
+          "last": 4490
+        }
+      },
+      "snapshots": [
+        {
+          "minute": 5,
+          "alloy": 1158.2999999998065,
+          "energy": 5.450000000001122,
+          "units": {
+            "trooper": 3,
+            "tank": 3,
+            "flak": 0,
+            "digger": 4,
+            "sapper": 0,
+            "interceptor": 0,
+            "bomber": 0,
+            "tug": 2,
+            "lancer": 0,
+            "turret": 1,
+            "bulkhead": 2
+          },
+          "spire": {
+            "depths": 2500,
+            "surface": 2800,
+            "sky": 0,
+            "orbit": 2500
+          }
+        }
+      ],
+      "stats": {
+        "alloyMined": 4480,
+        "energyDelivered": 693.7000000000049,
+        "produced": 47,
+        "unitsLost": 41,
+        "kills": 41,
+        "structuresLost": 8,
+        "collapses": 0,
+        "impacts": 13,
+        "interceptions": 4,
+        "islandTicks": 23998,
+        "spireDamageDealt": 9500,
+        "lodeAlloy": 1673.3000000000004,
+        "fortified": 3,
+        "bulkheads": 2,
+        "headframes": 2
+      }
+    },
+    {
+      "root": ".",
+      "level": "veteran",
+      "seed": 1002,
+      "ticks": 12660,
+      "outcome": {
+        "blue": "draw",
+        "red": "draw"
+      },
+      "damage": {
+        "surface:impact": {
+          "amount": 7000,
+          "first": 2780,
+          "last": 12660
+        },
+        "sky:impact": {
+          "amount": 2500,
+          "first": 2780,
+          "last": 8690
+        }
+      },
+      "snapshots": [
+        {
+          "minute": 5,
+          "alloy": 339.52500000004477,
+          "energy": 41.475000000000556,
+          "units": {
+            "trooper": 4,
+            "tank": 4,
+            "flak": 1,
+            "digger": 10,
+            "sapper": 0,
+            "interceptor": 4,
+            "bomber": 0,
+            "tug": 2,
+            "lancer": 0,
+            "turret": 1,
+            "bulkhead": 2
+          },
+          "spire": {
+            "depths": 2500,
+            "surface": 6400,
+            "sky": 1900,
+            "orbit": 2500
+          }
+        },
+        {
+          "minute": 10,
+          "alloy": 2809.524999999724,
+          "energy": 5.374999999999127,
+          "units": {
+            "trooper": 2,
+            "tank": 3,
+            "flak": 0,
+            "digger": 10,
+            "sapper": 2,
+            "interceptor": 0,
+            "bomber": 0,
+            "tug": 2,
+            "lancer": 0,
+            "turret": 1,
+            "bulkhead": 2
+          },
+          "spire": {
+            "depths": 2500,
+            "surface": 400,
+            "sky": 0,
+            "orbit": 2500
+          }
+        }
+      ],
+      "stats": {
+        "alloyMined": 5850,
+        "energyDelivered": 1267.499999999731,
+        "produced": 57,
+        "unitsLost": 49,
+        "kills": 49,
+        "structuresLost": 7,
+        "collapses": 1,
+        "impacts": 13,
+        "interceptions": 11,
+        "islandTicks": 36940,
+        "spireDamageDealt": 9500,
+        "lodeAlloy": 1664.5250000000226,
+        "fortified": 6,
+        "bulkheads": 2,
+        "headframes": 2
+      }
+    },
+    {
+      "root": ".",
+      "level": "veteran",
+      "seed": 1003,
+      "ticks": 13010,
+      "outcome": {
+        "blue": "draw",
+        "red": "draw"
+      },
+      "damage": {
+        "surface:impact": {
+          "amount": 5784,
+          "first": 2320,
+          "last": 13010
+        },
+        "sky:impact": {
+          "amount": 2318,
+          "first": 2320,
+          "last": 10670
+        },
+        "sky:flak": {
+          "amount": 182,
+          "first": 3783,
+          "last": 4208
+        },
+        "surface:instant-weapon": {
+          "amount": 16,
+          "first": 3837,
+          "last": 12913
+        },
+        "surface:cannon": {
+          "amount": 1200,
+          "first": 3874,
+          "last": 12976
+        }
+      },
+      "snapshots": [
+        {
+          "minute": 5,
+          "alloy": 1410.424999999836,
+          "energy": 48.512500000000536,
+          "units": {
+            "trooper": 6,
+            "tank": 4,
+            "flak": 1,
+            "digger": 10,
+            "sapper": 0,
+            "interceptor": 1,
+            "bomber": 0,
+            "tug": 1,
+            "lancer": 0,
+            "turret": 1,
+            "bulkhead": 2
+          },
+          "spire": {
+            "depths": 2500,
+            "surface": 4554.5,
+            "sky": 518,
+            "orbit": 2500
+          }
+        },
+        {
+          "minute": 10,
+          "alloy": 10.424999999831117,
+          "energy": 117.01249999999635,
+          "units": {
+            "trooper": 4,
+            "tank": 4,
+            "flak": 1,
+            "digger": 8,
+            "sapper": 0,
+            "interceptor": 0,
+            "bomber": 0,
+            "tug": 2,
+            "lancer": 0,
+            "turret": 1,
+            "bulkhead": 2
+          },
+          "spire": {
+            "depths": 2500,
+            "surface": 2154.5,
+            "sky": 0,
+            "orbit": 2500
+          }
+        }
+      ],
+      "stats": {
+        "alloyMined": 6100,
+        "energyDelivered": 2264.9999999996326,
+        "produced": 104,
+        "unitsLost": 100,
+        "kills": 100,
+        "structuresLost": 19,
+        "collapses": 0,
+        "impacts": 10,
+        "interceptions": 15,
+        "islandTicks": 38019,
+        "spireDamageDealt": 9500,
+        "lodeAlloy": 1655.4250000000147,
+        "fortified": 5,
+        "bulkheads": 2,
+        "headframes": 2
+      }
+    },
+    {
+      "root": ".",
+      "level": "veteran",
+      "seed": 1004,
+      "ticks": 12380,
+      "outcome": {
+        "blue": "loss",
+        "red": "win"
+      },
+      "damage": {
+        "sky:flak": {
+          "amount": 14,
+          "first": 3466,
+          "last": 3483
+        },
+        "surface:impact": {
+          "amount": 6992,
+          "first": 4630,
+          "last": 12380
+        },
+        "sky:impact": {
+          "amount": 2486,
+          "first": 4630,
+          "last": 8950
+        },
+        "surface:instant-weapon": {
+          "amount": 8,
+          "first": 7898,
+          "last": 7944
+        }
+      },
+      "snapshots": [
+        {
+          "minute": 5,
+          "alloy": 1339.5499999998426,
+          "energy": 41.69999999999508,
+          "units": {
+            "trooper": 5,
+            "tank": 3,
+            "flak": 1,
+            "digger": 9,
+            "sapper": 2,
+            "interceptor": 4,
+            "bomber": 0,
+            "tug": 2,
+            "lancer": 0,
+            "turret": 1,
+            "bulkhead": 2
+          },
+          "spire": {
+            "depths": 2500,
+            "surface": 5800,
+            "sky": 1286,
+            "orbit": 2500
+          }
+        },
+        {
+          "minute": 10,
+          "alloy": 1289.5499999996173,
+          "energy": 33.78749999999076,
+          "units": {
+            "trooper": 8,
+            "tank": 2,
+            "flak": 1,
+            "digger": 10,
+            "sapper": 1,
+            "interceptor": 0,
+            "bomber": 0,
+            "tug": 2,
+            "lancer": 0,
+            "turret": 1,
+            "bulkhead": 2
+          },
+          "spire": {
+            "depths": 2500,
+            "surface": 1592,
+            "sky": 0,
+            "orbit": 2500
+          }
+        }
+      ],
+      "stats": {
+        "alloyMined": 6480,
+        "energyDelivered": 2093.2999999994468,
+        "produced": 94,
+        "unitsLost": 81,
+        "kills": 73,
+        "structuresLost": 16,
+        "collapses": 0,
+        "impacts": 13,
+        "interceptions": 25,
+        "islandTicks": 36517,
+        "spireDamageDealt": 9500,
+        "lodeAlloy": 1674.54999999999,
+        "fortified": 4,
+        "bulkheads": 2,
+        "headframes": 2
+      }
+    }
+  ]
+}

@@ -1,0 +1,80 @@
+{
+  "$comment": "README and social art, rendered by tools/readme-art/render.mjs (pnpm banners). Edit text here, run pnpm banners, and keep each README <img> alt text identical to the image text. Types: header, button, badges, card-grid, social (templates.mjs). Icons: icons/<name>.svg (Lucide).",
+  "palettes": {
+    "ac": {
+      "ink": "#060000",
+      "tab": ["#ff6a4a", "#e30000", "#a80000"],
+      "plate": ["#fff2a0", "#ffd21f", "#ffae00"],
+      "slip": ["#6a1400", "#3a0000"],
+      "number": "#ffd21f",
+      "title": "#060000",
+      "titleShadow": "#fff6c2",
+      "subtitle": "#ffd21f",
+      "hazard": "#ffd21f",
+      "cream": "#fcfbe7"
+    }
+  },
+  "banners": [
+    {
+      "id": "play",
+      "type": "button",
+      "out": "docs/readme/play.png",
+      "palette": "ac",
+      "title": "PLAY NOW",
+      "subtitle": "agentcommand.gg · free · in your browser"
+    },
+    {
+      "id": "badges",
+      "type": "badges",
+      "out": "docs/readme/badges.png",
+      "palette": "ac",
+      "items": [
+        { "label": "FREE · IN YOUR BROWSER", "tone": "tab" },
+        { "label": "BRING YOUR OWN AGENT", "tone": "plate" },
+        { "label": "4 STACKED PLANES", "tone": "slip" },
+        { "label": "DETERMINISTIC 20 HZ", "tone": "plate" },
+        { "label": "MIRROR-FAIR", "tone": "slip" },
+        { "label": "FOG-SAFE", "tone": "tab" },
+        { "label": "MCP + OAUTH", "tone": "slip" },
+        { "label": "SEED-PAIRED SERIES", "tone": "plate" }
+      ]
+    },
+    { "id": "h-01-byoa", "type": "header", "out": "docs/readme/h-01-byoa.png", "palette": "ac", "number": "01", "title": "BRING YOUR OWN AGENT", "subtitle": "your harness · your keys", "icon": "bot" },
+    { "id": "h-02-battlefield", "type": "header", "out": "docs/readme/h-02-battlefield.png", "palette": "ac", "number": "02", "title": "THE BATTLEFIELD", "subtitle": "orbit · sky · surface · depths", "icon": "layers" },
+    { "id": "h-03-brass-tacks", "type": "header", "out": "docs/readme/h-03-brass-tacks.png", "palette": "ac", "number": "03", "title": "BENCHMARKS", "subtitle": "for researchers and builders", "icon": "locate-fixed" },
+    { "id": "h-04-hood", "type": "header", "out": "docs/readme/h-04-hood.png", "palette": "ac", "number": "04", "title": "HOW IT WORKS", "subtitle": "deterministic · mirrored · fog-safe", "icon": "settings" },
+    { "id": "h-05-run", "type": "header", "out": "docs/readme/h-05-run.png", "palette": "ac", "number": "05", "title": "RUN IT YOURSELF", "subtitle": "node 24 · pnpm · two repos", "icon": "terminal" },
+    { "id": "h-06-join", "type": "header", "out": "docs/readme/h-06-join.png", "palette": "ac", "number": "06", "title": "COMMUNITY", "subtitle": "discord · x · pull requests", "icon": "message-square-text" },
+    { "id": "h-07-manual", "type": "header", "out": "docs/readme/h-07-manual.png", "palette": "ac", "number": "07", "title": "FIELD MANUAL", "subtitle": "controls · protocol · rules", "icon": "book-open" },
+    {
+      "id": "social-preview",
+      "type": "social",
+      "layout": "preview",
+      "out": "docs/social-preview.png",
+      "palette": "ac",
+      "scale": 1,
+      "size": [1280, 640],
+      "logo": "logo.png",
+      "glow": "#3a0c00",
+      "caption": "The RTS where LLM agents and humans wage war together",
+      "site": "AGENTCOMMAND.GG"
+    },
+    {
+      "id": "og",
+      "type": "social",
+      "layout": "card",
+      "out": "apps/web/public/social/agent-command-{hash}.jpg",
+      "refs": ["apps/web/index.html", "apps/web/assets/posters/PROVENANCE.md"],
+      "palette": "ac",
+      "scale": 1,
+      "size": [1200, 630],
+      "quality": 92,
+      "background": "apps/web/assets/posters/*.webp",
+      "logo": "apps/web/src/brand/logo.webp",
+      "tagline": ["One battlefield. Four planes.", "Bring your agents."],
+      "accent": "#f5dc8c",
+      "facts": "Browser RTS · Human + AI commanders",
+      "site": "AGENTCOMMAND.GG"
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "name": "@agent-command/balance",
+  "license": "AGPL-3.0-only",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Balance harness: headless bot sweeps, guardrails, strategy probes and LLM exploit hunts (DESIGN §11)",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "sweep": "node src/main.ts sweep",
+    "research:sweep": "node src/research.ts",
+    "research:gating": "node src/research-gating.ts",
+    "check": "node src/main.ts check",
+    "hunt": "node src/main.ts hunt",
+    "typecheck": "tsc --noEmit -p .",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@agent-command/game": "workspace:*",
+    "@playerthree/bench": "link:../../../player-three/packages/bench",
+    "@playerthree/runner": "link:../../../player-three/packages/runner",
+    "playerthree": "link:../../../player-three/packages/playerthree"
+  }
+}
