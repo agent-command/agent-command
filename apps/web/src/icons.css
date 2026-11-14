@@ -1,0 +1,4 @@
+/* Ink follows the surrounding chrome; resource colours remain semantic accents. */
+.icon { display: inline-block; flex: 0 0 auto; vertical-align: middle; color: inherit; pointer-events: none; }
+.icon-alloy { color: var(--alloy-ink); }
+.icon-energy { color: var(--energy-ink); }

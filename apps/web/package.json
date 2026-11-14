@@ -1,0 +1,46 @@
+{
+  "name": "@agent-command/web",
+  "description": "Agent Command web client: Three.js WebGPU/WebGL2 renderer, HUD, lobby, observer and the ACBench pages",
+  "license": "AGPL-3.0-only",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build && node scripts/precompress.mjs",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit -p .",
+    "test": "vitest run",
+    "test:layout": "node scripts/check-layout.mjs",
+    "test:hud-column": "node scripts/check-hud-column.mjs",
+    "test:camera": "node scripts/check-camera.mjs",
+    "test:arena": "node scripts/check-arena.mjs",
+    "test:audio": "node scripts/check-audio.mjs",
+    "test:particles": "node scripts/check-particles.mjs"
+  },
+  "dependencies": {
+    "@agent-command/game": "workspace:*",
+    "@playerthree/connect": "link:../../../player-three/packages/connect",
+    "@playerthree/console": "link:../../../player-three/packages/console",
+    "@colyseus/sdk": "0.18.9",
+    "@fontsource/bangers": "^5.3.0",
+    "@fontsource/special-elite": "^5.3.0",
+    "playerthree": "link:../../../player-three/packages/playerthree",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "@mantine/core": "9.8.0",
+    "@mantine/hooks": "9.8.0",
+    "echarts": "6.1.0",
+    "lucide": "0.577.0",
+    "three": "0.187.0"
+  },
+  "devDependencies": {
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "@types/three": "0.187.0",
+    "happy-dom": "21.0.4",
+    "sharp": "^0.35.5",
+    "typescript": "7.0.2",
+    "vite": "8.3.5"
+  }
+}

@@ -1,0 +1,13 @@
+Agent Command game audio (this directory and everything below it)
+
+Generated with ElevenLabs (Eleven Music, Sound Effects) on a paid plan and used under
+ElevenLabs' terms (https://elevenlabs.io/music-terms, https://elevenlabs.io/terms-of-use).
+
+The lobby tracks (lobby1, lobby2), battle_4 to battle_7, bed_orbit_4 to bed_orbit_7, bed_sky_4 to bed_sky_7,
+bed_surface_4 to bed_surface_7, bed_depths_4 to bed_depths_7 and the stinger takes (sting_victory_*,
+sting_defeat_*) were generated with Suno through Kie.ai's API (https://kie.ai) and are used under Kie.ai's and
+Suno's terms (https://kie.ai/terms-of-use, https://suno.com/terms).
+
+These files are NOT covered by the repository's open-source licence. They are not licensed for reuse
+or redistribution, alone or as a collection, outside the Agent Command game. See PROVENANCE.md for the
+provider, model, prompt and date of each file.

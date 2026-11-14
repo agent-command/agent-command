@@ -1,0 +1,33 @@
+{
+  "name": "@agent-command/game",
+  "description": "Agent Command game: deterministic 20 Hz simulation, rules, maps, built-in bots, PlayerThree manifest, briefing and strategy skill",
+  "license": "AGPL-3.0-only",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./contract": "./src/rules/contract.ts",
+    "./weather": "./src/planes/weather.ts",
+    "./world": "./src/maps/world.ts",
+    "./economy": "./src/rules/economy.ts",
+    "./lobby": "./src/lobby/lobby.ts",
+    "./arena": "./src/lobby/arena.ts",
+    "./maps": "./src/maps/maps.ts",
+    "./posts": "./src/maps/posts.ts",
+    "./map-document": "./src/maps/document.ts",
+    "./map-registry": "./src/maps/registry.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit -p .",
+    "test": "NODE_COMPILE_CACHE=../../node_modules/.cache/node-compile-cache vitest run --tags-filter='!timing'",
+    "test:quick": "NODE_COMPILE_CACHE=../../node_modules/.cache/node-compile-cache vitest run --maxWorkers=2 test/quick.test.ts test/briefing-size.test.ts",
+    "test:timing": "NODE_COMPILE_CACHE=../../node_modules/.cache/node-compile-cache vitest run --tags-filter=timing --maxWorkers=1 --no-file-parallelism",
+    "test:mirrors": "AC_EXTENDED_MIRRORS=1 NODE_COMPILE_CACHE=../../node_modules/.cache/node-compile-cache vitest run --tags-filter=timing --maxWorkers=1 --no-file-parallelism test/determinism.test.ts test/mirror.test.ts test/bots-ffa.test.ts",
+    "bench:policy": "node test/policy-bench.ts",
+    "bots:build": "node --disable-warning=ExperimentalWarning src/bots/build.ts"
+  },
+  "dependencies": {
+    "playerthree": "link:../../../player-three/packages/playerthree"
+  }
+}

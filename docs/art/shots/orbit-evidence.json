@@ -1,0 +1,181 @@
+{
+  "viewport": {
+    "width": 1440,
+    "height": 1000
+  },
+  "errors": [],
+  "captures": [
+    {
+      "file": "orbit-normal.png",
+      "time": 1.35,
+      "zoom": "normal",
+      "backend": "webgl2",
+      "calls": 49,
+      "tris": 16971,
+      "cameraDistance": 30,
+      "shipTriangles": {
+        "skiff": 60,
+        "lancer": 72,
+        "bastion": 136,
+        "solar": 116,
+        "tug": 72,
+        "interceptor": 60,
+        "station": 240
+      },
+      "ships": 28
+    },
+    {
+      "file": "orbit-wide.png",
+      "time": 1.35,
+      "zoom": "wide",
+      "backend": "webgl2",
+      "calls": 49,
+      "tris": 16971,
+      "cameraDistance": 52,
+      "shipTriangles": {
+        "skiff": 60,
+        "lancer": 72,
+        "bastion": 136,
+        "solar": 116,
+        "tug": 72,
+        "interceptor": 60,
+        "station": 240
+      },
+      "ships": 28
+    },
+    {
+      "file": "orbit-close.png",
+      "time": 1.35,
+      "zoom": "close",
+      "backend": "webgl2",
+      "calls": 49,
+      "tris": 16971,
+      "cameraDistance": 18,
+      "shipTriangles": {
+        "skiff": 60,
+        "lancer": 72,
+        "bastion": 136,
+        "solar": 116,
+        "tug": 72,
+        "interceptor": 60,
+        "station": 240
+      },
+      "ships": 28
+    },
+    {
+      "file": "orbit-skirmish-01.png",
+      "time": 0.4,
+      "zoom": "normal",
+      "backend": "webgl2",
+      "calls": 43,
+      "tris": 16855,
+      "cameraDistance": 30,
+      "shipTriangles": {
+        "skiff": 60,
+        "lancer": 72,
+        "bastion": 136,
+        "solar": 116,
+        "tug": 72,
+        "interceptor": 60,
+        "station": 240
+      },
+      "ships": 28
+    },
+    {
+      "file": "orbit-skirmish-02.png",
+      "time": 0.95,
+      "zoom": "normal",
+      "backend": "webgl2",
+      "calls": 44,
+      "tris": 16927,
+      "cameraDistance": 30,
+      "shipTriangles": {
+        "skiff": 60,
+        "lancer": 72,
+        "bastion": 136,
+        "solar": 116,
+        "tug": 72,
+        "interceptor": 60,
+        "station": 240
+      },
+      "ships": 28
+    },
+    {
+      "file": "orbit-skirmish-03.png",
+      "time": 1.15,
+      "zoom": "normal",
+      "backend": "webgl2",
+      "calls": 49,
+      "tris": 16971,
+      "cameraDistance": 30,
+      "shipTriangles": {
+        "skiff": 60,
+        "lancer": 72,
+        "bastion": 136,
+        "solar": 116,
+        "tug": 72,
+        "interceptor": 60,
+        "station": 240
+      },
+      "ships": 28
+    },
+    {
+      "file": "orbit-skirmish-04.png",
+      "time": 1.45,
+      "zoom": "normal",
+      "backend": "webgl2",
+      "calls": 49,
+      "tris": 16971,
+      "cameraDistance": 30,
+      "shipTriangles": {
+        "skiff": 60,
+        "lancer": 72,
+        "bastion": 136,
+        "solar": 116,
+        "tug": 72,
+        "interceptor": 60,
+        "station": 240
+      },
+      "ships": 28
+    },
+    {
+      "file": "orbit-skirmish-05.png",
+      "time": 1.85,
+      "zoom": "normal",
+      "backend": "webgl2",
+      "calls": 46,
+      "tris": 16935,
+      "cameraDistance": 30,
+      "shipTriangles": {
+        "skiff": 60,
+        "lancer": 72,
+        "bastion": 136,
+        "solar": 116,
+        "tug": 72,
+        "interceptor": 60,
+        "station": 240
+      },
+      "ships": 28
+    },
+    {
+      "file": "orbit-skirmish-06.png",
+      "time": 2.8,
+      "zoom": "normal",
+      "backend": "webgl2",
+      "calls": 43,
+      "tris": 16855,
+      "cameraDistance": 30,
+      "shipTriangles": {
+        "skiff": 60,
+        "lancer": 72,
+        "bastion": 136,
+        "solar": 116,
+        "tug": 72,
+        "interceptor": 60,
+        "station": 240
+      },
+      "ships": 28
+    }
+  ],
+  "liveFrames": 31
+}

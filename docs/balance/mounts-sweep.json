@@ -1,0 +1,821 @@
+{
+  "baseline": "before weapon mounts",
+  "candidate": "weapon mounts",
+  "seeds": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+  ],
+  "capSeconds": 1200,
+  "notes": [
+    "Capped running matches are right-censored, not draws.",
+    "Final comparison includes the cooldown acquisition optimization and the shared integration."
+  ],
+  "performance": {
+    "baselineCpuMs": 2.259136,
+    "mountsCpuMs": 2.143299,
+    "trialTicks": 1000,
+    "entitiesBefore": 624,
+    "entitiesAfter": 632,
+    "note": "Back-to-back best of three trials under shared-machine load; earlier isolated perf test passed, current absolute numbers exceed 2ms for both builds."
+  },
+  "baselineRows": [
+    {
+      "level": "standard",
+      "terrain": "open",
+      "seed": 1,
+      "seconds": 468.5,
+      "outcome": "draw",
+      "kills": {
+        "blue": 105,
+        "red": 105
+      }
+    },
+    {
+      "level": "standard",
+      "terrain": "open",
+      "seed": 2,
+      "seconds": 1200,
+      "outcome": "running",
+      "kills": {
+        "blue": 143,
+        "red": 143
+      }
+    },
+    {
+      "level": "standard",
+      "terrain": "open",
+      "seed": 3,
+      "seconds": 1200,
+      "outcome": "running",
+      "kills": {
+        "blue": 129,
+        "red": 129
+      }
+    },
+    {
+      "level": "standard",
+      "terrain": "open",
+      "seed": 4,
+      "seconds": 1200,
+      "outcome": "running",
+      "kills": {
+        "blue": 130,
+        "red": 130
+      }
+    },
+    {
+      "level": "standard",
+      "terrain": "open",
+      "seed": 5,
+      "seconds": 1200,
+      "outcome": "running",
+      "kills": {
+        "blue": 115,
+        "red": 115
+      }
+    },
+    {
+      "level": "standard",
+      "terrain": "open",
+      "seed": 6,
+      "seconds": 541.15,
+      "outcome": "win",
+      "kills": {
+        "blue": 87,
+        "red": 77
+      }
+    },
+    {
+      "level": "standard",
+      "terrain": "ridges",
+      "seed": 1,
+      "seconds": 1200,
+      "outcome": "running",
+      "kills": {
+        "blue": 133,
+        "red": 133
+      }
+    },
+    {
+      "level": "standard",
+      "terrain": "ridges",
+      "seed": 2,
+      "seconds": 1200,
+      "outcome": "running",
+      "kills": {
+        "blue": 150,
+        "red": 150
+      }
+    },
+    {
+      "level": "standard",
+      "terrain": "ridges",
+      "seed": 3,
+      "seconds": 1200,
+      "outcome": "running",
+      "kills": {
+        "blue": 135,
+        "red": 135
+      }
+    },
+    {
+      "level": "standard",
+      "terrain": "ridges",
+      "seed": 4,
+      "seconds": 1200,
+      "outcome": "running",
+      "kills": {
+        "blue": 158,
+        "red": 158
+      }
+    },
+    {
+      "level": "standard",
+      "terrain": "ridges",
+      "seed": 5,
+      "seconds": 1200,
+      "outcome": "running",
+      "kills": {
+        "blue": 124,
+        "red": 124
+      }
+    },
+    {
+      "level": "standard",
+      "terrain": "ridges",
+      "seed": 6,
+      "seconds": 1200,
+      "outcome": "running",
+      "kills": {
+        "blue": 120,
+        "red": 136
+      }
+    },
+    {
+      "level": "standard",
+      "terrain": "canyons",
+      "seed": 1,
+      "seconds": 1200,
+      "outcome": "running",
+      "kills": {
+        "blue": 130,
+        "red": 130
+      }
+    },
+    {
+      "level": "standard",
+      "terrain": "canyons",
+      "seed": 2,
+      "seconds": 1200,
+      "outcome": "running",
+      "kills": {
+        "blue": 124,
+        "red": 124
+      }
+    },
+    {
+      "level": "standard",
+      "terrain": "canyons",
+      "seed": 3,
+      "seconds": 1200,
+      "outcome": "running",
+      "kills": {
+        "blue": 128,
+        "red": 128
+      }
+    },
+    {
+      "level": "standard",
+      "terrain": "canyons",
+      "seed": 4,
+      "seconds": 1200,
+      "outcome": "running",
+      "kills": {
+        "blue": 129,
+        "red": 129
+      }
+    },
+    {
+      "level": "standard",
+      "terrain": "canyons",
+      "seed": 5,
+      "seconds": 525.5,
+      "outcome": "loss",
+      "kills": {
+        "blue": 95,
+        "red": 106
+      }
+    },
+    {
+      "level": "standard",
+      "terrain": "canyons",
+      "seed": 6,
+      "seconds": 1200,
+      "outcome": "running",
+      "kills": {
+        "blue": 92,
+        "red": 92
+      }
+    },
+    {
+      "level": "veteran",
+      "terrain": "open",
+      "seed": 1,
+      "seconds": 674.5,
+      "outcome": "draw",
+      "kills": {
+        "blue": 109,
+        "red": 109
+      }
+    },
+    {
+      "level": "veteran",
+      "terrain": "open",
+      "seed": 2,
+      "seconds": 1200,
+      "outcome": "running",
+      "kills": {
+        "blue": 150,
+        "red": 150
+      }
+    },
+    {
+      "level": "veteran",
+      "terrain": "open",
+      "seed": 3,
+      "seconds": 1200,
+      "outcome": "running",
+      "kills": {
+        "blue": 122,
+        "red": 122
+      }
+    },
+    {
+      "level": "veteran",
+      "terrain": "open",
+      "seed": 4,
+      "seconds": 1200,
+      "outcome": "running",
+      "kills": {
+        "blue": 136,
+        "red": 136
+      }
+    },
+    {
+      "level": "veteran",
+      "terrain": "open",
+      "seed": 5,
+      "seconds": 938.5,
+      "outcome": "draw",
+      "kills": {
+        "blue": 110,
+        "red": 110
+      }
+    },
+    {
+      "level": "veteran",
+      "terrain": "open",
+      "seed": 6,
+      "seconds": 1200,
+      "outcome": "running",
+      "kills": {
+        "blue": 134,
+        "red": 134
+      }
+    },
+    {
+      "level": "veteran",
+      "terrain": "ridges",
+      "seed": 1,
+      "seconds": 1200,
+      "outcome": "running",
+      "kills": {
+        "blue": 140,
+        "red": 140
+      }
+    },
+    {
+      "level": "veteran",
+      "terrain": "ridges",
+      "seed": 2,
+      "seconds": 675.5,
+      "outcome": "draw",
+      "kills": {
+        "blue": 117,
+        "red": 117
+      }
+    },
+    {
+      "level": "veteran",
+      "terrain": "ridges",
+      "seed": 3,
+      "seconds": 1200,
+      "outcome": "running",
+      "kills": {
+        "blue": 122,
+        "red": 122
+      }
+    },
+    {
+      "level": "veteran",
+      "terrain": "ridges",
+      "seed": 4,
+      "seconds": 1200,
+      "outcome": "running",
+      "kills": {
+        "blue": 130,
+        "red": 130
+      }
+    },
+    {
+      "level": "veteran",
+      "terrain": "ridges",
+      "seed": 5,
+      "seconds": 1200,
+      "outcome": "running",
+      "kills": {
+        "blue": 97,
+        "red": 97
+      }
+    },
+    {
+      "level": "veteran",
+      "terrain": "ridges",
+      "seed": 6,
+      "seconds": 1200,
+      "outcome": "running",
+      "kills": {
+        "blue": 129,
+        "red": 136
+      }
+    },
+    {
+      "level": "veteran",
+      "terrain": "canyons",
+      "seed": 1,
+      "seconds": 1200,
+      "outcome": "running",
+      "kills": {
+        "blue": 136,
+        "red": 136
+      }
+    },
+    {
+      "level": "veteran",
+      "terrain": "canyons",
+      "seed": 2,
+      "seconds": 707,
+      "outcome": "draw",
+      "kills": {
+        "blue": 117,
+        "red": 117
+      }
+    },
+    {
+      "level": "veteran",
+      "terrain": "canyons",
+      "seed": 3,
+      "seconds": 635.5,
+      "outcome": "draw",
+      "kills": {
+        "blue": 80,
+        "red": 80
+      }
+    },
+    {
+      "level": "veteran",
+      "terrain": "canyons",
+      "seed": 4,
+      "seconds": 1200,
+      "outcome": "running",
+      "kills": {
+        "blue": 140,
+        "red": 140
+      }
+    },
+    {
+      "level": "veteran",
+      "terrain": "canyons",
+      "seed": 5,
+      "seconds": 566,
+      "outcome": "draw",
+      "kills": {
+        "blue": 91,
+        "red": 91
+      }
+    },
+    {
+      "level": "veteran",
+      "terrain": "canyons",
+      "seed": 6,
+      "seconds": 1200,
+      "outcome": "running",
+      "kills": {
+        "blue": 118,
+        "red": 118
+      }
+    }
+  ],
+  "mountsRows": [
+    {
+      "level": "standard",
+      "terrain": "open",
+      "seed": 1,
+      "seconds": 468.5,
+      "outcome": "draw",
+      "kills": {
+        "blue": 105,
+        "red": 105
+      }
+    },
+    {
+      "level": "standard",
+      "terrain": "open",
+      "seed": 2,
+      "seconds": 1200,
+      "outcome": "running",
+      "kills": {
+        "blue": 103,
+        "red": 103
+      }
+    },
+    {
+      "level": "standard",
+      "terrain": "open",
+      "seed": 3,
+      "seconds": 1200,
+      "outcome": "running",
+      "kills": {
+        "blue": 129,
+        "red": 129
+      }
+    },
+    {
+      "level": "standard",
+      "terrain": "open",
+      "seed": 4,
+      "seconds": 1200,
+      "outcome": "running",
+      "kills": {
+        "blue": 132,
+        "red": 132
+      }
+    },
+    {
+      "level": "standard",
+      "terrain": "open",
+      "seed": 5,
+      "seconds": 1200,
+      "outcome": "running",
+      "kills": {
+        "blue": 115,
+        "red": 115
+      }
+    },
+    {
+      "level": "standard",
+      "terrain": "open",
+      "seed": 6,
+      "seconds": 541.15,
+      "outcome": "win",
+      "kills": {
+        "blue": 87,
+        "red": 77
+      }
+    },
+    {
+      "level": "standard",
+      "terrain": "ridges",
+      "seed": 1,
+      "seconds": 1200,
+      "outcome": "running",
+      "kills": {
+        "blue": 133,
+        "red": 133
+      }
+    },
+    {
+      "level": "standard",
+      "terrain": "ridges",
+      "seed": 2,
+      "seconds": 1200,
+      "outcome": "running",
+      "kills": {
+        "blue": 150,
+        "red": 150
+      }
+    },
+    {
+      "level": "standard",
+      "terrain": "ridges",
+      "seed": 3,
+      "seconds": 1200,
+      "outcome": "running",
+      "kills": {
+        "blue": 135,
+        "red": 135
+      }
+    },
+    {
+      "level": "standard",
+      "terrain": "ridges",
+      "seed": 4,
+      "seconds": 1200,
+      "outcome": "running",
+      "kills": {
+        "blue": 158,
+        "red": 158
+      }
+    },
+    {
+      "level": "standard",
+      "terrain": "ridges",
+      "seed": 5,
+      "seconds": 1200,
+      "outcome": "running",
+      "kills": {
+        "blue": 124,
+        "red": 124
+      }
+    },
+    {
+      "level": "standard",
+      "terrain": "ridges",
+      "seed": 6,
+      "seconds": 1200,
+      "outcome": "running",
+      "kills": {
+        "blue": 120,
+        "red": 136
+      }
+    },
+    {
+      "level": "standard",
+      "terrain": "canyons",
+      "seed": 1,
+      "seconds": 1200,
+      "outcome": "running",
+      "kills": {
+        "blue": 132,
+        "red": 132
+      }
+    },
+    {
+      "level": "standard",
+      "terrain": "canyons",
+      "seed": 2,
+      "seconds": 1200,
+      "outcome": "running",
+      "kills": {
+        "blue": 124,
+        "red": 124
+      }
+    },
+    {
+      "level": "standard",
+      "terrain": "canyons",
+      "seed": 3,
+      "seconds": 1200,
+      "outcome": "running",
+      "kills": {
+        "blue": 128,
+        "red": 128
+      }
+    },
+    {
+      "level": "standard",
+      "terrain": "canyons",
+      "seed": 4,
+      "seconds": 1200,
+      "outcome": "running",
+      "kills": {
+        "blue": 130,
+        "red": 130
+      }
+    },
+    {
+      "level": "standard",
+      "terrain": "canyons",
+      "seed": 5,
+      "seconds": 525.5,
+      "outcome": "loss",
+      "kills": {
+        "blue": 95,
+        "red": 106
+      }
+    },
+    {
+      "level": "standard",
+      "terrain": "canyons",
+      "seed": 6,
+      "seconds": 1200,
+      "outcome": "running",
+      "kills": {
+        "blue": 92,
+        "red": 92
+      }
+    },
+    {
+      "level": "veteran",
+      "terrain": "open",
+      "seed": 1,
+      "seconds": 674.5,
+      "outcome": "draw",
+      "kills": {
+        "blue": 109,
+        "red": 109
+      }
+    },
+    {
+      "level": "veteran",
+      "terrain": "open",
+      "seed": 2,
+      "seconds": 1200,
+      "outcome": "running",
+      "kills": {
+        "blue": 150,
+        "red": 150
+      }
+    },
+    {
+      "level": "veteran",
+      "terrain": "open",
+      "seed": 3,
+      "seconds": 1200,
+      "outcome": "running",
+      "kills": {
+        "blue": 122,
+        "red": 122
+      }
+    },
+    {
+      "level": "veteran",
+      "terrain": "open",
+      "seed": 4,
+      "seconds": 1200,
+      "outcome": "running",
+      "kills": {
+        "blue": 136,
+        "red": 136
+      }
+    },
+    {
+      "level": "veteran",
+      "terrain": "open",
+      "seed": 5,
+      "seconds": 938.5,
+      "outcome": "draw",
+      "kills": {
+        "blue": 110,
+        "red": 110
+      }
+    },
+    {
+      "level": "veteran",
+      "terrain": "open",
+      "seed": 6,
+      "seconds": 1200,
+      "outcome": "running",
+      "kills": {
+        "blue": 134,
+        "red": 134
+      }
+    },
+    {
+      "level": "veteran",
+      "terrain": "ridges",
+      "seed": 1,
+      "seconds": 1200,
+      "outcome": "running",
+      "kills": {
+        "blue": 140,
+        "red": 140
+      }
+    },
+    {
+      "level": "veteran",
+      "terrain": "ridges",
+      "seed": 2,
+      "seconds": 675.5,
+      "outcome": "draw",
+      "kills": {
+        "blue": 117,
+        "red": 117
+      }
+    },
+    {
+      "level": "veteran",
+      "terrain": "ridges",
+      "seed": 3,
+      "seconds": 1200,
+      "outcome": "running",
+      "kills": {
+        "blue": 122,
+        "red": 122
+      }
+    },
+    {
+      "level": "veteran",
+      "terrain": "ridges",
+      "seed": 4,
+      "seconds": 1200,
+      "outcome": "running",
+      "kills": {
+        "blue": 130,
+        "red": 130
+      }
+    },
+    {
+      "level": "veteran",
+      "terrain": "ridges",
+      "seed": 5,
+      "seconds": 1200,
+      "outcome": "running",
+      "kills": {
+        "blue": 97,
+        "red": 97
+      }
+    },
+    {
+      "level": "veteran",
+      "terrain": "ridges",
+      "seed": 6,
+      "seconds": 1200,
+      "outcome": "running",
+      "kills": {
+        "blue": 129,
+        "red": 136
+      }
+    },
+    {
+      "level": "veteran",
+      "terrain": "canyons",
+      "seed": 1,
+      "seconds": 1200,
+      "outcome": "running",
+      "kills": {
+        "blue": 130,
+        "red": 130
+      }
+    },
+    {
+      "level": "veteran",
+      "terrain": "canyons",
+      "seed": 2,
+      "seconds": 707,
+      "outcome": "draw",
+      "kills": {
+        "blue": 117,
+        "red": 117
+      }
+    },
+    {
+      "level": "veteran",
+      "terrain": "canyons",
+      "seed": 3,
+      "seconds": 635.5,
+      "outcome": "draw",
+      "kills": {
+        "blue": 80,
+        "red": 80
+      }
+    },
+    {
+      "level": "veteran",
+      "terrain": "canyons",
+      "seed": 4,
+      "seconds": 1200,
+      "outcome": "running",
+      "kills": {
+        "blue": 140,
+        "red": 140
+      }
+    },
+    {
+      "level": "veteran",
+      "terrain": "canyons",
+      "seed": 5,
+      "seconds": 566,
+      "outcome": "draw",
+      "kills": {
+        "blue": 91,
+        "red": 91
+      }
+    },
+    {
+      "level": "veteran",
+      "terrain": "canyons",
+      "seed": 6,
+      "seconds": 1200,
+      "outcome": "running",
+      "kills": {
+        "blue": 118,
+        "red": 118
+      }
+    }
+  ]
+}

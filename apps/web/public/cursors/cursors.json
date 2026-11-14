@@ -1,0 +1,62 @@
+{
+  "sccattmov": {
+    "x": 15,
+    "y": 15,
+    "size": 32
+  },
+  "sccenter": {
+    "x": 15,
+    "y": 15,
+    "size": 32
+  },
+  "sccexit": {
+    "x": 15,
+    "y": 15,
+    "size": 32
+  },
+  "sccheal": {
+    "x": 5,
+    "y": 5,
+    "size": 32
+  },
+  "scchostile": {
+    "x": 15,
+    "y": 15,
+    "size": 32
+  },
+  "sccknifeattack": {
+    "x": 0,
+    "y": 0,
+    "size": 32
+  },
+  "sccplacebeacon": {
+    "x": 15,
+    "y": 10,
+    "size": 32
+  },
+  "sccrepair": {
+    "x": 4,
+    "y": 4,
+    "size": 32
+  },
+  "sccsniper": {
+    "x": 15,
+    "y": 16,
+    "size": 32
+  },
+  "sccstop": {
+    "x": 15,
+    "y": 15,
+    "size": 32
+  },
+  "sccattack": {
+    "x": 15,
+    "y": 15,
+    "size": 32
+  },
+  "sccpointer": {
+    "x": 13,
+    "y": 13,
+    "size": 32
+  }
+}

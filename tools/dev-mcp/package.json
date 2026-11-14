@@ -1,0 +1,28 @@
+{
+  "name": "@agent-command/dev-mcp",
+  "license": "AGPL-3.0-only",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Dev-only MCP server (stdio) that drives Agent Command: matches, views, speed, cheats, screenshots, bot sweeps",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "start": "node src/main.ts",
+    "typecheck": "tsc --noEmit -p .",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@agent-command/game": "workspace:*",
+    "@playerthree/bench": "link:../../../player-three/packages/bench",
+    "@colyseus/sdk": "0.18.9",
+    "@modelcontextprotocol/server": "2.4.0",
+    "playerthree": "link:../../../player-three/packages/playerthree",
+    "playwright-core": "1.60.0"
+  },
+  "devDependencies": {
+    "@agent-command/server": "workspace:*",
+    "@modelcontextprotocol/client": "2.4.0"
+  }
+}

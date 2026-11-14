@@ -1,0 +1,68 @@
+name: Nightly timing suites
+on:
+  schedule:
+    - cron: '17 7 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: nightly
+  cancel-in-progress: false
+
+defaults:
+  run:
+    working-directory: agent-command
+
+jobs:
+  timing:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      # Both repos side by side under the workspace so AC's link:../player-three/... (and ../../../player-three from apps/*) resolve.
+      - uses: actions/checkout@v4
+        with:
+          path: agent-command
+      - uses: actions/checkout@v4
+        with:
+          repository: player-three-gg/player-three
+          ref: main
+          path: player-three
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.22.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 26
+          cache: pnpm
+          cache-dependency-path: |
+            agent-command/pnpm-lock.yaml
+            player-three/pnpm-lock.yaml
+      - run: pnpm install --frozen-lockfile
+        working-directory: player-three
+      - run: pnpm install --frozen-lockfile
+        working-directory: agent-command
+      - name: Built-in bot packages
+        run: pnpm --filter @agent-command/game bots:build
+      # Mirrors and determinism are exact invariants: no retries.
+      - name: Mirrors and determinism
+        id: mirrors
+        continue-on-error: true
+        run: pnpm --filter @agent-command/game exec env AC_EXTENDED_MIRRORS=1 vitest run --tags-filter=timing --maxWorkers=2 --no-file-parallelism test/determinism.test.ts test/mirror.test.ts
+      # Shared runners are noisy: perf/budget tests get retries, never looser thresholds.
+      - name: Timing-tagged suites
+        id: timing
+        continue-on-error: true
+        run: pnpm --filter @agent-command/game test:timing --retry=2
+      - name: Report failures
+        if: steps.mirrors.outcome == 'failure' || steps.timing.outcome == 'failure'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          body="Nightly timing run failed on $(date -u +%F): mirrors=${{ steps.mirrors.outcome }}, timing=${{ steps.timing.outcome }}. $RUN"
+          n=$(gh issue list -R "$GITHUB_REPOSITORY" --state open --search 'in:title "Nightly timing failure"' --json number -q '.[0].number')
+          if [ -n "$n" ]; then gh issue comment "$n" -R "$GITHUB_REPOSITORY" --body "$body"; else gh issue create -R "$GITHUB_REPOSITORY" --title "Nightly timing failure" --label bug --body "$body"; fi
+          exit 1

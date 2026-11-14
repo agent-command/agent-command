@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en" data-loading="assets" data-boot>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- public-page-meta:start -->
+    <title>Agent Command · 3D browser RTS with AI commanders</title>
+    <meta name="description" content="A free 3D RTS in your browser, fought on four stacked planes: Surface, Depths, Sky and Orbit. Play bots or other people, and connect your own AI agents to command the planes you aren't watching." />
+    <link rel="canonical" href="https://agentcommand.gg/" />
+    <meta name="robots" content="index,follow,max-image-preview:large" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Agent Command" />
+    <meta property="og:url" content="https://agentcommand.gg/" />
+    <meta property="og:title" content="Agent Command · 3D browser RTS with AI commanders" />
+    <meta property="og:description" content="A free 3D RTS in your browser on four stacked planes. Play bots or other people, and let your own AI agents command the planes you aren't watching." />
+    <meta property="og:image" content="https://agentcommand.gg/social/agent-command-51cc5dd09324.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Agent Command's gold wordmark over the game's ridged battlefield. One battlefield. Four planes. Bring your agents." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Agent Command · 3D browser RTS with AI commanders" />
+    <meta name="twitter:description" content="A free 3D RTS in your browser on four stacked planes. Play bots or other people, and let your own AI agents command the planes you aren't watching." />
+    <meta name="twitter:image" content="https://agentcommand.gg/social/agent-command-51cc5dd09324.jpg" />
+    <meta name="twitter:image:alt" content="Agent Command's gold wordmark over the game's ridged battlefield. One battlefield. Four planes. Bring your agents." />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"VideoGame","@id":"https://agentcommand.gg/#game","name":"Agent Command","url":"https://agentcommand.gg/","description":"A 3D browser real-time strategy game across Surface, Depths, Sky and Orbit. Play against bots or other players and connect your own AI agents as commanders.","genre":"Real-time strategy","gamePlatform":"Web browser","applicationCategory":"GameApplication","operatingSystem":"Web browser","inLanguage":"en","image":{"@type":"ImageObject","url":"https://agentcommand.gg/social/agent-command-51cc5dd09324.jpg","width":1200,"height":630,"encodingFormat":"image/jpeg"}}</script>
+    <!-- public-page-meta:end -->
+    <meta name="theme-color" content="#120600" />
+    <link rel="icon" type="image/png" href="./src/brand/icon.png" />
+    <link rel="apple-touch-icon" href="./src/brand/apple-touch-icon.png" />
+    <!-- First on the wire: the logo, then the first-visit backdrop still (assets/posters/PROVENANCE.md) behind the boot
+         shell. The menu's chunks preload after them (vite.config.ts homeMenu). -->
+    <link rel="preload" as="image" href="./src/brand/logo.webp" fetchpriority="high" />
+    <link rel="preload" as="image" href="./assets/posters/ridges.4409.48.webp" fetchpriority="high" />
+    <style>
+      html,body{margin:0;height:100%;overflow:hidden;background:#120600;color:#fcfbe7;font:14px/1.4 Arial,Helvetica,sans-serif}
+      #app{position:fixed;inset:0;transition:opacity .28s ease}
+      html[data-loading] #app{opacity:0;pointer-events:none}
+      #loading{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;overflow:auto;background:radial-gradient(ellipse at 50% 40%,#3a0c00,#120600 70%);opacity:1;transition:opacity .28s ease}
+      #loading[aria-hidden=true]{opacity:0;pointer-events:none}
+      .load-card{width:min(380px,calc(100vw - 48px));text-align:center}
+      .load-logo{display:block;width:100%;height:auto;aspect-ratio:960/402;object-fit:contain;margin:0 0 28px}
+      .load-caption{height:24px;margin:0 0 12px;color:#f9ec9c;letter-spacing:.08em;text-transform:uppercase;font-size:12px}
+      .load-track{height:8px;overflow:hidden;background:#060000;border:1px solid #9c4200;box-shadow:0 1px #060000}
+      .load-fill{height:100%;width:0;background:linear-gradient(90deg,#c66a00,#ffd21f);transition:width .18s linear}
+      .load-note{min-height:38px;margin:14px 0 0;color:#bfb789;font-size:12px}
+      #loading a{color:#ffd21f}
+      @media(prefers-reduced-motion:reduce){#app,#loading,.load-fill{transition:none}}
+      /* Boot shell: the home menu's card as static HTML, the same box as lobby.ts's home (lobby.css .pm-home), over the
+         first-visit backdrop still, so the first paint is the menu on its battlefield without JS; the live menu fades in
+         over it. loading.ts's endShell() swaps in the plain loader card when this boot opens anything but the home. */
+      html[data-boot] #loading{background:url(./assets/posters/ridges.4409.48.webp) 50%/cover,radial-gradient(ellipse at 50% 40%,#3a0c00,#120600 70%)}
+      html[data-boot] .load-card,.shell{display:none}
+      html[data-boot] .shell{display:flex}
+      .shell{box-sizing:border-box;flex-direction:column;gap:15px;width:min(600px,92vw);padding:18px 18px 15px;background:rgba(42,12,0,.8);border:3px solid #060000;border-radius:22px;box-shadow:inset 0 4px #ffd21f,inset 0 -4px #c66a00,0 7px #060000,0 16px 42px rgba(6,0,0,.4);font:13px/1.38 Arial,Helvetica,sans-serif}
+      .shell-logo{display:block;width:min(100%,380px);height:auto;aspect-ratio:960/402;margin:0 auto}
+      .shell h1{margin:0}
+      .home-about{font:13px/1.45 Arial,Helvetica,sans-serif;color:#f9ec9c}
+      .home-about p{margin:0 0 8px}
+      .home-about summary{cursor:pointer;min-height:28px}
+      .home-about summary:focus-visible{outline:3px solid #fcfbe7;outline-offset:3px}
+      .home-about details p{margin:8px 0 0;color:#fcfbe7}
+      .shell-tiles{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+      .shell-tile{box-sizing:border-box;display:grid;grid-template-columns:22px 1fr;align-items:center;gap:15px;min-height:68px;padding:9px 15px;background:#4e1800;border:1px solid #060000;border-radius:4px;box-shadow:inset 0 1px #9c4200,inset 0 -2px #120600,1px 2px #060000;opacity:.62}
+      .shell-tile.primary{grid-column:1/-1;grid-template-columns:26px 1fr;min-height:84px;background:linear-gradient(90deg,#ffd21f 40%,#fff1a6 50%,#ffd21f 60%) 0 0/300% 100%,#ffd21f;color:#060000;border:2px solid #060000;box-shadow:0 3px #060000;opacity:.85;animation:shell-sweep 1.6s linear infinite}
+      .shell-tile span{display:grid;gap:2px}
+      .shell-tile b{font-size:17px;font-weight:800}
+      .shell-tile.primary b{font-size:24px}
+      .shell-tile small{font-size:12px;font-weight:600;opacity:.8}
+      .shell-benchmarks{display:block;box-sizing:border-box;width:100%;padding:12px;text-align:center;color:#f9ec9c;border:1px solid #c69b51;border-inline-start-width:4px;border-radius:4px;background:#c69b5114;text-decoration:none;font-weight:800}
+      .shell-benchmarks:focus-visible{outline:3px solid #fcfbe7;outline-offset:3px}
+      .shell-strip{min-height:18px}
+      .shell-msg{min-height:18px}
+      .shell-help{min-height:28px}
+      @keyframes shell-sweep{to{background-position:-150% 0,0 0}}
+      @media(max-width:540px){.shell{padding:15px}.shell-logo{width:min(100%,270px)}.shell-tiles{grid-template-columns:1fr}}
+      @media(prefers-reduced-motion:reduce){.shell-tile.primary{animation:none}}
+      #loading[aria-hidden=true] .shell-tile.primary{animation:none}
+    </style>
+  </head>
+  <body>
+    <div id="app"></div>
+    <div id="loading" role="status" aria-live="polite" aria-label="Loading Agent Command" elementtiming="shell-still">
+      <div class="load-card">
+        <img class="load-logo" src="./src/brand/logo.webp" alt="Agent Command" width="960" height="402" decoding="async" fetchpriority="high" />
+        <p class="load-caption" id="load-stage">Loading assets</p>
+        <div class="load-track" role="progressbar" aria-label="Loading progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="load-fill" id="load-fill"></div></div>
+        <p class="load-note" id="load-note">A 3D RTS on four stacked planes.</p>
+        <noscript>JavaScript is required to play Agent Command.</noscript>
+      </div>
+      <main class="shell" aria-label="Agent Command">
+        <h1><img class="shell-logo" src="./src/brand/logo.webp" alt="Agent Command" width="960" height="402" decoding="async" fetchpriority="high" elementtiming="shell-logo" /></h1>
+        <div class="shell-tiles" aria-hidden="true">
+          <div class="shell-tile primary"><i></i><span><b>Quick Play</b><small>You vs Agents or Bots</small></span></div>
+          <div class="shell-tile"><i></i><span><b>Create Game</b><small>Map, slots, rules, series</small></span></div>
+          <div class="shell-tile"><i></i><span><b>Lobby</b><small>Public games</small></span></div>
+          <div class="shell-tile"><i></i><span><b>Commanders</b><small>Connect your agents</small></span></div>
+          <div class="shell-tile"><i></i><span><b>Watch live</b><small>Featured match</small></span></div>
+        </div>
+        <a class="shell-benchmarks" href="/benchmarks/">Latest Benchmarks</a>
+        <div class="shell-strip"></div>
+        <section class="home-about" aria-label="About the game">
+          <p>A 3D RTS on four stacked planes. Your AI agents or bots command the planes you aren't watching.</p>
+          <details><summary>About Agent Command</summary><p>The planes are Surface, Depths, Sky and Orbit. They share one economy, and each army defends one Spire. You can play bots, join multiplayer games or connect your own AI agents in Commanders.</p><p>Watch live shows a featured match. Create Game also runs series. You need JavaScript and a browser with WebGL2.</p></details>
+        </section>
+        <div class="shell-msg"><noscript>JavaScript is required to play Agent Command.</noscript></div>
+        <div class="shell-help"></div>
+      </main>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

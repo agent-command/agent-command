@@ -1,0 +1,198 @@
+/* Floating music player: the HUD panel face (translucent dark paper with the gold top strip, keyline, bevel shadow),
+   always translucent (no hover-to-solid). Docked under the top bar's right end, at the top of the match HUD's field
+   column (style.css `.field-col`, which reserves the published `--music-dock-h`); `.placed` once dragged. */
+.music-player {
+  --overlay-alpha: 80%;
+  --mp-bar: var(--brand-gold);
+  position: fixed;
+  top: 92px;
+  right: 12px;
+  z-index: 30;
+  display: grid;
+  gap: 4px;
+  width: 264px;
+  padding: 8px 8px 6px;
+  color: var(--ink);
+  background: linear-gradient(var(--brand-gold), var(--brand-amber)) top / 100% 4px no-repeat, color-mix(in srgb, var(--paper) var(--overlay-alpha), transparent);
+  border: 1px solid var(--rule);
+  border-radius: var(--wobble);
+  box-shadow: var(--sheet-shadow);
+  font-size: 12px;
+  user-select: none;
+  touch-action: none;
+}
+.music-player.placed {
+  right: auto;
+}
+html[data-loading] .music-player {
+  display: none;
+}
+.mp-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+}
+.mp-track-icon {
+  display: inline-grid;
+  flex: none;
+  place-items: center;
+  color: var(--brand-gold);
+}
+.mp-title {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  font-weight: 700;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.music-player.paused .mp-track-icon {
+  display: inline-grid;
+  flex: none;
+  place-items: center;
+  color: var(--brand-gold);
+}
+.mp-title {
+  color: var(--ink-soft);
+}
+.mp-meter {
+  flex: none;
+  width: 20px;
+  height: 14px;
+}
+.music-player.paused .mp-meter,
+.music-player.muted .mp-meter {
+  opacity: 0.4;
+}
+.mp-btn {
+  display: inline-grid;
+  flex: none;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  color: var(--ink);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 2px;
+  cursor: var(--cursor-link, pointer);
+}
+.mp-btn:hover:not(:disabled),
+.mp-btn[aria-pressed='true'] {
+  border-color: var(--rule);
+  background: color-mix(in srgb, var(--paper-hi) var(--overlay-alpha), transparent);
+}
+.mp-btn[aria-pressed='true'] {
+  color: var(--brand-gold);
+}
+.mp-btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+.mp-grip {
+  cursor: grab;
+}
+.mp-grip:active {
+  cursor: grabbing;
+}
+.mp-sep {
+  flex: none;
+  width: 1px;
+  height: 16px;
+  margin: 0 2px;
+  background: var(--rule);
+}
+.mp-controls {
+  gap: 2px;
+}
+.mp-volume {
+  flex: 1 1 auto;
+  width: 100%;
+  min-width: 56px;
+  accent-color: var(--brand-gold);
+  cursor: var(--cursor-link, pointer);
+}
+/* Manual track list: one row per group (the group plays as a playlist), numbered tracks pin one. */
+.mp-list {
+  display: grid;
+  gap: 2px;
+  padding-top: 4px;
+  border-top: 1px solid var(--rule);
+}
+.mp-list[hidden] {
+  display: none;
+}
+.mp-list-row {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+.mp-group {
+  flex: 1 1 auto;
+  justify-content: start;
+  display: inline-flex;
+  gap: 6px;
+  width: auto;
+  padding: 0 6px;
+  font-weight: 600;
+}
+.mp-track {
+  font-weight: 700;
+}
+.mp-track[aria-current],
+.mp-group[aria-current] {
+  color: var(--on-gold);
+  background: var(--brand-gold);
+}
+/* Collapsed: the grip alone, as a single music icon button. */
+.music-player.collapsed {
+  width: auto;
+  padding: 6px;
+}
+.music-player.collapsed .mp-row > :not(.mp-grip),
+.music-player.collapsed .mp-controls,
+.music-player.collapsed .mp-list {
+  display: none;
+}
+.music-player.collapsed .mp-grip {
+  width: 28px;
+  height: 28px;
+  color: var(--brand-gold);
+}
+/* Phones (`isPhone`): starts collapsed, docked by `placePhone` in a corner that covers no interface (bottom-left until
+   placed); 40 px tap targets; the open player wraps its controls to fit the screen. */
+.music-player.phone {
+  top: auto;
+  right: auto;
+  bottom: 8px;
+  left: 8px;
+  width: min(300px, calc(100vw - 16px));
+  font-size: 14px;
+}
+.music-player.phone.placed {
+  bottom: auto;
+}
+.music-player.phone .mp-btn {
+  width: 40px;
+  height: 40px;
+}
+.music-player.phone .mp-group {
+  width: auto;
+}
+.music-player.phone .mp-controls,
+.music-player.phone .mp-list-row {
+  flex-wrap: wrap;
+}
+.music-player.phone .mp-volume {
+  flex-basis: 100%;
+  height: 40px;
+}
+.music-player.phone.collapsed {
+  width: auto;
+  padding: 2px;
+}
+.music-player.phone.collapsed .mp-grip {
+  width: 40px;
+  height: 40px;
+}

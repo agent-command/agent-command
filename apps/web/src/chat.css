@@ -1,0 +1,220 @@
+/*
+ * Owner ↔ commander chat as field dispatches: your orders are handwritten (Caveat), your agents' replies come back
+ * as typed teletype bulletins (Special Elite), under a stamped header on a translucent enamel slip taped to the page.
+ */
+@font-face {
+  font-family: 'Special Elite';
+  src: url('@fontsource/special-elite/files/special-elite-latin-400-normal.woff2') format('woff2');
+  font-display: swap;
+}
+:root {
+  --script: 'Caveat', 'Segoe Print', 'Bradley Hand', cursive;
+  --typewriter: 'Special Elite', 'Courier New', Courier, monospace;
+}
+
+.chat-bar {
+  display: grid;
+  gap: 8px;
+}
+.chat-bar.floating {
+  position: absolute;
+  left: 50%;
+  bottom: 214px;
+  transform: translateX(-50%);
+  width: min(560px, 92vw);
+  z-index: 30;
+  padding: var(--sheet-pad-block) 14px;
+  display: none;
+  background: color-mix(in srgb, var(--paper) 82%, transparent);
+}
+.chat-bar.floating.open {
+  display: grid;
+}
+.chat-targets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+.chat-chip {
+  font: 400 10.5px var(--stamp);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 3px 9px 2px;
+  border-radius: 2px;
+  border: 1px solid var(--rule-soft);
+  background: transparent;
+  color: var(--ink-soft);
+  cursor: var(--cursor-link, pointer);
+}
+.chat-chip.on {
+  color: var(--ink);
+  border-color: var(--brand-gold);
+  background: color-mix(in srgb, var(--accent, var(--paper-deep)) 30%, transparent);
+}
+.chat-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+/* Writing an order: a ruled line on the slip, in your hand. */
+.chat-input {
+  flex: 1;
+  min-width: 0;
+  height: 30px;
+  font: 600 18px/1 var(--script);
+  color: var(--ink);
+  background: transparent;
+  border: 0;
+  border-bottom: 1.5px solid color-mix(in srgb, var(--ink) 55%, transparent);
+  border-radius: 0;
+  padding: 2px 4px 0;
+  outline: none;
+}
+.chat-input:focus {
+  border-bottom-color: var(--brand-gold);
+}
+.chat-input::placeholder {
+  color: var(--muted);
+  opacity: 0.75;
+}
+.chat-send {
+  display: inline-grid;
+  place-items: center;
+  width: 32px;
+  height: 28px;
+  padding: 0;
+}
+.chat-ping {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font: 11px var(--typewriter);
+  color: var(--energy-ink);
+  white-space: nowrap;
+}
+.chat-x {
+  display: inline-grid;
+  place-items: center;
+  padding: 0;
+  background: none;
+  border: 0;
+  color: var(--muted);
+  cursor: var(--cursor-link, pointer);
+}
+.chat-status {
+  font: 11px var(--typewriter);
+  color: var(--bad);
+  min-height: 0;
+}
+
+/* The dispatch log. */
+.commander-log {
+  display: grid;
+  gap: 6px;
+}
+.dispatch-head {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding-bottom: 4px;
+  border-bottom: 1px dashed var(--rule-soft);
+  color: var(--brand-gold);
+}
+.dispatch-head .stamp {
+  font-size: 11px;
+  letter-spacing: 0.22em;
+}
+.chat-lines {
+  max-height: 180px;
+  overflow: auto;
+  display: grid;
+  gap: 6px;
+}
+.chat-line {
+  overflow-wrap: anywhere;
+}
+.chat-line b {
+  margin-right: 4px;
+  font: 400 10px var(--stamp);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--accent, var(--ink)) 55%, var(--ink));
+}
+/* Your orders: handwritten. */
+.chat-line.owner {
+  font: 600 16px/1.15 var(--script);
+  color: var(--ink-soft);
+}
+.chat-line .you {
+  color: var(--muted);
+}
+/* Their replies: a typed bulletin, upper case like a teletype. */
+.chat-line.agent {
+  font: 12px/1.45 var(--typewriter);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+}
+.chat-line-ping {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  margin-left: 4px;
+  font: 10.5px var(--typewriter);
+  text-transform: none;
+}
+.chat-lines > .muted {
+  font: italic 12px var(--serif);
+}
+
+/* Match dispatches: a translucent enamel slip with a strip of gold tape at the top, at the bottom of the HUD field
+   column's dispatch slot (style.css `.dispatch-slot`: the column's free space under the docked music player, above the
+   build queue). The queue keeps priority: as it grows the slot shrinks, the slip with it (min-height 0) and its lines
+   scroll. */
+.commander-log.slip {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  /* above: clearance for the tape, which overhangs the top edge by 9px; below: the column gap the slot cancels */
+  margin: 12px 0 8px;
+  padding: calc(var(--sheet-pad-block) + 4px) 14px var(--sheet-pad-block);
+  color: var(--ink);
+  background: color-mix(in srgb, var(--paper-hi) 80%, transparent);
+  border: 1px solid var(--rule);
+  border-radius: var(--wobble);
+  box-shadow: var(--sheet-shadow);
+  pointer-events: auto;
+  /* squeezed below its head, it never spills onto the queue: clip at the drop shadow, below the tape */
+  clip-path: inset(-12px -8px -4px -8px);
+}
+.commander-log.slip::before {
+  content: '';
+  position: absolute;
+  top: -9px;
+  left: 50%;
+  width: 84px;
+  height: 20px;
+  transform: translateX(-50%) rotate(-2deg);
+  background: color-mix(in srgb, var(--brand-gold) 85%, transparent);
+  border: 1px solid var(--chrome-black);
+  box-shadow: var(--slip-shadow);
+}
+.commander-log.slip.empty {
+  display: none;
+}
+.commander-log.slip .dispatch-head {
+  flex: none;
+}
+.commander-log.slip .chat-lines {
+  flex: 0 1 auto;
+  min-height: 0;
+  max-height: 38vh;
+}
+/* No room for the head and one line (margins 20px, padding and border 24px, head 19px, gap 6px, a line 18px): no slip
+   rather than a crushed one. It returns as soon as the queue shrinks. */
+@container dispatches (height < 88px) {
+  .commander-log.slip {
+    display: none;
+  }
+}

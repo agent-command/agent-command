@@ -1,0 +1,90 @@
+# Map documents and template generation
+
+Research and implementation plan. This distinguishes measured geometric fairness from actual balance: exact symmetry does not prove a matchup or alliance layout balanced.
+
+> **Historical record.** Written before the N-army simulation existed. Four-corner C4 maps now ship: Four Corners and generated maps with `map.params.slots: 4` support free-for-all and C4 duels, so statements below that four-side layouts are unsupported describe that earlier state. Current map behaviour: the README's [Maps](../../README.md#maps) section and [DESIGN §2.2–2.3](../DESIGN.md#22-maps-as-documents).
+
+## RTS practice and procedural approaches
+
+### Age of Empires II RMS
+
+AoE2 random map scripts describe generation stages rather than a final bitmap: player setup, land, elevation, cliffs, terrain, connections and objects. Object constraints express per-player quantities, distance from starts, spacing and terrain restrictions. See the [AoE2 RMS reference sections](https://docs.racket-lang.org/aoe2-rms/sections.html) and [Zetnus's RMS introduction](https://steamcommunity.com/sharedfiles/filedetails/?id=155256742). This is the useful model for Agent Command recipes: declare home/flank/centre resource budgets and legal sites, not hundreds of independent terrain tweaks.
+
+Fairness tooling is layered. RMS constraints prevent obvious bad placements; editor generation and seed sampling catch failed or inaccessible resources; [aoe2map](https://aoe2map.net/) shares and browses scripts; community tooling such as [rms-check](https://github.com/SiegeEngineers/rms-check) checks syntax and common scripting errors. Neither is an exhaustive geometric fairness solver. Equal woodlines, resource exposure and path access still need measurement and playtesting. We should publish our own metrics and failing seeds instead of treating a visually plausible sample as certification. The Age support article titled Custom Maps: Guide currently documents **AoE3**, not AoE2, and is deliberately not used as evidence for AoE2 RMS syntax.
+
+### StarCraft II and Brood War
+
+A protected **main**, nearby **natural**, expansion sequence, connecting **ramps/chokes**, attack lanes and air-access edges form a tactical graph. A natural is not fair merely because its minerals equal its opponent's: ramp width, number of entrances, reinforcement travel and high-ground exposure matter. Brood War's ramps and movement/pathing constraints make these conventions especially consequential; SC2 adds features such as Xel'Naga watchtowers, destructible blockers and different cliff traversal. Towers provide information control, not just scenery, and cannot be assumed necessary on every map.
+
+The professional [MMAT account of making official maps](https://tl.net/forum/starcraft-2/471894-process-of-making-an-official-map) describes iteration and testing rather than a universal geometric recipe. [Team Liquid Map Contest 18 guidelines](https://tl.net/forum/starcraft-2/610110-team-liquid-map-contest-18-presented-by-monster-energy) explicitly classify rush/standard/macro maps by intended play and discuss rush distance; its rush category suggests main-ramp travel around 33 seconds or less, explicitly not a hard restriction. [Contest finalists](https://tl.net/forum/starcraft-2/611718-team-liquid-map-contest-18-finalists) describe natural-to-natural travel, partial ramp blockers and expansion layouts. These are examples, not numbers to copy into this game's different movement rules.
+
+### Noise, repair, tiling, graphs and search
+
+- **Noise plus constraint repair:** threshold coherent height/moisture fields for natural shapes, then preserve start clearings, connect required routes, place resources and revalidate after edits. Pure thresholded noise has no guarantee of rush distance or useful chokes. Noise is decoration inside a route skeleton, not our fairness mechanism.
+- **Wave Function Collapse:** [Gumin's reference implementation](https://github.com/mxgmn/WaveFunctionCollapse) observes a low-entropy cell and propagates local adjacency constraints; contradictions can occur. Local pattern legality does not guarantee global start connectivity, strategic lane diversity or resource equality. It is appropriate for later decorative/local biome synthesis, not the primary topology solver.
+- **Graph/template generation:** zones represent starts, safe economy, flanks and contested centre; edges carry route widths and terrain types. [Heroes III template editing](https://heroes.thelazy.net/index.php/Template_Editor) makes zones and connections explicit; the [VCMI template format](https://vcmi.eu/modders/Random_Map_Template/) provides a data-driven analogue. Civilization-style continental/biome generation and Dorfromantik-style hex-edge matching are useful design analogies, not claims that those games use this exact algorithm. Our square four-plane map needs explicit long-range routes before local tiles.
+- **Search-based PCG:** [Togelius, Preuss and Yannakakis, Towards multiobjective procedural map generation (2010)](https://www.pcgworkshop.com/archive/togelius2010multiobjective.pdf) separates genotype/phenotype, direct and simulation-based fitness, and explores conflicting objectives with Pareto fronts. Base distance, flat buildable starts, resource distance and clustering can conflict; optimizing resource equality alone can collapse all bases together. [Togelius et al., Multiobjective Exploration of the StarCraft Map Space](http://julian.togelius.com/Togelius2010Multiobjective.pdf) applies this direction to StarCraft. We adopt explicit fitness validation, not an expensive online evolutionary search: deterministic bounded candidate evaluation, hard feasibility gates, and author-visible component metrics. Full evolutionary search remains an offline authoring option, not an unimplemented runtime dependency.
+
+## Fairness measurements
+
+Measure each start on each relevant plane, with the same movement model and exact rotated counterpart comparisons:
+
+1. **Path distances:** start-to-start, home/flank/centre resource access, and alternate route length. Euclidean distance is insufficient around a wall. Surface distances treat cliffs as blocked; Depths distinguish walkable cavern routes from diggable connectivity.
+2. **Resource access:** total ore and lode loads attributed to rotated sectors; nearest and cumulative reachable resource distances; equal contested-resource access. Equal totals alone hide unsafe or unreachable economy.
+3. **Chokepoint width:** local route clearance and minimum corridor cross-section; distinguish a deliberate narrow central pass from its longer flank. Keep approaches/buildable aprons large enough for actual footprints.
+4. **Exposure:** local walkable/visible area around starts and resources, high-ground adjacency and number of entrances. It is a geometric proxy, not a combat-win prediction.
+5. **Cross-plane structure:** the surface route skeleton informs cavern bottlenecks, island ring placement and orbital approaches. Orbit has no terrain collision layer; its map identity is public start/centre geometry and island/orbit paths, not invented impassable walls.
+6. **Symmetry and layout:** compare every declared layer and entity under C2/C4 rotation, with IDs such as magma pocket ownership normalized. For C4 validate equal adjacent and opposite distances separately. Do not demand adjacent distance equal diagonal distance or certify arbitrary alliances from rotational symmetry alone.
+
+Bot mirror probes at standard level across several seeds report outcome, duration and side-swap symmetry separately from geometry. A small sample is a probe, not a statistically established balance guarantee.
+
+## Implementation order and contracts
+
+### 1. Versioned documents and registry
+
+The document format is the existing design in DESIGN.md §2.2, not a replacement: an **LDtk-shaped versioned JSON document**, with IntGrid layers for Surface and Depths cells/ore/owner/magma/cavern knowledge and entity layers with typed fields for faults, lodes, island paths and starts. Authors write **one canonical half** for C2 or **one canonical quadrant** for C4. Declared symmetry is mandatory; complete layers/features are expanded by rotation before simulation construction. Canonical IntGrid storage uses run-length encoding to bound inline size; LDtk export expands real editable `intGridCsv`, and import compacts it again. Free author labels are bounded strings, and errors identify oversized fields. Full hidden layers stay server-side: briefing/view bootstrap exposes only public terrain and identity.
+
+`generateMapDocument(seed, preset, rules)` is one producer of that format; `buildWorldFromDocument(document)` is the only simulation world construction path. **Every preset cuts over** to the staged pipeline: terrain → Depths topology → ore → features with site preparation → islands/orbit → canonical rotation → validation. Each stage has an independent seed-derived random stream and records generator accounting. Existing seeds intentionally produce different maps; no legacy producer or RNG compatibility mode remains. Template zone/connection graphs feed terrain and feature placement; optional local noise or WFC belongs inside those stages, and fitness validation is stage 7. Descriptor registry `packages/game/src/maps/registry.ts` owns id, label, identity, supported sizes, default size, sides, symmetry, slots, layouts and tags; `maps.ts` resolves documents. Arena agreed additive descriptors and map-owned slots/layouts; four-side layouts remain unsupported in today's two-army sim. **LDtk import/export ships with documents**, not as a deferred editor prerequisite.
+
+### 2. Size as a match rule
+
+`rules.map.size` accepts S=48, M=64, L=80; 48 is the default match rule. Dimensions are per-match/per-world, never a mutable process-global size. Sim/nav/fog/packing/schema capacities, mirror helpers, spatial buckets, bots/policies, camera/minimap/picking/overlays all use retained geometry. **Geometry helper arguments are required**; no silent size=48 fallback can calculate a larger match on a smaller grid. Arrays are allocated once per match; hot loops do not allocate dimension adapters. Lode/vein/bedrock/magma/chamber budgets scale with area, travel/ring radii with side length; home build footprints remain physical cells. Seed-specific tests preserve symmetry, reachability and the bug they guard, not old generated layouts.
+
+### 3. Templates and validation
+
+Data-driven template primitives describe barriers, plateaus, water/ford belts, clear routes and resource zones in normalized coordinates. Their dimensions are resolved recipe rules. The shared pipeline rasterizes a canonical half, rotates it, guarantees routes, builds correlated Depths/Sky/Orbit features, places resources and validates fitness. New presets: Chokepoint (short narrow pass, longer flank), Archipelago (lake obstacles/ford-linked short lanes), Fortress (high plateaus, explicit ramps), Rivers (crossing choice at fords), Highlands (interconnected elevated lanes). Lake water is a distinct blocked Surface terrain code with ford corridors; this adds no naval movement/combat mechanic.
+
+### 4. Classics
+
+Three or four named authored JSON documents have short tactical identities and explicit terrain/entity layers. A dev-only authoring helper can expand concise paint/route commands into the same complete document format and validate output. Classics are independent of random map seed; match/event seed still changes dynamic events. They must appear in the registry and be selectable through map id, not merely exist as unused fixtures.
+
+### 5. C4 future documents
+
+Create four-corner C4 documents at supported sizes by rotating a canonical quadrant with the correct cell formula `(x,y) -> (size-1-y,x)` and point formula `(x,y) -> (size-y,x)`. Rotate all layers/features and validate equal rotated resources/reachability/exposure. Registry may list FFA/adjacent 2v2/diagonal 2v2 descriptors only with explicit fairness classification; all four-side layouts remain `supported:false` until N-side simulation exists. Current Sim rejects a four-side document rather than silently dropping two starts.
+
+### Seeds, sharing and evidence
+
+Selection follows §2.2 exactly: `map: { seed, params } | { name } | { document }`, travelling in PlayerThree `matchOptions`. The resolved sim recipe stays numeric and complete. Expose map id, **map seed and event seed** and numeric size in public bootstrap; both seeds default to match seed, and may vary independently. Public URL selection carries map id/seed/size only, never credentials. Named authored maps retain their document seed and geometry; event seed still varies. Documents carry a stable content hash. Inline documents have a documented UTF-8 byte cap; larger documents use the host's validated named-map store. PlayerThree's DSL receives generic bounded-string and bounded-integer-array nodes, not arbitrary JSON or a validation bypass.
+
+Acceptance includes document/LDtk round trips, invalid input, C2/C4 symmetry, simultaneous mixed-size sims, fog and size bounds, per-preset fitness tests, bot/policy coverage, and headless Surface/Depths screenshots for every preset/size under `/tmp/ac-maps/`. Timing-sensitive mirrors/determinism/policies/performance/balance probes run only in the orchestrator's granted timing slot; old sweep baselines no longer establish balance after this generation cutover. Run `pnpm bench:pin` once after all agent-facing edits and report exercised checks, failed seeds and measured probe outcomes accurately.
+
+## Authoring and public selection interfaces
+
+- `node tools/maps/author.ts --write` materializes the three fixed classic documents and the future C4 document under `packages/game/maps/`; these files, not the helper, are selected at runtime.
+- `node tools/maps/main.ts generate rivers 2048 64 /tmp/rivers.json` produces a validated document.
+- `node tools/maps/main.ts export /tmp/rivers.json /tmp/rivers.ldtk` creates an editable LDtk project; edit the canonical sector, then `node tools/maps/main.ts import /tmp/rivers.ldtk /tmp/edited.json`.
+- `node tools/maps/main.ts inspect /tmp/edited.json` prints validation errors, content hash and per-slot/per-layout fairness summaries.
+- `MAPS_DIR=/absolute/saved/maps` loads validated `*.json` documents at host startup. The filename stem must match the document's public `id`. Saved documents are bounded to 1 MiB; inline documents to 128 KiB of UTF-8 JSON; commander practice requests (which carry canonical `rules`) to 144 KiB. Saved-map descriptors are published by `GET /api/maps`; hidden layers are not.
+- Map selection travels as canonical `matchOptions` `{ terrain?, map: { seed?, params? } | { name } | { document } }`: host defaults (`RULES_JSON`/`RULES_FILE`), commander practice `rules` and arena/benchmark series options. A supplied map selector atomically replaces the host selector (schema-aware `mergeMatchOptions`); it cannot accidentally merge a generated seed with a named/inline document. There is no terrain shorthand. The public map seed drives only the public stages (terrain, faults, lode site preparation, islands); Depths, magma, ore and lodes, and every event stream, come from the match's secret seed (released with the replay after the match). Lode placement only chooses among the public sites, so the public map is byte-identical for every secret seed.
+- The unified lobby selects registry maps only. Creation and `configure` take `mapId`, `layoutId`, `mapSeed` and `size`; unsupported layouts and non-two-side maps answer `unsupported_layout`, a size outside the descriptor's `sizes` or a seed other than a classic's fixed seed answers `bad_map_options`. Generated maps accept 48/64/80 and default to a fresh random seed; classics retain their document seed and size. The lobby's map overrides any `rules.map`, and summaries publish `mapId`, `mapSeed`, `size`, resolved `rules` and `rulesHash`; the match seed is a separate server secret. Arena matches (`resolveArenaMatch`) freeze the map id, document seed and a public map identity hash (a generated map without its hidden layers) beside the rules hash; every attempt plays on its own secret seed. Shared browser selection uses `/?map=<id>&mapSeed=<uint32>&size=<48|64|80>` with no credentials.
+
+### Compact layers and editor representation
+
+`intGridRle` alternates positive run counts and native integer codes and must cover exactly one canonical half/quadrant. Surface uses distinct water and ford codes. `Cavern` is a slot-knowledge mask; rotation rotates its bits. Magma identifiers encode pocket orbit and rotation phase, preserving cross-sector pocket topology without exposing underground data through public descriptors. Features use typed LDtk fields rather than JSON embedded in strings.
+
+Native LDtk export uses a 16-pixel tile grid and shifts IntGrid codes by one so LDtk zero remains editor-empty (an unfilled cell is rejected on import, not silently ground). Typed level fields retain metadata, layouts and accounting. Exact floating point island/region coordinates survive pixel editor quantization through explicit position fields. Imports reject overlong labels and invalid field types with field-naming errors.
+
+### Orbital placement, not new physics
+
+Every document includes public typed `OrbitRegion` entities: centre coordinates, rectangular extents, preferred drift vector, relative density weight and directional spread. C2/C4 rotation rotates vectors and swaps extents on quarter turns. Recipes derive these regions from their lane geometry; asteroid pairs sample a weighted region and retain the existing point-mirrored positions/opposite velocities and existing physics, collisions, payloads and rewards. `map.template.orbitWidth`, `orbitLength`, `orbitSpread`, and home/flank/centre weights are match rules. The bootstrap publishes expanded regions, not future asteroid events; policies can stage tugs on an approach but may grapple only observed rocks. The same entity vocabulary can later place debris fields or comets without introducing them now.
+

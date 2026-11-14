@@ -1,0 +1,90 @@
+/* The agent console maps the SDK theme to the game's shared command-console tokens. */
+.playerthree-console.fj-console {
+  --playerthree-console-bg: var(--paper-hi);
+  --playerthree-console-panel: var(--paper);
+  --playerthree-console-fg: var(--ink);
+  --playerthree-console-muted: var(--muted);
+  --playerthree-console-border: var(--rule-soft);
+  --playerthree-console-accent: var(--ink);
+  --playerthree-console-ok: var(--good);
+  --playerthree-console-bad: var(--bad);
+  --playerthree-console-warn: var(--warn);
+  --playerthree-console-font: var(--serif);
+  --playerthree-console-mono: var(--mono);
+  --playerthree-console-size: 12.5px;
+  --playerthree-console-radius: 3px;
+  --playerthree-console-shadow: var(--sheet-shadow);
+  --playerthree-console-width: 400px;
+  --playerthree-console-inset: 4vh 2vw 4vh auto;
+  --playerthree-console-z: 35;
+  background-image: var(--grain);
+  transform: none;
+}
+/* In a match the console is a journal column page, never a floating cover over another control. */
+.hud .playerthree-console.fj-console {
+  position: relative;
+  inset: auto;
+  width: 100%;
+  max-width: none;
+  min-height: 128px;
+  flex: 1 1 0;
+  transform: none;
+}
+.hud .fj-console .playerthree-console__head {
+  flex-wrap: wrap;
+  flex: none;
+  gap: 4px;
+}
+.hud .fj-console .playerthree-console__state {
+  font-size: 10px;
+}
+.hud .fj-console .playerthree-console__body {
+  min-height: 0;
+}
+.hud .fj-console .playerthree-console__row {
+  grid-template-columns: 60px minmax(0, 1fr);
+  overflow-wrap: anywhere;
+}
+.hud .fj-console .playerthree-console__foot {
+  flex: none;
+}
+.fj-console .playerthree-console__head {
+  border-bottom: 1px solid var(--rule);
+}
+.fj-console .playerthree-console__title {
+  font: 400 17px/1 var(--stamp);
+  letter-spacing: 0.04em;
+}
+.fj-console .playerthree-console__seat {
+  background-image: var(--grain);
+  border-color: var(--rule-soft);
+  box-shadow: var(--slip-shadow);
+}
+.fj-console .playerthree-console__role {
+  font: 700 19px/1 var(--hand);
+}
+.fj-console .playerthree-console__badge {
+  font: 400 11px/1.4 var(--stamp);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.fj-console .playerthree-console__key {
+  font: italic 12px var(--serif);
+}
+.fj-console .playerthree-console__approval b {
+  font-family: var(--hand);
+  font-size: 16px;
+}
+.fj-console .playerthree-console__btn {
+  font: 600 12px var(--serif);
+  background: var(--paper);
+}
+.fj-console .playerthree-console__foot {
+  font: italic 11.5px var(--serif);
+  border-top: 1px solid var(--rule);
+}
+/* Lobby: above the lobby sheet. */
+.lobby .playerthree-console.fj-console {
+  --playerthree-console-inset: 4vh 2vw 4vh auto;
+  --playerthree-console-z: 40;
+}

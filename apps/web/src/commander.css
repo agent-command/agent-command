@@ -1,0 +1,885 @@
+/* Harness picker, consent page and in-match commander popover. Commander identity chips live in agent-button.css.
+   Shared theme tokens keep these surfaces aligned with the main chrome. */
+
+/* ------------------------------------------------------------------ Commanders screen */
+.cmd-step {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 2px;
+}
+.cmd-step > div {
+  display: grid;
+  gap: 1px;
+}
+.cmd-step b {
+  font: 600 22px/1.1 var(--hand);
+}
+.cmd-step-n {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border: 1.5px solid var(--chrome-black);
+  border-radius: 50%;
+  font: 400 15px/1 var(--stamp);
+  background: var(--brand-gold);
+  color: var(--chrome-black);
+  transform: rotate(-4deg);
+}
+.harness-row {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 8px;
+}
+@media (max-width: 900px) {
+  .harness-row {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+.harness-btn {
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+  padding: 12px 6px 10px;
+  border: 1px solid var(--rule);
+  border-radius: var(--wobble);
+  background: var(--grain), var(--paper-hi);
+  box-shadow: var(--slip-shadow);
+  color: var(--ink);
+  font: 600 13px/1.15 var(--serif);
+  cursor: var(--cursor-link, pointer);
+  transition: transform 0.12s;
+}
+.harness-btn:hover {
+  transform: translateY(-2px) rotate(-0.5deg);
+}
+.harness-btn.on {
+  background: var(--brand-gold);
+  box-shadow: inset 0 0 0 1.5px var(--chrome-black), var(--slip-shadow);
+  transform: rotate(-0.8deg);
+}
+.harness-btn.on,
+.harness-btn.on * {
+  color: var(--on-gold);
+}
+.harness-btn b {
+  font-weight: 600;
+}
+.harness-setup {
+  display: grid;
+  gap: 6px;
+  margin-top: 10px;
+  padding: 10px 12px;
+  border: 1px solid var(--rule-soft);
+  border-left: 4px solid var(--ink);
+  border-radius: 2px;
+  background: var(--grain), var(--paper-hi);
+}
+.harness-setup .cmd-section {
+  margin: 0;
+}
+.snippet {
+  position: relative;
+}
+.harness-setup .snippet pre,
+.cmd-pop .snippet pre {
+  margin: 0;
+  max-height: 140px;
+  overflow: auto;
+  white-space: pre-wrap;
+  word-break: break-all;
+  font: 12px/1.5 var(--mono);
+  color: var(--ink);
+  background: var(--paper-shade);
+  border: 1px solid var(--rule-soft);
+  border-radius: 2px;
+  padding: 8px 64px 8px 10px;
+  user-select: all;
+}
+.harness-setup .snippet > .btn {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+}
+.harness-setup .then {
+  margin: 0;
+  font: italic 12.5px var(--serif);
+}
+.harness-setup .then a {
+  color: var(--ink-soft);
+  font-style: normal;
+}
+.cmd-wait {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  font: 600 17px/1.2 var(--hand);
+  color: var(--warn);
+}
+.cmd-wait.ok {
+  color: var(--good);
+}
+.cmd-wait.off {
+  color: var(--muted);
+  font: italic 12.5px var(--serif);
+}
+.cmd-wait .muted {
+  font: italic 12.5px var(--serif);
+}
+.pulse {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--warn);
+  animation: ink-pulse 1.6s ease-in-out infinite;
+}
+@keyframes ink-pulse {
+  50% {
+    opacity: 0.25;
+    transform: scale(0.7);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pulse {
+    animation: none;
+  }
+}
+.slot-stance {
+  display: grid;
+  gap: 3px;
+}
+.slot-stance label {
+  font: 400 10.5px var(--stamp);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.slot-stance .seg-ctl button {
+  padding: 2px 6px;
+  font-size: 11px;
+}
+.mandate-controls {
+  display: grid;
+  gap: 8px;
+}
+.mandate-limits {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.mandate-limits legend {
+  margin-bottom: 3px;
+  font: 400 10.5px var(--stamp);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.mandate-limits label {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+}
+.mandate-limits input {
+  accent-color: var(--ink);
+}
+.mandate-policy {
+  margin: 2px 0;
+}
+.mandate-approval {
+  display: grid;
+  gap: 6px;
+  padding: 8px;
+  border: 1px dashed var(--ink-soft);
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+}
+.mandate-kickoff {
+  border-top: 1px solid var(--rule-soft);
+  padding-top: 6px;
+}
+.mandate-kickoff summary {
+  cursor: var(--cursor-link, pointer);
+  font: italic 13px var(--serif);
+}
+.mandate-kickoff pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  max-height: 180px;
+  overflow: auto;
+  font-size: 11px;
+}
+.consent-mode {
+  color: var(--ink-soft);
+}
+.cmd-advanced {
+  border-top: 3px double var(--rule-soft);
+  padding-top: 6px;
+}
+.cmd-advanced > summary {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding: 4px 0;
+  cursor: var(--cursor-link, pointer);
+  list-style: none;
+}
+.cmd-advanced > summary::before {
+  content: '▸';
+  font: 12px var(--serif);
+}
+.cmd-advanced[open] > summary::before {
+  content: '▾';
+}
+.cmd-advanced > summary b {
+  font: 400 13px var(--stamp);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+/* Two panels that fill the pre-match frame and scroll on their own: connect (left), my commanders (right).
+   No page-level scroll; below 900 px they stack. */
+.named-commanders {
+  height: 100%;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: var(--gap-xl);
+}
+.cmd-col {
+  min-height: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-md);
+  padding-right: var(--gap-sm);
+  scrollbar-gutter: stable;
+}
+.cmd-col > * {
+  flex: none;
+}
+@media (max-width: 900px) {
+  .named-commanders {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+  .cmd-col {
+    overflow: visible;
+  }
+}
+.named-commanders .harness-row {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+/* Side by side in the narrower connect panel: glyph beside the name keeps the snippet above the fold. */
+.named-commanders .harness-btn {
+  grid-template-columns: auto minmax(0, 1fr);
+  justify-items: start;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 10px;
+  text-align: left;
+}
+.named-commanders .seg-ctl.cmd-glyphs {
+  width: auto;
+}
+.named-commanders .cmd-glyphs button {
+  flex: none;
+  display: grid;
+  place-items: center;
+  padding: 5px 9px;
+}
+.cmd-practice > .row > .seg-ctl {
+  flex: 1 1 auto;
+  width: auto;
+}
+.named-commanders .cmd-profile {
+  margin: 0;
+}
+.named-commanders .cmd-error:empty {
+  display: none;
+}
+.named-commanders input:not([type='checkbox'], .mp-seed-input) {
+  min-height: 34px;
+  min-width: 0;
+  max-width: 100%;
+  padding: var(--gap-sm) var(--gap-md);
+  color: var(--ink);
+  background: var(--paper);
+  border: 2px solid var(--rule);
+  border-radius: 8px;
+}
+.named-commanders .row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--gap-sm);
+}
+.cmd-roster {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--gap-xs);
+}
+.cmd-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--gap-xs) var(--gap-md);
+  padding: var(--gap-xs) var(--gap-sm);
+  border-radius: 8px;
+}
+.cmd-row.on {
+  background: color-mix(in srgb, var(--brand-gold) 22%, transparent);
+}
+.cmd-row .agent-button {
+  min-width: 0;
+}
+.cmd-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font: italic 12.5px var(--serif);
+  color: var(--muted);
+}
+.cmd-status i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1px solid var(--ink-soft);
+}
+.cmd-status[data-state='on'] {
+  color: var(--good);
+}
+.cmd-status[data-state='on'] i {
+  background: var(--good);
+  border-color: var(--ink);
+}
+.cmd-status[data-state='idle'] {
+  color: var(--ink-soft);
+}
+.cmd-last {
+  margin-left: auto;
+  font-size: 12px;
+  color: var(--ink-soft);
+}
+.named-commander-create {
+  display: grid;
+  gap: var(--gap-xs);
+}
+.named-commander-create input[type='text'] {
+  flex: 1 1 150px;
+}
+.named-commanders .seg-ctl.cmd-planes {
+  width: auto;
+  flex: none;
+}
+.named-commanders .cmd-planes button {
+  flex: none;
+  display: grid;
+  place-items: center;
+  padding: 4px 8px;
+}
+.cmd-planes button.on {
+  background: color-mix(in srgb, var(--accent) 50%, var(--paper-hi));
+  color: var(--ink);
+}
+.cmd-fields {
+  display: grid;
+  gap: var(--gap-sm);
+}
+.cmd-fields > label {
+  display: grid;
+  gap: 2px;
+  font-size: 12px;
+  font-weight: 700;
+}
+.named-commanders .cmd-check {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-sm);
+}
+.cmd-conn {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-sm);
+}
+.cmd-conn > span {
+  flex: 1;
+  min-width: 0;
+}
+.cmd-block {
+  display: grid;
+  gap: var(--gap-sm);
+  padding-top: var(--gap-sm);
+  border-top: 1px solid var(--rule-soft);
+}
+.cmd-detail .cmd-card .snippet > .btn,
+.mandate-kickoff .snippet > .btn {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+}
+.mandate-kickoff .snippet pre,
+.cmd-token .snippet pre {
+  padding-right: 96px;
+}
+.cmd-practice-map > summary,
+.cmd-token > summary,
+.cmd-alt > summary {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-sm);
+  cursor: var(--cursor-link, pointer);
+  font: italic 13px var(--serif);
+}
+.cmd-practice-map[open] > .map-picker {
+  margin-top: var(--gap-sm);
+}
+.cmd-alt[open] > .snippet {
+  margin-top: var(--gap-xs);
+}
+
+/* ------------------------------------------------------------------ consent page (/connect) */
+.consent-page {
+  position: absolute;
+  inset: 0;
+  overflow-y: auto;
+  display: grid;
+  place-items: center;
+  padding: 5vh 4vw;
+  background:
+    radial-gradient(ellipse at 30% 20%, color-mix(in srgb, var(--brand-gold) 25%, transparent), transparent 60%),
+    var(--grain),
+    var(--paper-shade);
+  user-select: text;
+}
+.consent-card {
+  width: min(560px, 100%);
+  display: grid;
+  gap: 12px;
+  padding: 22px 26px 20px;
+  border: 1px solid var(--rule);
+  border-radius: var(--wobble);
+  background: var(--grain), var(--paper);
+  box-shadow: var(--sheet-shadow);
+  transform: rotate(-0.4deg);
+}
+.consent-card .kicker {
+  margin: 0;
+}
+.consent-card h1 {
+  margin: 0;
+  font: 400 30px/1.05 var(--stamp);
+  letter-spacing: 0.03em;
+  overflow-wrap: anywhere;
+}
+.consent-card p {
+  margin: 0;
+}
+.consent-who {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.consent-glyph {
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  flex: none;
+  border: 1.5px solid var(--ink);
+  border-radius: 50%;
+  background: var(--paper-hi);
+  transform: rotate(-3deg);
+}
+.verified {
+  color: var(--good);
+}
+.unverified {
+  color: var(--warn);
+  font-style: italic;
+}
+.consent-ask {
+  font: 600 20px/1.15 var(--hand);
+}
+.consent-planes {
+  display: grid;
+  gap: 6px;
+}
+.consent-plane {
+  display: grid;
+  grid-template-columns: 40px auto minmax(0, 1fr);
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  padding: 8px 12px 8px 10px;
+  border: 1px solid var(--rule);
+  border-radius: var(--wobble);
+  background:
+    linear-gradient(90deg, color-mix(in srgb, var(--accent) 55%, transparent) 0 5px, transparent 5px),
+    var(--grain),
+    var(--paper-hi);
+  color: var(--ink);
+  text-align: left;
+  font: 13px var(--serif);
+  cursor: var(--cursor-link, pointer);
+}
+.consent-plane.on {
+  background:
+    linear-gradient(90deg, color-mix(in srgb, var(--accent) 80%, transparent) 0 5px, color-mix(in srgb, var(--accent) 16%, transparent) 5px),
+    var(--grain),
+    var(--paper-hi);
+  box-shadow: inset 0 0 0 1.5px var(--ink);
+}
+.consent-plane em {
+  font: italic 13px var(--serif);
+  color: var(--ink-soft);
+}
+.consent-plane .switch {
+  position: relative;
+  width: 34px;
+  height: 18px;
+  border: 1.5px solid var(--ink);
+  border-radius: 9px;
+  background: var(--paper);
+}
+.consent-plane .switch i {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: var(--ink-soft);
+  transition: transform 0.15s;
+}
+.consent-plane.on .switch {
+  background: var(--brand-gold);
+}
+.consent-plane.on .switch i {
+  transform: translateX(15px);
+  background: var(--chrome-black);
+}
+.consent-mode {
+  grid-column: 2 / -1;
+  min-width: 0;
+}
+.consent-now {
+  grid-column: 2 / -1;
+  min-width: 0;
+  max-width: 100%;
+  flex-wrap: wrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  justify-self: start;
+  font: italic 11.5px var(--serif);
+  color: var(--muted);
+  overflow-wrap: anywhere;
+}
+.consent-now .chip {
+  min-width: 0;
+  max-width: 100%;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+.consent-return b {
+  font-family: var(--mono);
+  font-weight: 600;
+}
+.consent-actions {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 10px;
+  margin-top: 4px;
+}
+.consent-card > .btn {
+  justify-self: start;
+  text-decoration: none;
+}
+
+/* ------------------------------------------------------------------ in-match: rail chips + popover */
+.plane-btn .plane-chip {
+  cursor: var(--cursor-link, pointer);
+  transform: none;
+}
+.plane-btn .plane-chip:hover,
+.plane-btn .plane-chip:focus-visible {
+  box-shadow: inset 0 0 0 1px var(--ink);
+}
+.plane-btn .plane-chip .agent-button-name {
+  max-width: 92px;
+}
+.plane-btn .plane-chip .agent-button-model {
+  display: none;
+}
+.cmd-pop {
+  position: absolute;
+  z-index: 8;
+  width: 318px;
+  max-height: calc(100vh - 28px);
+  overflow-y: auto;
+  display: grid;
+  gap: 7px;
+  padding: 10px 12px 12px;
+  border: 1px solid var(--rule);
+  border-radius: var(--wobble);
+  background: var(--grain), var(--paper);
+  box-shadow: var(--sheet-shadow);
+  transform: rotate(-0.4deg);
+  user-select: text;
+}
+.cmd-pop > * {
+  min-width: 0;
+}
+.cmd-pop > .btn,
+.pop-advanced > .btn,
+.cmd-pop .seg-ctl {
+  justify-self: start;
+}
+.cmd-pop .seg-ctl {
+  max-width: 100%;
+  flex-wrap: wrap;
+}
+.cmd-pop[hidden] {
+  display: none;
+}
+.cmd-pop header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.cmd-pop header em {
+  font: italic 12px var(--serif);
+  color: var(--muted);
+}
+.pop-x {
+  margin-left: auto;
+  border: 0;
+  background: transparent;
+  color: var(--ink-soft);
+  font: 18px/1 var(--serif);
+  cursor: var(--cursor-link, pointer);
+}
+.pop-label {
+  font: 400 10.5px var(--stamp);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+/* "Who plays <Plane>" (seat-picker.ts): occupant cards in a wrapping grid; the current one is ringed in gold. */
+.seat-pick {
+  display: grid;
+  gap: 5px;
+}
+.seat-picker {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(128px, 1fr));
+  gap: 5px;
+}
+.seat-card {
+  display: grid;
+  justify-items: start;
+  align-content: start;
+  gap: 3px;
+  min-width: 0;
+  padding: 4px 5px 5px;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  background: var(--paper-shade);
+  color: var(--ink);
+  text-align: start;
+  cursor: var(--cursor-link, pointer);
+}
+.seat-card:hover {
+  background: var(--chrome-hover);
+}
+.seat-card:focus-visible {
+  outline: 2px solid var(--brand-gold);
+  outline-offset: 1px;
+}
+.seat-card[aria-pressed='true'] {
+  border-color: var(--brand-gold);
+  background: var(--paper-on);
+  cursor: var(--cursor-default, default);
+}
+.seat-card[aria-disabled='true']:not([aria-pressed='true']) {
+  background: var(--paper-shade);
+  cursor: var(--cursor-default, default);
+}
+.seat-card[aria-disabled='true']:not([aria-pressed='true']):not([aria-busy='true']) > * {
+  opacity: 0.5;
+}
+.seat-card > .agent-button {
+  max-width: 100%;
+  pointer-events: none;
+}
+/* The name gets the card's width: provider/model live in the tip, the detail on the state line. */
+.seat-card .agent-button-model,
+.seat-card .agent-button-detail {
+  display: none;
+}
+.seat-card-state {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  max-width: 100%;
+  color: var(--ink-soft);
+  font: 400 9.5px var(--stamp);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.seat-card-caption {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+/* The lobby's seat lights: offline grey, online (connected) gold, ready green. */
+.seat-card-dot {
+  flex: none;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--ink-soft);
+}
+.seat-card-dot[data-status='online'] {
+  background: var(--brand-gold);
+}
+.seat-card-dot[data-status='ready'] {
+  background: var(--good);
+}
+.seat-card-spin {
+  flex: none;
+  width: 9px;
+  height: 9px;
+  border: 2px solid var(--rule-soft);
+  border-top-color: var(--brand-gold);
+  border-radius: 50%;
+  animation: seat-card-spin 0.8s linear infinite;
+}
+@keyframes seat-card-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .seat-card-spin {
+    animation: none;
+  }
+}
+.seat-picker-add {
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--ink-soft);
+  font: italic 12px var(--serif);
+}
+.cmd-pop .seg-ctl button {
+  padding: 2px 7px;
+  font-size: 11.5px;
+}
+.pop-adv {
+  justify-self: start;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--ink-soft);
+  font: italic 12px var(--serif);
+  text-decoration: underline dotted;
+  cursor: var(--cursor-link, pointer);
+}
+.pop-advanced {
+  display: grid;
+  gap: 6px;
+  padding-top: 6px;
+  border-top: 1px dashed var(--rule-soft);
+}
+.pop-advanced .row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+.cmd-pop .snippet pre {
+  padding-right: 10px;
+  font-size: 11px;
+}
+
+.cmd-pairing,
+.consent-recovery {
+  border-top: 1px dashed var(--rule-soft);
+  margin-top: 12px;
+  padding-top: 12px;
+}
+.cmd-profile,
+.consent-identity {
+  overflow-wrap: anywhere;
+}
+.cmd-pairing .snippet {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+}
+.cmd-pairing .snippet > .btn {
+  position: static;
+}
+.cmd-pairing code {
+  font: 22px var(--mono);
+  letter-spacing: 0.2em;
+}
+.consent-pair {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 10px 0;
+}
+.consent-pair input {
+  min-width: 0;
+  max-width: 100%;
+  padding: 7px 10px;
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  background: var(--paper);
+  color: var(--ink);
+  font: 16px var(--mono);
+}
+.consent-recovery details {
+  margin-top: 12px;
+}
+.consent-recovery details > label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+/* Private execution health is separate from a commander's connection light. */
+.policy-health {
+  margin: 10px 0;
+  padding: 8px 10px;
+  border: 1px solid var(--rule);
+  border-left-width: 4px;
+  background: var(--paper-hi);
+}
+.policy-health p {
+  margin: 5px 0 0;
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+.policy-health[data-health="failed"],
+.plane-chip[data-health="failed"] {
+  border-color: var(--bad);
+  color: var(--bad);
+}
+.policy-health[data-health="waiting"],
+.plane-chip[data-health="waiting"] {
+  border-color: var(--brand-gold);
+}
+.seat-card-dot[data-status="failed"] { background: var(--bad); }
+.seat-card-dot[data-status="waiting"] { background: var(--brand-gold); }

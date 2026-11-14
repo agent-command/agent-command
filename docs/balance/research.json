@@ -1,0 +1,2645 @@
+{
+  "method": "Six fixed seeds (1\u20136), standard and veteran mirrors, open/ridges/canyons, 720-second observation cap. Research completion sampled each second. Capped running games are not wins or draws. This is a content-usage smoke, not a full balance guardrail sweep.",
+  "baseline": {
+    "root": "../ac-research-baseline",
+    "seconds": 720,
+    "seeds": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "summary": [
+      {
+        "level": "standard",
+        "terrain": "open",
+        "matches": 6,
+        "blueWins": 0,
+        "redWins": 1,
+        "draws": 0,
+        "capped": 5,
+        "researchCompleted": 0,
+        "researchMedianSeconds": null,
+        "lancers": 0,
+        "lancerShots": 0,
+        "ascents": 0,
+        "ascentShots": 0,
+        "bombers": 0,
+        "bomberShots": 0,
+        "blueOrbitDamage": 0,
+        "redOrbitDamage": 0
+      },
+      {
+        "level": "standard",
+        "terrain": "ridges",
+        "matches": 6,
+        "blueWins": 2,
+        "redWins": 3,
+        "draws": 0,
+        "capped": 1,
+        "researchCompleted": 0,
+        "researchMedianSeconds": null,
+        "lancers": 0,
+        "lancerShots": 0,
+        "ascents": 0,
+        "ascentShots": 0,
+        "bombers": 0,
+        "bomberShots": 0,
+        "blueOrbitDamage": 0,
+        "redOrbitDamage": 0
+      },
+      {
+        "level": "standard",
+        "terrain": "canyons",
+        "matches": 6,
+        "blueWins": 0,
+        "redWins": 0,
+        "draws": 3,
+        "capped": 3,
+        "researchCompleted": 0,
+        "researchMedianSeconds": null,
+        "lancers": 0,
+        "lancerShots": 0,
+        "ascents": 0,
+        "ascentShots": 0,
+        "bombers": 0,
+        "bomberShots": 0,
+        "blueOrbitDamage": 0,
+        "redOrbitDamage": 0
+      },
+      {
+        "level": "veteran",
+        "terrain": "open",
+        "matches": 6,
+        "blueWins": 0,
+        "redWins": 0,
+        "draws": 2,
+        "capped": 4,
+        "researchCompleted": 0,
+        "researchMedianSeconds": null,
+        "lancers": 0,
+        "lancerShots": 0,
+        "ascents": 0,
+        "ascentShots": 0,
+        "bombers": 0,
+        "bomberShots": 0,
+        "blueOrbitDamage": 0,
+        "redOrbitDamage": 0
+      },
+      {
+        "level": "veteran",
+        "terrain": "ridges",
+        "matches": 6,
+        "blueWins": 0,
+        "redWins": 1,
+        "draws": 2,
+        "capped": 3,
+        "researchCompleted": 0,
+        "researchMedianSeconds": null,
+        "lancers": 0,
+        "lancerShots": 0,
+        "ascents": 0,
+        "ascentShots": 0,
+        "bombers": 1,
+        "bomberShots": 4,
+        "blueOrbitDamage": 0,
+        "redOrbitDamage": 0
+      },
+      {
+        "level": "veteran",
+        "terrain": "canyons",
+        "matches": 6,
+        "blueWins": 0,
+        "redWins": 0,
+        "draws": 4,
+        "capped": 2,
+        "researchCompleted": 0,
+        "researchMedianSeconds": null,
+        "lancers": 0,
+        "lancerShots": 0,
+        "ascents": 0,
+        "ascentShots": 0,
+        "bombers": 0,
+        "bomberShots": 0,
+        "blueOrbitDamage": 0,
+        "redOrbitDamage": 0
+      }
+    ],
+    "rows": [
+      {
+        "level": "standard",
+        "terrain": "open",
+        "seed": 1,
+        "seconds": 720,
+        "outcome": "running",
+        "teams": {
+          "blue": {
+            "researchRequested": null,
+            "researchCompleted": null,
+            "lancers": 0,
+            "lancerShots": 0,
+            "ascents": 0,
+            "ascentShots": 0,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          },
+          "red": {
+            "researchRequested": null,
+            "researchCompleted": null,
+            "lancers": 0,
+            "lancerShots": 0,
+            "ascents": 0,
+            "ascentShots": 0,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          }
+        }
+      },
+      {
+        "level": "standard",
+        "terrain": "open",
+        "seed": 2,
+        "seconds": 720,
+        "outcome": "running",
+        "teams": {
+          "blue": {
+            "researchRequested": null,
+            "researchCompleted": null,
+            "lancers": 0,
+            "lancerShots": 0,
+            "ascents": 0,
+            "ascentShots": 0,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          },
+          "red": {
+            "researchRequested": null,
+            "researchCompleted": null,
+            "lancers": 0,
+            "lancerShots": 0,
+            "ascents": 0,
+            "ascentShots": 0,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          }
+        }
+      },
+      {
+        "level": "standard",
+        "terrain": "open",
+        "seed": 3,
+        "seconds": 720,
+        "outcome": "running",
+        "teams": {
+          "blue": {
+            "researchRequested": null,
+            "researchCompleted": null,
+            "lancers": 0,
+            "lancerShots": 0,
+            "ascents": 0,
+            "ascentShots": 0,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          },
+          "red": {
+            "researchRequested": null,
+            "researchCompleted": null,
+            "lancers": 0,
+            "lancerShots": 0,
+            "ascents": 0,
+            "ascentShots": 0,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          }
+        }
+      },
+      {
+        "level": "standard",
+        "terrain": "open",
+        "seed": 4,
+        "seconds": 720,
+        "outcome": "running",
+        "teams": {
+          "blue": {
+            "researchRequested": null,
+            "researchCompleted": null,
+            "lancers": 0,
+            "lancerShots": 0,
+            "ascents": 0,
+            "ascentShots": 0,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          },
+          "red": {
+            "researchRequested": null,
+            "researchCompleted": null,
+            "lancers": 0,
+            "lancerShots": 0,
+            "ascents": 0,
+            "ascentShots": 0,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          }
+        }
+      },
+      {
+        "level": "standard",
+        "terrain": "open",
+        "seed": 5,
+        "seconds": 470,
+        "outcome": "loss",
+        "teams": {
+          "blue": {
+            "researchRequested": null,
+            "researchCompleted": null,
+            "lancers": 0,
+            "lancerShots": 0,
+            "ascents": 0,
+            "ascentShots": 0,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          },
+          "red": {
+            "researchRequested": null,
+            "researchCompleted": null,
+            "lancers": 0,
+            "lancerShots": 0,
+            "ascents": 0,
+            "ascentShots": 0,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          }
+        }
+      },
+      {
+        "level": "standard",
+        "terrain": "open",
+        "seed": 6,
+        "seconds": 720,
+        "outcome": "running",
+        "teams": {
+          "blue": {
+            "researchRequested": null,
+            "researchCompleted": null,
+            "lancers": 0,
+            "lancerShots": 0,
+            "ascents": 0,
+            "ascentShots": 0,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          },
+          "red": {
+            "researchRequested": null,
+            "researchCompleted": null,
+            "lancers": 0,
+            "lancerShots": 0,
+            "ascents": 0,
+            "ascentShots": 0,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          }
+        }
+      },
+      {
+        "level": "standard",
+        "terrain": "ridges",
+        "seed": 1,
+        "seconds": 409.05,
+        "outcome": "win",
+        "teams": {
+          "blue": {
+            "researchRequested": null,
+            "researchCompleted": null,
+            "lancers": 0,
+            "lancerShots": 0,
+            "ascents": 0,
+            "ascentShots": 0,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          },
+          "red": {
+            "researchRequested": null,
+            "researchCompleted": null,
+            "lancers": 0,
+            "lancerShots": 0,
+            "ascents": 0,
+            "ascentShots": 0,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          }
+        }
+      },
+      {
+        "level": "standard",
+        "terrain": "ridges",
+        "seed": 2,
+        "seconds": 618.5,
+        "outcome": "loss",
+        "teams": {
+          "blue": {
+            "researchRequested": null,
+            "researchCompleted": null,
+            "lancers": 0,
+            "lancerShots": 0,
+            "ascents": 0,
+            "ascentShots": 0,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          },
+          "red": {
+            "researchRequested": null,
+            "researchCompleted": null,
+            "lancers": 0,
+            "lancerShots": 0,
+            "ascents": 0,
+            "ascentShots": 0,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          }
+        }
+      },
+      {
+        "level": "standard",
+        "terrain": "ridges",
+        "seed": 3,
+        "seconds": 720,
+        "outcome": "running",
+        "teams": {
+          "blue": {
+            "researchRequested": null,
+            "researchCompleted": null,
+            "lancers": 0,
+            "lancerShots": 0,
+            "ascents": 0,
+            "ascentShots": 0,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          },
+          "red": {
+            "researchRequested": null,
+            "researchCompleted": null,
+            "lancers": 0,
+            "lancerShots": 0,
+            "ascents": 0,
+            "ascentShots": 0,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          }
+        }
+      },
+      {
+        "level": "standard",
+        "terrain": "ridges",
+        "seed": 4,
+        "seconds": 422.45,
+        "outcome": "win",
+        "teams": {
+          "blue": {
+            "researchRequested": null,
+            "researchCompleted": null,
+            "lancers": 0,
+            "lancerShots": 0,
+            "ascents": 0,
+            "ascentShots": 0,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          },
+          "red": {
+            "researchRequested": null,
+            "researchCompleted": null,
+            "lancers": 0,
+            "lancerShots": 0,
+            "ascents": 0,
+            "ascentShots": 0,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          }
+        }
+      },
+      {
+        "level": "standard",
+        "terrain": "ridges",
+        "seed": 5,
+        "seconds": 648.5,
+        "outcome": "loss",
+        "teams": {
+          "blue": {
+            "researchRequested": null,
+            "researchCompleted": null,
+            "lancers": 0,
+            "lancerShots": 0,
+            "ascents": 0,
+            "ascentShots": 0,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          },
+          "red": {
+            "researchRequested": null,
+            "researchCompleted": null,
+            "lancers": 0,
+            "lancerShots": 0,
+            "ascents": 0,
+            "ascentShots": 0,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          }
+        }
+      },
+      {
+        "level": "standard",
+        "terrain": "ridges",
+        "seed": 6,
+        "seconds": 495.35,
+        "outcome": "loss",
+        "teams": {
+          "blue": {
+            "researchRequested": null,
+            "researchCompleted": null,
+            "lancers": 0,
+            "lancerShots": 0,
+            "ascents": 0,
+            "ascentShots": 0,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          },
+          "red": {
+            "researchRequested": null,
+            "researchCompleted": null,
+            "lancers": 0,
+            "lancerShots": 0,
+            "ascents": 0,
+            "ascentShots": 0,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          }
+        }
+      },
+      {
+        "level": "standard",
+        "terrain": "canyons",
+        "seed": 1,
+        "seconds": 720,
+        "outcome": "running",
+        "teams": {
+          "blue": {
+            "researchRequested": null,
+            "researchCompleted": null,
+            "lancers": 0,
+            "lancerShots": 0,
+            "ascents": 0,
+            "ascentShots": 0,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          },
+          "red": {
+            "researchRequested": null,
+            "researchCompleted": null,
+            "lancers": 0,
+            "lancerShots": 0,
+            "ascents": 0,
+            "ascentShots": 0,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          }
+        }
+      },
+      {
+        "level": "standard",
+        "terrain": "canyons",
+        "seed": 2,
+        "seconds": 473,
+        "outcome": "draw",
+        "teams": {
+          "blue": {
+            "researchRequested": null,
+            "researchCompleted": null,
+            "lancers": 0,
+            "lancerShots": 0,
+            "ascents": 0,
+            "ascentShots": 0,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          },
+          "red": {
+            "researchRequested": null,
+            "researchCompleted": null,
+            "lancers": 0,
+            "lancerShots": 0,
+            "ascents": 0,
+            "ascentShots": 0,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          }
+        }
+      },
+      {
+        "level": "standard",
+        "terrain": "canyons",
+        "seed": 3,
+        "seconds": 720,
+        "outcome": "running",
+        "teams": {
+          "blue": {
+            "researchRequested": null,
+            "researchCompleted": null,
+            "lancers": 0,
+            "lancerShots": 0,
+            "ascents": 0,
+            "ascentShots": 0,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          },
+          "red": {
+            "researchRequested": null,
+            "researchCompleted": null,
+            "lancers": 0,
+            "lancerShots": 0,
+            "ascents": 0,
+            "ascentShots": 0,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          }
+        }
+      },
+      {
+        "level": "standard",
+        "terrain": "canyons",
+        "seed": 4,
+        "seconds": 525.5,
+        "outcome": "draw",
+        "teams": {
+          "blue": {
+            "researchRequested": null,
+            "researchCompleted": null,
+            "lancers": 0,
+            "lancerShots": 0,
+            "ascents": 0,
+            "ascentShots": 0,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          },
+          "red": {
+            "researchRequested": null,
+            "researchCompleted": null,
+            "lancers": 0,
+            "lancerShots": 0,
+            "ascents": 0,
+            "ascentShots": 0,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          }
+        }
+      },
+      {
+        "level": "standard",
+        "terrain": "canyons",
+        "seed": 5,
+        "seconds": 720,
+        "outcome": "running",
+        "teams": {
+          "blue": {
+            "researchRequested": null,
+            "researchCompleted": null,
+            "lancers": 0,
+            "lancerShots": 0,
+            "ascents": 0,
+            "ascentShots": 0,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          },
+          "red": {
+            "researchRequested": null,
+            "researchCompleted": null,
+            "lancers": 0,
+            "lancerShots": 0,
+            "ascents": 0,
+            "ascentShots": 0,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          }
+        }
+      },
+      {
+        "level": "standard",
+        "terrain": "canyons",
+        "seed": 6,
+        "seconds": 470,
+        "outcome": "draw",
+        "teams": {
+          "blue": {
+            "researchRequested": null,
+            "researchCompleted": null,
+            "lancers": 0,
+            "lancerShots": 0,
+            "ascents": 0,
+            "ascentShots": 0,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          },
+          "red": {
+            "researchRequested": null,
+            "researchCompleted": null,
+            "lancers": 0,
+            "lancerShots": 0,
+            "ascents": 0,
+            "ascentShots": 0,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          }
+        }
+      },
+      {
+        "level": "veteran",
+        "terrain": "open",
+        "seed": 1,
+        "seconds": 443,
+        "outcome": "draw",
+        "teams": {
+          "blue": {
+            "researchRequested": null,
+            "researchCompleted": null,
+            "lancers": 0,
+            "lancerShots": 0,
+            "ascents": 0,
+            "ascentShots": 0,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          },
+          "red": {
+            "researchRequested": null,
+            "researchCompleted": null,
+            "lancers": 0,
+            "lancerShots": 0,
+            "ascents": 0,
+            "ascentShots": 0,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          }
+        }
+      },
+      {
+        "level": "veteran",
+        "terrain": "open",
+        "seed": 2,
+        "seconds": 690,
+        "outcome": "draw",
+        "teams": {
+          "blue": {
+            "researchRequested": null,
+            "researchCompleted": null,
+            "lancers": 0,
+            "lancerShots": 0,
+            "ascents": 0,
+            "ascentShots": 0,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          },
+          "red": {
+            "researchRequested": null,
+            "researchCompleted": null,
+            "lancers": 0,
+            "lancerShots": 0,
+            "ascents": 0,
+            "ascentShots": 0,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          }
+        }
+      },
+      {
+        "level": "veteran",
+        "terrain": "open",
+        "seed": 3,
+        "seconds": 720,
+        "outcome": "running",
+        "teams": {
+          "blue": {
+            "researchRequested": null,
+            "researchCompleted": null,
+            "lancers": 0,
+            "lancerShots": 0,
+            "ascents": 0,
+            "ascentShots": 0,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          },
+          "red": {
+            "researchRequested": null,
+            "researchCompleted": null,
+            "lancers": 0,
+            "lancerShots": 0,
+            "ascents": 0,
+            "ascentShots": 0,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          }
+        }
+      },
+      {
+        "level": "veteran",
+        "terrain": "open",
+        "seed": 4,
+        "seconds": 720,
+        "outcome": "running",
+        "teams": {
+          "blue": {
+            "researchRequested": null,
+            "researchCompleted": null,
+            "lancers": 0,
+            "lancerShots": 0,
+            "ascents": 0,
+            "ascentShots": 0,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          },
+          "red": {
+            "researchRequested": null,
+            "researchCompleted": null,
+            "lancers": 0,
+            "lancerShots": 0,
+            "ascents": 0,
+            "ascentShots": 0,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          }
+        }
+      },
+      {
+        "level": "veteran",
+        "terrain": "open",
+        "seed": 5,
+        "seconds": 720,
+        "outcome": "running",
+        "teams": {
+          "blue": {
+            "researchRequested": null,
+            "researchCompleted": null,
+            "lancers": 0,
+            "lancerShots": 0,
+            "ascents": 0,
+            "ascentShots": 0,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          },
+          "red": {
+            "researchRequested": null,
+            "researchCompleted": null,
+            "lancers": 0,
+            "lancerShots": 0,
+            "ascents": 0,
+            "ascentShots": 0,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          }
+        }
+      },
+      {
+        "level": "veteran",
+        "terrain": "open",
+        "seed": 6,
+        "seconds": 720,
+        "outcome": "running",
+        "teams": {
+          "blue": {
+            "researchRequested": null,
+            "researchCompleted": null,
+            "lancers": 0,
+            "lancerShots": 0,
+            "ascents": 0,
+            "ascentShots": 0,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          },
+          "red": {
+            "researchRequested": null,
+            "researchCompleted": null,
+            "lancers": 0,
+            "lancerShots": 0,
+            "ascents": 0,
+            "ascentShots": 0,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          }
+        }
+      },
+      {
+        "level": "veteran",
+        "terrain": "ridges",
+        "seed": 1,
+        "seconds": 720,
+        "outcome": "running",
+        "teams": {
+          "blue": {
+            "researchRequested": null,
+            "researchCompleted": null,
+            "lancers": 0,
+            "lancerShots": 0,
+            "ascents": 0,
+            "ascentShots": 0,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          },
+          "red": {
+            "researchRequested": null,
+            "researchCompleted": null,
+            "lancers": 0,
+            "lancerShots": 0,
+            "ascents": 0,
+            "ascentShots": 0,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          }
+        }
+      },
+      {
+        "level": "veteran",
+        "terrain": "ridges",
+        "seed": 2,
+        "seconds": 720,
+        "outcome": "running",
+        "teams": {
+          "blue": {
+            "researchRequested": null,
+            "researchCompleted": null,
+            "lancers": 0,
+            "lancerShots": 0,
+            "ascents": 0,
+            "ascentShots": 0,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          },
+          "red": {
+            "researchRequested": null,
+            "researchCompleted": null,
+            "lancers": 0,
+            "lancerShots": 0,
+            "ascents": 0,
+            "ascentShots": 0,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          }
+        }
+      },
+      {
+        "level": "veteran",
+        "terrain": "ridges",
+        "seed": 3,
+        "seconds": 651.5,
+        "outcome": "loss",
+        "teams": {
+          "blue": {
+            "researchRequested": null,
+            "researchCompleted": null,
+            "lancers": 0,
+            "lancerShots": 0,
+            "ascents": 0,
+            "ascentShots": 0,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          },
+          "red": {
+            "researchRequested": null,
+            "researchCompleted": null,
+            "lancers": 0,
+            "lancerShots": 0,
+            "ascents": 0,
+            "ascentShots": 0,
+            "bombers": 1,
+            "bomberShots": 4,
+            "orbitDamage": 0
+          }
+        }
+      },
+      {
+        "level": "veteran",
+        "terrain": "ridges",
+        "seed": 4,
+        "seconds": 572.5,
+        "outcome": "draw",
+        "teams": {
+          "blue": {
+            "researchRequested": null,
+            "researchCompleted": null,
+            "lancers": 0,
+            "lancerShots": 0,
+            "ascents": 0,
+            "ascentShots": 0,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          },
+          "red": {
+            "researchRequested": null,
+            "researchCompleted": null,
+            "lancers": 0,
+            "lancerShots": 0,
+            "ascents": 0,
+            "ascentShots": 0,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          }
+        }
+      },
+      {
+        "level": "veteran",
+        "terrain": "ridges",
+        "seed": 5,
+        "seconds": 720,
+        "outcome": "running",
+        "teams": {
+          "blue": {
+            "researchRequested": null,
+            "researchCompleted": null,
+            "lancers": 0,
+            "lancerShots": 0,
+            "ascents": 0,
+            "ascentShots": 0,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          },
+          "red": {
+            "researchRequested": null,
+            "researchCompleted": null,
+            "lancers": 0,
+            "lancerShots": 0,
+            "ascents": 0,
+            "ascentShots": 0,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          }
+        }
+      },
+      {
+        "level": "veteran",
+        "terrain": "ridges",
+        "seed": 6,
+        "seconds": 626,
+        "outcome": "draw",
+        "teams": {
+          "blue": {
+            "researchRequested": null,
+            "researchCompleted": null,
+            "lancers": 0,
+            "lancerShots": 0,
+            "ascents": 0,
+            "ascentShots": 0,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          },
+          "red": {
+            "researchRequested": null,
+            "researchCompleted": null,
+            "lancers": 0,
+            "lancerShots": 0,
+            "ascents": 0,
+            "ascentShots": 0,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          }
+        }
+      },
+      {
+        "level": "veteran",
+        "terrain": "canyons",
+        "seed": 1,
+        "seconds": 720,
+        "outcome": "running",
+        "teams": {
+          "blue": {
+            "researchRequested": null,
+            "researchCompleted": null,
+            "lancers": 0,
+            "lancerShots": 0,
+            "ascents": 0,
+            "ascentShots": 0,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          },
+          "red": {
+            "researchRequested": null,
+            "researchCompleted": null,
+            "lancers": 0,
+            "lancerShots": 0,
+            "ascents": 0,
+            "ascentShots": 0,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          }
+        }
+      },
+      {
+        "level": "veteran",
+        "terrain": "canyons",
+        "seed": 2,
+        "seconds": 720,
+        "outcome": "running",
+        "teams": {
+          "blue": {
+            "researchRequested": null,
+            "researchCompleted": null,
+            "lancers": 0,
+            "lancerShots": 0,
+            "ascents": 0,
+            "ascentShots": 0,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          },
+          "red": {
+            "researchRequested": null,
+            "researchCompleted": null,
+            "lancers": 0,
+            "lancerShots": 0,
+            "ascents": 0,
+            "ascentShots": 0,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          }
+        }
+      },
+      {
+        "level": "veteran",
+        "terrain": "canyons",
+        "seed": 3,
+        "seconds": 657,
+        "outcome": "draw",
+        "teams": {
+          "blue": {
+            "researchRequested": null,
+            "researchCompleted": null,
+            "lancers": 0,
+            "lancerShots": 0,
+            "ascents": 0,
+            "ascentShots": 0,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          },
+          "red": {
+            "researchRequested": null,
+            "researchCompleted": null,
+            "lancers": 0,
+            "lancerShots": 0,
+            "ascents": 0,
+            "ascentShots": 0,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          }
+        }
+      },
+      {
+        "level": "veteran",
+        "terrain": "canyons",
+        "seed": 4,
+        "seconds": 603.5,
+        "outcome": "draw",
+        "teams": {
+          "blue": {
+            "researchRequested": null,
+            "researchCompleted": null,
+            "lancers": 0,
+            "lancerShots": 0,
+            "ascents": 0,
+            "ascentShots": 0,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          },
+          "red": {
+            "researchRequested": null,
+            "researchCompleted": null,
+            "lancers": 0,
+            "lancerShots": 0,
+            "ascents": 0,
+            "ascentShots": 0,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          }
+        }
+      },
+      {
+        "level": "veteran",
+        "terrain": "canyons",
+        "seed": 5,
+        "seconds": 687,
+        "outcome": "draw",
+        "teams": {
+          "blue": {
+            "researchRequested": null,
+            "researchCompleted": null,
+            "lancers": 0,
+            "lancerShots": 0,
+            "ascents": 0,
+            "ascentShots": 0,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          },
+          "red": {
+            "researchRequested": null,
+            "researchCompleted": null,
+            "lancers": 0,
+            "lancerShots": 0,
+            "ascents": 0,
+            "ascentShots": 0,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          }
+        }
+      },
+      {
+        "level": "veteran",
+        "terrain": "canyons",
+        "seed": 6,
+        "seconds": 706.5,
+        "outcome": "draw",
+        "teams": {
+          "blue": {
+            "researchRequested": null,
+            "researchCompleted": null,
+            "lancers": 0,
+            "lancerShots": 0,
+            "ascents": 0,
+            "ascentShots": 0,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          },
+          "red": {
+            "researchRequested": null,
+            "researchCompleted": null,
+            "lancers": 0,
+            "lancerShots": 0,
+            "ascents": 0,
+            "ascentShots": 0,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          }
+        }
+      }
+    ]
+  },
+  "candidate": {
+    "root": ".",
+    "seconds": 720,
+    "seeds": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "summary": [
+      {
+        "level": "standard",
+        "terrain": "open",
+        "matches": 6,
+        "blueWins": 0,
+        "redWins": 0,
+        "draws": 1,
+        "capped": 5,
+        "researchCompleted": 12,
+        "researchMedianSeconds": 111,
+        "lancers": 14,
+        "lancerShots": 378,
+        "ascents": 163,
+        "ascentShots": 2553,
+        "bombers": 2,
+        "bomberShots": 6,
+        "blueOrbitDamage": 6073,
+        "redOrbitDamage": 6883
+      },
+      {
+        "level": "standard",
+        "terrain": "ridges",
+        "matches": 6,
+        "blueWins": 1,
+        "redWins": 0,
+        "draws": 0,
+        "capped": 5,
+        "researchCompleted": 12,
+        "researchMedianSeconds": 116.5,
+        "lancers": 13,
+        "lancerShots": 154,
+        "ascents": 155,
+        "ascentShots": 2610,
+        "bombers": 6,
+        "bomberShots": 24,
+        "blueOrbitDamage": 5704,
+        "redOrbitDamage": 3204
+      },
+      {
+        "level": "standard",
+        "terrain": "canyons",
+        "matches": 6,
+        "blueWins": 0,
+        "redWins": 0,
+        "draws": 0,
+        "capped": 6,
+        "researchCompleted": 12,
+        "researchMedianSeconds": 119.5,
+        "lancers": 14,
+        "lancerShots": 212,
+        "ascents": 127,
+        "ascentShots": 2270,
+        "bombers": 2,
+        "bomberShots": 4,
+        "blueOrbitDamage": 3366,
+        "redOrbitDamage": 3222
+      },
+      {
+        "level": "veteran",
+        "terrain": "open",
+        "matches": 6,
+        "blueWins": 0,
+        "redWins": 0,
+        "draws": 1,
+        "capped": 5,
+        "researchCompleted": 12,
+        "researchMedianSeconds": 150.5,
+        "lancers": 12,
+        "lancerShots": 144,
+        "ascents": 30,
+        "ascentShots": 358,
+        "bombers": 0,
+        "bomberShots": 0,
+        "blueOrbitDamage": 180,
+        "redOrbitDamage": 180
+      },
+      {
+        "level": "veteran",
+        "terrain": "ridges",
+        "matches": 6,
+        "blueWins": 0,
+        "redWins": 0,
+        "draws": 0,
+        "capped": 6,
+        "researchCompleted": 12,
+        "researchMedianSeconds": 161.5,
+        "lancers": 12,
+        "lancerShots": 144,
+        "ascents": 42,
+        "ascentShots": 686,
+        "bombers": 0,
+        "bomberShots": 0,
+        "blueOrbitDamage": 1161,
+        "redOrbitDamage": 1161
+      },
+      {
+        "level": "veteran",
+        "terrain": "canyons",
+        "matches": 6,
+        "blueWins": 0,
+        "redWins": 0,
+        "draws": 1,
+        "capped": 5,
+        "researchCompleted": 12,
+        "researchMedianSeconds": 146.5,
+        "lancers": 12,
+        "lancerShots": 170,
+        "ascents": 32,
+        "ascentShots": 476,
+        "bombers": 0,
+        "bomberShots": 0,
+        "blueOrbitDamage": 207,
+        "redOrbitDamage": 207
+      }
+    ],
+    "rows": [
+      {
+        "level": "standard",
+        "terrain": "open",
+        "seed": 1,
+        "seconds": 720,
+        "outcome": "running",
+        "teams": {
+          "blue": {
+            "researchRequested": 52.5,
+            "researchCompleted": 110,
+            "lancers": 2,
+            "lancerShots": 121,
+            "ascents": 12,
+            "ascentShots": 165,
+            "bombers": 1,
+            "bomberShots": 3,
+            "orbitDamage": 2500
+          },
+          "red": {
+            "researchRequested": 52.5,
+            "researchCompleted": 110,
+            "lancers": 2,
+            "lancerShots": 121,
+            "ascents": 12,
+            "ascentShots": 165,
+            "bombers": 1,
+            "bomberShots": 3,
+            "orbitDamage": 2500
+          }
+        }
+      },
+      {
+        "level": "standard",
+        "terrain": "open",
+        "seed": 2,
+        "seconds": 720,
+        "outcome": "running",
+        "teams": {
+          "blue": {
+            "researchRequested": 54,
+            "researchCompleted": 102,
+            "lancers": 1,
+            "lancerShots": 14,
+            "ascents": 20,
+            "ascentShots": 299,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 1260
+          },
+          "red": {
+            "researchRequested": 54,
+            "researchCompleted": 102,
+            "lancers": 1,
+            "lancerShots": 14,
+            "ascents": 20,
+            "ascentShots": 299,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 1260
+          }
+        }
+      },
+      {
+        "level": "standard",
+        "terrain": "open",
+        "seed": 3,
+        "seconds": 593,
+        "outcome": "draw",
+        "teams": {
+          "blue": {
+            "researchRequested": 54,
+            "researchCompleted": 102,
+            "lancers": 1,
+            "lancerShots": 15,
+            "ascents": 2,
+            "ascentShots": 42,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 9
+          },
+          "red": {
+            "researchRequested": 54,
+            "researchCompleted": 102,
+            "lancers": 1,
+            "lancerShots": 15,
+            "ascents": 2,
+            "ascentShots": 42,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 9
+          }
+        }
+      },
+      {
+        "level": "standard",
+        "terrain": "open",
+        "seed": 4,
+        "seconds": 720,
+        "outcome": "running",
+        "teams": {
+          "blue": {
+            "researchRequested": 63,
+            "researchCompleted": 112,
+            "lancers": 1,
+            "lancerShots": 15,
+            "ascents": 17,
+            "ascentShots": 255,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 864
+          },
+          "red": {
+            "researchRequested": 63,
+            "researchCompleted": 112,
+            "lancers": 1,
+            "lancerShots": 15,
+            "ascents": 17,
+            "ascentShots": 255,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 864
+          }
+        }
+      },
+      {
+        "level": "standard",
+        "terrain": "open",
+        "seed": 5,
+        "seconds": 720,
+        "outcome": "running",
+        "teams": {
+          "blue": {
+            "researchRequested": 72,
+            "researchCompleted": 139,
+            "lancers": 1,
+            "lancerShots": 15,
+            "ascents": 16,
+            "ascentShots": 259,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 567
+          },
+          "red": {
+            "researchRequested": 72,
+            "researchCompleted": 139,
+            "lancers": 1,
+            "lancerShots": 15,
+            "ascents": 16,
+            "ascentShots": 259,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 567
+          }
+        }
+      },
+      {
+        "level": "standard",
+        "terrain": "open",
+        "seed": 6,
+        "seconds": 720,
+        "outcome": "running",
+        "teams": {
+          "blue": {
+            "researchRequested": 64.5,
+            "researchCompleted": 136,
+            "lancers": 1,
+            "lancerShots": 9,
+            "ascents": 12,
+            "ascentShots": 185,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 873
+          },
+          "red": {
+            "researchRequested": 64.5,
+            "researchCompleted": 136,
+            "lancers": 1,
+            "lancerShots": 9,
+            "ascents": 17,
+            "ascentShots": 328,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 1683
+          }
+        }
+      },
+      {
+        "level": "standard",
+        "terrain": "ridges",
+        "seed": 1,
+        "seconds": 720,
+        "outcome": "running",
+        "teams": {
+          "blue": {
+            "researchRequested": 55.5,
+            "researchCompleted": 110,
+            "lancers": 1,
+            "lancerShots": 9,
+            "ascents": 18,
+            "ascentShots": 289,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 945
+          },
+          "red": {
+            "researchRequested": 55.5,
+            "researchCompleted": 110,
+            "lancers": 1,
+            "lancerShots": 9,
+            "ascents": 18,
+            "ascentShots": 289,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 945
+          }
+        }
+      },
+      {
+        "level": "standard",
+        "terrain": "ridges",
+        "seed": 2,
+        "seconds": 720,
+        "outcome": "running",
+        "teams": {
+          "blue": {
+            "researchRequested": 57,
+            "researchCompleted": 102,
+            "lancers": 1,
+            "lancerShots": 14,
+            "ascents": 10,
+            "ascentShots": 189,
+            "bombers": 1,
+            "bomberShots": 0,
+            "orbitDamage": 387
+          },
+          "red": {
+            "researchRequested": 57,
+            "researchCompleted": 102,
+            "lancers": 1,
+            "lancerShots": 14,
+            "ascents": 10,
+            "ascentShots": 189,
+            "bombers": 1,
+            "bomberShots": 0,
+            "orbitDamage": 387
+          }
+        }
+      },
+      {
+        "level": "standard",
+        "terrain": "ridges",
+        "seed": 3,
+        "seconds": 720,
+        "outcome": "running",
+        "teams": {
+          "blue": {
+            "researchRequested": 54,
+            "researchCompleted": 102,
+            "lancers": 1,
+            "lancerShots": 15,
+            "ascents": 22,
+            "ascentShots": 335,
+            "bombers": 1,
+            "bomberShots": 7,
+            "orbitDamage": 1089
+          },
+          "red": {
+            "researchRequested": 54,
+            "researchCompleted": 102,
+            "lancers": 1,
+            "lancerShots": 15,
+            "ascents": 22,
+            "ascentShots": 335,
+            "bombers": 1,
+            "bomberShots": 7,
+            "orbitDamage": 1089
+          }
+        }
+      },
+      {
+        "level": "standard",
+        "terrain": "ridges",
+        "seed": 4,
+        "seconds": 720,
+        "outcome": "running",
+        "teams": {
+          "blue": {
+            "researchRequested": 78,
+            "researchCompleted": 157,
+            "lancers": 1,
+            "lancerShots": 15,
+            "ascents": 8,
+            "ascentShots": 162,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 630
+          },
+          "red": {
+            "researchRequested": 78,
+            "researchCompleted": 157,
+            "lancers": 1,
+            "lancerShots": 15,
+            "ascents": 8,
+            "ascentShots": 162,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 630
+          }
+        }
+      },
+      {
+        "level": "standard",
+        "terrain": "ridges",
+        "seed": 5,
+        "seconds": 450.5,
+        "outcome": "win",
+        "teams": {
+          "blue": {
+            "researchRequested": 63,
+            "researchCompleted": 123,
+            "lancers": 2,
+            "lancerShots": 15,
+            "ascents": 22,
+            "ascentShots": 394,
+            "bombers": 2,
+            "bomberShots": 10,
+            "orbitDamage": 2500
+          },
+          "red": {
+            "researchRequested": 63,
+            "researchCompleted": 123,
+            "lancers": 1,
+            "lancerShots": 15,
+            "ascents": 3,
+            "ascentShots": 24,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          }
+        }
+      },
+      {
+        "level": "standard",
+        "terrain": "ridges",
+        "seed": 6,
+        "seconds": 720,
+        "outcome": "running",
+        "teams": {
+          "blue": {
+            "researchRequested": 60,
+            "researchCompleted": 129,
+            "lancers": 1,
+            "lancerShots": 9,
+            "ascents": 7,
+            "ascentShots": 121,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 153
+          },
+          "red": {
+            "researchRequested": 60,
+            "researchCompleted": 129,
+            "lancers": 1,
+            "lancerShots": 9,
+            "ascents": 7,
+            "ascentShots": 121,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 153
+          }
+        }
+      },
+      {
+        "level": "standard",
+        "terrain": "canyons",
+        "seed": 1,
+        "seconds": 720,
+        "outcome": "running",
+        "teams": {
+          "blue": {
+            "researchRequested": 55.5,
+            "researchCompleted": 118,
+            "lancers": 1,
+            "lancerShots": 15,
+            "ascents": 15,
+            "ascentShots": 276,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 936
+          },
+          "red": {
+            "researchRequested": 55.5,
+            "researchCompleted": 118,
+            "lancers": 1,
+            "lancerShots": 15,
+            "ascents": 15,
+            "ascentShots": 276,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 936
+          }
+        }
+      },
+      {
+        "level": "standard",
+        "terrain": "canyons",
+        "seed": 2,
+        "seconds": 720,
+        "outcome": "running",
+        "teams": {
+          "blue": {
+            "researchRequested": 60,
+            "researchCompleted": 102,
+            "lancers": 1,
+            "lancerShots": 14,
+            "ascents": 9,
+            "ascentShots": 115,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 180
+          },
+          "red": {
+            "researchRequested": 60,
+            "researchCompleted": 102,
+            "lancers": 1,
+            "lancerShots": 14,
+            "ascents": 9,
+            "ascentShots": 115,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 180
+          }
+        }
+      },
+      {
+        "level": "standard",
+        "terrain": "canyons",
+        "seed": 3,
+        "seconds": 720,
+        "outcome": "running",
+        "teams": {
+          "blue": {
+            "researchRequested": 52.5,
+            "researchCompleted": 102,
+            "lancers": 1,
+            "lancerShots": 15,
+            "ascents": 10,
+            "ascentShots": 201,
+            "bombers": 1,
+            "bomberShots": 2,
+            "orbitDamage": 765
+          },
+          "red": {
+            "researchRequested": 52.5,
+            "researchCompleted": 102,
+            "lancers": 1,
+            "lancerShots": 15,
+            "ascents": 10,
+            "ascentShots": 201,
+            "bombers": 1,
+            "bomberShots": 2,
+            "orbitDamage": 765
+          }
+        }
+      },
+      {
+        "level": "standard",
+        "terrain": "canyons",
+        "seed": 4,
+        "seconds": 720,
+        "outcome": "running",
+        "teams": {
+          "blue": {
+            "researchRequested": 72,
+            "researchCompleted": 121,
+            "lancers": 2,
+            "lancerShots": 38,
+            "ascents": 9,
+            "ascentShots": 197,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 468
+          },
+          "red": {
+            "researchRequested": 72,
+            "researchCompleted": 121,
+            "lancers": 2,
+            "lancerShots": 38,
+            "ascents": 9,
+            "ascentShots": 197,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 468
+          }
+        }
+      },
+      {
+        "level": "standard",
+        "terrain": "canyons",
+        "seed": 5,
+        "seconds": 720,
+        "outcome": "running",
+        "teams": {
+          "blue": {
+            "researchRequested": 64.5,
+            "researchCompleted": 141,
+            "lancers": 1,
+            "lancerShots": 15,
+            "ascents": 4,
+            "ascentShots": 90,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 144
+          },
+          "red": {
+            "researchRequested": 64.5,
+            "researchCompleted": 141,
+            "lancers": 1,
+            "lancerShots": 15,
+            "ascents": 1,
+            "ascentShots": 26,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          }
+        }
+      },
+      {
+        "level": "standard",
+        "terrain": "canyons",
+        "seed": 6,
+        "seconds": 720,
+        "outcome": "running",
+        "teams": {
+          "blue": {
+            "researchRequested": 69,
+            "researchCompleted": 129,
+            "lancers": 1,
+            "lancerShots": 9,
+            "ascents": 18,
+            "ascentShots": 288,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 873
+          },
+          "red": {
+            "researchRequested": 69,
+            "researchCompleted": 129,
+            "lancers": 1,
+            "lancerShots": 9,
+            "ascents": 18,
+            "ascentShots": 288,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 873
+          }
+        }
+      },
+      {
+        "level": "veteran",
+        "terrain": "open",
+        "seed": 1,
+        "seconds": 720,
+        "outcome": "running",
+        "teams": {
+          "blue": {
+            "researchRequested": 69,
+            "researchCompleted": 183,
+            "lancers": 1,
+            "lancerShots": 9,
+            "ascents": 3,
+            "ascentShots": 46,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          },
+          "red": {
+            "researchRequested": 69,
+            "researchCompleted": 183,
+            "lancers": 1,
+            "lancerShots": 9,
+            "ascents": 3,
+            "ascentShots": 46,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          }
+        }
+      },
+      {
+        "level": "veteran",
+        "terrain": "open",
+        "seed": 2,
+        "seconds": 711.5,
+        "outcome": "draw",
+        "teams": {
+          "blue": {
+            "researchRequested": 109,
+            "researchCompleted": 149,
+            "lancers": 1,
+            "lancerShots": 9,
+            "ascents": 2,
+            "ascentShots": 7,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          },
+          "red": {
+            "researchRequested": 109,
+            "researchCompleted": 149,
+            "lancers": 1,
+            "lancerShots": 9,
+            "ascents": 2,
+            "ascentShots": 7,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          }
+        }
+      },
+      {
+        "level": "veteran",
+        "terrain": "open",
+        "seed": 3,
+        "seconds": 720,
+        "outcome": "running",
+        "teams": {
+          "blue": {
+            "researchRequested": 68,
+            "researchCompleted": 120,
+            "lancers": 1,
+            "lancerShots": 9,
+            "ascents": 5,
+            "ascentShots": 60,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 135
+          },
+          "red": {
+            "researchRequested": 68,
+            "researchCompleted": 120,
+            "lancers": 1,
+            "lancerShots": 9,
+            "ascents": 5,
+            "ascentShots": 60,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 135
+          }
+        }
+      },
+      {
+        "level": "veteran",
+        "terrain": "open",
+        "seed": 4,
+        "seconds": 720,
+        "outcome": "running",
+        "teams": {
+          "blue": {
+            "researchRequested": 110,
+            "researchCompleted": 152,
+            "lancers": 1,
+            "lancerShots": 15,
+            "ascents": 4,
+            "ascentShots": 48,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 45
+          },
+          "red": {
+            "researchRequested": 110,
+            "researchCompleted": 152,
+            "lancers": 1,
+            "lancerShots": 15,
+            "ascents": 4,
+            "ascentShots": 48,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 45
+          }
+        }
+      },
+      {
+        "level": "veteran",
+        "terrain": "open",
+        "seed": 5,
+        "seconds": 720,
+        "outcome": "running",
+        "teams": {
+          "blue": {
+            "researchRequested": 70,
+            "researchCompleted": 117,
+            "lancers": 1,
+            "lancerShots": 15,
+            "ascents": 1,
+            "ascentShots": 18,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          },
+          "red": {
+            "researchRequested": 70,
+            "researchCompleted": 117,
+            "lancers": 1,
+            "lancerShots": 15,
+            "ascents": 1,
+            "ascentShots": 18,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          }
+        }
+      },
+      {
+        "level": "veteran",
+        "terrain": "open",
+        "seed": 6,
+        "seconds": 720,
+        "outcome": "running",
+        "teams": {
+          "blue": {
+            "researchRequested": 86.5,
+            "researchCompleted": 161,
+            "lancers": 1,
+            "lancerShots": 15,
+            "ascents": 0,
+            "ascentShots": 0,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          },
+          "red": {
+            "researchRequested": 86.5,
+            "researchCompleted": 161,
+            "lancers": 1,
+            "lancerShots": 15,
+            "ascents": 0,
+            "ascentShots": 0,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          }
+        }
+      },
+      {
+        "level": "veteran",
+        "terrain": "ridges",
+        "seed": 1,
+        "seconds": 720,
+        "outcome": "running",
+        "teams": {
+          "blue": {
+            "researchRequested": 74,
+            "researchCompleted": 227,
+            "lancers": 1,
+            "lancerShots": 9,
+            "ascents": 6,
+            "ascentShots": 104,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 216
+          },
+          "red": {
+            "researchRequested": 74,
+            "researchCompleted": 227,
+            "lancers": 1,
+            "lancerShots": 9,
+            "ascents": 6,
+            "ascentShots": 104,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 216
+          }
+        }
+      },
+      {
+        "level": "veteran",
+        "terrain": "ridges",
+        "seed": 2,
+        "seconds": 720,
+        "outcome": "running",
+        "teams": {
+          "blue": {
+            "researchRequested": 110.5,
+            "researchCompleted": 151,
+            "lancers": 1,
+            "lancerShots": 9,
+            "ascents": 7,
+            "ascentShots": 140,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 819
+          },
+          "red": {
+            "researchRequested": 110.5,
+            "researchCompleted": 151,
+            "lancers": 1,
+            "lancerShots": 9,
+            "ascents": 7,
+            "ascentShots": 140,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 819
+          }
+        }
+      },
+      {
+        "level": "veteran",
+        "terrain": "ridges",
+        "seed": 3,
+        "seconds": 720,
+        "outcome": "running",
+        "teams": {
+          "blue": {
+            "researchRequested": 83,
+            "researchCompleted": 384,
+            "lancers": 1,
+            "lancerShots": 9,
+            "ascents": 0,
+            "ascentShots": 0,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          },
+          "red": {
+            "researchRequested": 83,
+            "researchCompleted": 384,
+            "lancers": 1,
+            "lancerShots": 9,
+            "ascents": 0,
+            "ascentShots": 0,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          }
+        }
+      },
+      {
+        "level": "veteran",
+        "terrain": "ridges",
+        "seed": 4,
+        "seconds": 720,
+        "outcome": "running",
+        "teams": {
+          "blue": {
+            "researchRequested": 114.5,
+            "researchCompleted": 172,
+            "lancers": 1,
+            "lancerShots": 15,
+            "ascents": 0,
+            "ascentShots": 0,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          },
+          "red": {
+            "researchRequested": 114.5,
+            "researchCompleted": 172,
+            "lancers": 1,
+            "lancerShots": 15,
+            "ascents": 0,
+            "ascentShots": 0,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          }
+        }
+      },
+      {
+        "level": "veteran",
+        "terrain": "ridges",
+        "seed": 5,
+        "seconds": 720,
+        "outcome": "running",
+        "teams": {
+          "blue": {
+            "researchRequested": 68.5,
+            "researchCompleted": 117,
+            "lancers": 1,
+            "lancerShots": 15,
+            "ascents": 4,
+            "ascentShots": 32,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          },
+          "red": {
+            "researchRequested": 68.5,
+            "researchCompleted": 117,
+            "lancers": 1,
+            "lancerShots": 15,
+            "ascents": 4,
+            "ascentShots": 32,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          }
+        }
+      },
+      {
+        "level": "veteran",
+        "terrain": "ridges",
+        "seed": 6,
+        "seconds": 720,
+        "outcome": "running",
+        "teams": {
+          "blue": {
+            "researchRequested": 89.5,
+            "researchCompleted": 136,
+            "lancers": 1,
+            "lancerShots": 15,
+            "ascents": 4,
+            "ascentShots": 67,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 126
+          },
+          "red": {
+            "researchRequested": 89.5,
+            "researchCompleted": 136,
+            "lancers": 1,
+            "lancerShots": 15,
+            "ascents": 4,
+            "ascentShots": 67,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 126
+          }
+        }
+      },
+      {
+        "level": "veteran",
+        "terrain": "canyons",
+        "seed": 1,
+        "seconds": 720,
+        "outcome": "running",
+        "teams": {
+          "blue": {
+            "researchRequested": 75,
+            "researchCompleted": 162,
+            "lancers": 1,
+            "lancerShots": 13,
+            "ascents": 2,
+            "ascentShots": 44,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          },
+          "red": {
+            "researchRequested": 75,
+            "researchCompleted": 162,
+            "lancers": 1,
+            "lancerShots": 13,
+            "ascents": 2,
+            "ascentShots": 44,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          }
+        }
+      },
+      {
+        "level": "veteran",
+        "terrain": "canyons",
+        "seed": 2,
+        "seconds": 720,
+        "outcome": "running",
+        "teams": {
+          "blue": {
+            "researchRequested": 114,
+            "researchCompleted": 154,
+            "lancers": 1,
+            "lancerShots": 12,
+            "ascents": 4,
+            "ascentShots": 50,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          },
+          "red": {
+            "researchRequested": 114,
+            "researchCompleted": 154,
+            "lancers": 1,
+            "lancerShots": 12,
+            "ascents": 4,
+            "ascentShots": 50,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          }
+        }
+      },
+      {
+        "level": "veteran",
+        "terrain": "canyons",
+        "seed": 3,
+        "seconds": 585,
+        "outcome": "draw",
+        "teams": {
+          "blue": {
+            "researchRequested": 96.5,
+            "researchCompleted": 139,
+            "lancers": 1,
+            "lancerShots": 15,
+            "ascents": 4,
+            "ascentShots": 70,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          },
+          "red": {
+            "researchRequested": 96.5,
+            "researchCompleted": 139,
+            "lancers": 1,
+            "lancerShots": 15,
+            "ascents": 4,
+            "ascentShots": 70,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          }
+        }
+      },
+      {
+        "level": "veteran",
+        "terrain": "canyons",
+        "seed": 4,
+        "seconds": 720,
+        "outcome": "running",
+        "teams": {
+          "blue": {
+            "researchRequested": 166,
+            "researchCompleted": 223,
+            "lancers": 1,
+            "lancerShots": 15,
+            "ascents": 2,
+            "ascentShots": 10,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          },
+          "red": {
+            "researchRequested": 166,
+            "researchCompleted": 223,
+            "lancers": 1,
+            "lancerShots": 15,
+            "ascents": 2,
+            "ascentShots": 10,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          }
+        }
+      },
+      {
+        "level": "veteran",
+        "terrain": "canyons",
+        "seed": 5,
+        "seconds": 720,
+        "outcome": "running",
+        "teams": {
+          "blue": {
+            "researchRequested": 69.5,
+            "researchCompleted": 117,
+            "lancers": 1,
+            "lancerShots": 15,
+            "ascents": 3,
+            "ascentShots": 61,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 207
+          },
+          "red": {
+            "researchRequested": 69.5,
+            "researchCompleted": 117,
+            "lancers": 1,
+            "lancerShots": 15,
+            "ascents": 3,
+            "ascentShots": 61,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 207
+          }
+        }
+      },
+      {
+        "level": "veteran",
+        "terrain": "canyons",
+        "seed": 6,
+        "seconds": 720,
+        "outcome": "running",
+        "teams": {
+          "blue": {
+            "researchRequested": 72.5,
+            "researchCompleted": 128,
+            "lancers": 1,
+            "lancerShots": 15,
+            "ascents": 1,
+            "ascentShots": 3,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          },
+          "red": {
+            "researchRequested": 72.5,
+            "researchCompleted": 128,
+            "lancers": 1,
+            "lancerShots": 15,
+            "ascents": 1,
+            "ascentShots": 3,
+            "bombers": 0,
+            "bomberShots": 0,
+            "orbitDamage": 0
+          }
+        }
+      }
+    ]
+  },
+  "totals": {
+    "baseline": {
+      "blueWins": 2,
+      "redWins": 5,
+      "draws": 11,
+      "capped": 18,
+      "researchCompleted": 0,
+      "lancers": 0,
+      "lancerShots": 0,
+      "ascents": 0,
+      "ascentShots": 0,
+      "bombers": 1,
+      "bomberShots": 4,
+      "blueOrbitDamage": 0,
+      "redOrbitDamage": 0
+    },
+    "candidate": {
+      "blueWins": 1,
+      "redWins": 0,
+      "draws": 3,
+      "capped": 32,
+      "researchCompleted": 72,
+      "lancers": 77,
+      "lancerShots": 1202,
+      "ascents": 549,
+      "ascentShots": 8953,
+      "bombers": 10,
+      "bomberShots": 34,
+      "blueOrbitDamage": 16691,
+      "redOrbitDamage": 14857
+    }
+  },
+  "finding": "The initial candidate completed no research: two-live-bomber and spare-funds gates starved it. The final candidate prioritizes a shared-queue research reservation after a baseline screen holds an island.",
+  "initialCandidateSummary": [
+    {
+      "level": "standard",
+      "terrain": "open",
+      "matches": 6,
+      "blueWins": 0,
+      "redWins": 0,
+      "draws": 0,
+      "capped": 6,
+      "researchCompleted": 0,
+      "researchMedianSeconds": null,
+      "lancers": 26,
+      "lancerShots": 458,
+      "ascents": 0,
+      "ascentShots": 0,
+      "bombers": 40,
+      "bomberShots": 102,
+      "blueOrbitDamage": 0,
+      "redOrbitDamage": 0
+    },
+    {
+      "level": "standard",
+      "terrain": "ridges",
+      "matches": 6,
+      "blueWins": 0,
+      "redWins": 0,
+      "draws": 0,
+      "capped": 6,
+      "researchCompleted": 0,
+      "researchMedianSeconds": null,
+      "lancers": 28,
+      "lancerShots": 684,
+      "ascents": 0,
+      "ascentShots": 0,
+      "bombers": 61,
+      "bomberShots": 186,
+      "blueOrbitDamage": 2500,
+      "redOrbitDamage": 2500
+    },
+    {
+      "level": "standard",
+      "terrain": "canyons",
+      "matches": 6,
+      "blueWins": 0,
+      "redWins": 0,
+      "draws": 1,
+      "capped": 5,
+      "researchCompleted": 0,
+      "researchMedianSeconds": null,
+      "lancers": 32,
+      "lancerShots": 818,
+      "ascents": 0,
+      "ascentShots": 0,
+      "bombers": 52,
+      "bomberShots": 210,
+      "blueOrbitDamage": 2500,
+      "redOrbitDamage": 2500
+    },
+    {
+      "level": "veteran",
+      "terrain": "open",
+      "matches": 6,
+      "blueWins": 0,
+      "redWins": 0,
+      "draws": 3,
+      "capped": 3,
+      "researchCompleted": 0,
+      "researchMedianSeconds": null,
+      "lancers": 12,
+      "lancerShots": 144,
+      "ascents": 0,
+      "ascentShots": 0,
+      "bombers": 0,
+      "bomberShots": 0,
+      "blueOrbitDamage": 0,
+      "redOrbitDamage": 0
+    },
+    {
+      "level": "veteran",
+      "terrain": "ridges",
+      "matches": 6,
+      "blueWins": 0,
+      "redWins": 0,
+      "draws": 1,
+      "capped": 5,
+      "researchCompleted": 0,
+      "researchMedianSeconds": null,
+      "lancers": 12,
+      "lancerShots": 144,
+      "ascents": 0,
+      "ascentShots": 0,
+      "bombers": 0,
+      "bomberShots": 0,
+      "blueOrbitDamage": 0,
+      "redOrbitDamage": 0
+    },
+    {
+      "level": "veteran",
+      "terrain": "canyons",
+      "matches": 6,
+      "blueWins": 0,
+      "redWins": 1,
+      "draws": 1,
+      "capped": 4,
+      "researchCompleted": 0,
+      "researchMedianSeconds": null,
+      "lancers": 12,
+      "lancerShots": 170,
+      "ascents": 0,
+      "ascentShots": 0,
+      "bombers": 2,
+      "bomberShots": 6,
+      "blueOrbitDamage": 0,
+      "redOrbitDamage": 0
+    }
+  ],
+  "integrationNote": "Controlled comparison predates the subsequent Designations master merge; final integration checks are reported separately."
+}
