@@ -1,0 +1,1060 @@
+/* Observer caster surface: the game HUD's dark translucent sheets (style.css .obs faces) around a clear battlefield.
+   Grid tracks reserve the scoreboard, the series strip, two side columns and the dock; the middle stays the camera's. */
+.obs {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: grid;
+  grid-template-columns: clamp(220px, 19vw, 300px) minmax(0, 1fr) clamp(236px, 21vw, 330px);
+  grid-template-rows: auto auto minmax(0, 1fr) auto;
+  grid-template-areas: 'board board board' 'series series series' 'left . right' 'dock dock dock';
+  gap: 8px;
+  padding: 8px 10px 10px;
+  pointer-events: none;
+}
+.obs > * {
+  pointer-events: auto;
+}
+.obs [hidden] {
+  display: none !important;
+}
+.obs :focus-visible {
+  outline: 2px solid var(--brand-gold);
+  outline-offset: 2px;
+}
+.obs-face {
+  color: var(--ink);
+  border: 1px solid var(--rule);
+  border-radius: var(--wobble);
+  box-shadow: var(--sheet-shadow);
+}
+.obs-swatch {
+  display: inline-block;
+  flex: none;
+  width: 10px;
+  height: 10px;
+  border: 1px solid var(--chrome-black);
+  border-radius: 2px;
+  background: var(--side-ink);
+}
+.obs [aria-pressed='true'],
+.obs [aria-checked='true'],
+.obs [aria-selected='true'] {
+  background: var(--paper-on);
+  box-shadow: var(--on-ring);
+}
+
+/* ------------------------------------------------------------------ scoreboard */
+.obs-board {
+  grid-area: board;
+  justify-self: center;
+  max-width: 100%;
+  padding: 10px 10px 7px;
+}
+.obs-board-sides {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.obs-side {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+.obs-side[data-align='end'] {
+  align-items: flex-end;
+}
+.obs-side-name {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  max-width: 100%;
+  font: 700 14px/1.1 var(--stamp);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--side-ink);
+}
+.obs-side-name b {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.obs-side[data-align='end'] .obs-side-name {
+  flex-direction: row-reverse;
+}
+.obs-stats {
+  display: flex;
+  gap: 5px;
+}
+.obs-side[data-align='end'] .obs-stats {
+  flex-direction: row-reverse;
+}
+/* Four armies (FFA): each column keeps its resources, army and Spire chips on one inline row, like a duel. Columns share
+ * the board equally, so the chips are compacted (tighter padding, smaller numbers, narrower Spire bars) to fit. */
+.obs[data-armies='4'] .obs-side {
+  flex: 1 1 0;
+  min-width: 0;
+}
+.obs[data-armies='4']:not([data-compact]) .obs-stats {
+  flex-wrap: nowrap;
+  gap: 4px;
+}
+.obs[data-armies='4']:not([data-compact]) .obs-stat.hud-chip {
+  min-width: 0;
+  padding: 3px 5px;
+  column-gap: 4px;
+}
+.obs[data-armies='4']:not([data-compact]) .obs-stat b {
+  font-size: 16px;
+}
+.obs[data-armies='4']:not([data-compact]) .obs-stat small {
+  font-size: 10px;
+}
+.obs[data-armies='4']:not([data-compact]) .obs-spire.hud-chip {
+  grid-template-columns: repeat(4, 22px);
+  gap: 2px;
+  padding: 4px 5px;
+}
+/* Narrower desktops: a further step down so all four columns stay on one row. */
+@media (max-width: 1360px) {
+  .obs[data-armies='4']:not([data-compact]) .obs-stats {
+    gap: 3px;
+  }
+  .obs[data-armies='4']:not([data-compact]) .obs-stat.hud-chip {
+    padding: 3px 4px;
+    column-gap: 3px;
+  }
+  .obs[data-armies='4']:not([data-compact]) .obs-stat b {
+    font-size: 14px;
+  }
+  .obs[data-armies='4']:not([data-compact]) .obs-stat small {
+    font-size: 9px;
+  }
+  .obs[data-armies='4']:not([data-compact]) .obs-spire.hud-chip {
+    grid-template-columns: repeat(4, 18px);
+    padding: 4px;
+  }
+}
+.obs-stat.hud-chip {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-areas: 'icon value' 'icon rate';
+  align-items: center;
+  column-gap: 5px;
+  height: auto;
+  min-width: 82px;
+  padding: 3px 7px;
+}
+.obs-stat .icon {
+  grid-area: icon;
+}
+.obs-stat b {
+  grid-area: value;
+  justify-self: end;
+  font: 600 19px/1.05 var(--mono);
+  font-variant-numeric: tabular-nums lining-nums;
+}
+.obs-stat small {
+  grid-area: rate;
+  justify-self: end;
+  font: 11px/1.1 var(--mono);
+  color: var(--muted);
+}
+.obs-stat.alloy .icon {
+  color: var(--alloy);
+}
+.obs-stat.energy .icon {
+  color: var(--energy);
+}
+.obs-stat.army .icon {
+  color: var(--side-ink);
+}
+.obs-side.fogged .obs-stat b {
+  color: var(--muted);
+}
+.obs-spire.hud-chip {
+  display: grid;
+  grid-template-columns: repeat(4, 30px);
+  gap: 3px;
+  align-content: center;
+  height: auto;
+  align-self: stretch;
+  padding: 4px 6px;
+}
+.obs-spire-seg {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  color: color-mix(in srgb, var(--accent) 60%, var(--ink));
+}
+.obs-hp {
+  display: block;
+  width: 100%;
+  height: 7px;
+  border: 1px solid var(--chrome-black);
+  border-radius: 2px;
+  background: var(--paper-deep);
+  overflow: hidden;
+}
+.obs-hp > i {
+  display: block;
+  width: var(--health, 0%);
+  height: 100%;
+  background: var(--side-ink);
+  transition: width 0.25s ease-out;
+}
+.obs-spire-seg[data-state='low'] .obs-hp > i {
+  background: linear-gradient(90deg, var(--bad), var(--side-ink));
+}
+.obs-spire-seg[data-state='unknown'] .obs-hp {
+  background: var(--hatch), var(--paper-deep);
+  opacity: 0.5;
+}
+.obs-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  min-width: 120px;
+}
+.obs-clock {
+  font: 700 28px/1 var(--mono);
+  font-variant-numeric: tabular-nums lining-nums;
+  color: var(--ink-soft);
+}
+.observer-live {
+  padding: 2px 8px;
+  border-radius: 3px;
+  background: var(--brand-red);
+  color: var(--chrome-white);
+  font: 700 13px/1.4 var(--stamp);
+  letter-spacing: 0.04em;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.obs-match-label {
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+/* ------------------------------------------------------------------ benchmark series strip */
+.obs-series {
+  grid-area: series;
+  justify-self: center;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 6px 10px;
+  /* Clear of the music player pinned at the top right (264px wide, 12px inset), symmetric so it stays centred. */
+  max-width: calc(100% - 2 * 288px);
+  padding: 9px 10px 5px;
+}
+.obs[data-preset='broadcast'] .obs-series,
+.obs-series:empty {
+  display: none;
+}
+/* Watch live: a public game about to go on air, in the series row (unused by the broadcast preset). */
+.obs-upcoming {
+  grid-area: series;
+  justify-self: center;
+  margin: 0;
+  padding: 5px 12px;
+  font: 600 12px/1.2 var(--stamp);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.obs-upcoming[hidden] {
+  display: none;
+}
+/* A phone has no series row: the notice sits at the top of the free battlefield row (the last explicit row). */
+.obs[data-compact] > .obs-upcoming {
+  grid-row: -2 / -1;
+  grid-column: 1 / -1;
+  align-self: start;
+}
+.obs-series-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font: 700 13px var(--stamp);
+  letter-spacing: 0.06em;
+  color: var(--brand-gold);
+}
+.obs-series-game {
+  padding: 2px 8px;
+  font: 700 12px var(--stamp);
+}
+.obs-standings,
+.obs-rotation,
+.obs-swap,
+.obs-live-games {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+}
+.obs-standings .chip {
+  font-style: normal;
+  cursor: var(--cursor-default, default);
+}
+.obs-map {
+  display: inline-grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border: 1px solid var(--rule-soft);
+  border-radius: 3px;
+  font: 600 11px var(--mono);
+  color: var(--muted);
+}
+.obs-map.done {
+  color: var(--ink);
+  background: var(--paper-hi);
+}
+.obs-map.current {
+  border-color: var(--brand-gold);
+  color: var(--brand-gold);
+  box-shadow: var(--on-ring);
+}
+.obs-swap > span {
+  padding-left: 5px;
+  border-left: 3px solid var(--side-ink);
+  font-size: 12px;
+}
+
+/* ------------------------------------------------------------------ side columns and panels */
+.obs-col {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 0;
+}
+.obs-left {
+  grid-area: left;
+}
+.obs-right {
+  grid-area: right;
+}
+.obs-panel {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  padding: 10px 8px 6px;
+}
+.obs-panel[data-panel='sides'] {
+  flex: 0 1 auto;
+}
+.obs-panel[data-panel='timeline'] {
+  flex: 1 1 55%;
+}
+.obs-panel[data-panel='agents'] {
+  flex: 1 1 45%;
+}
+.obs-panel[data-panel='overview'] {
+  flex: 0 1 auto;
+}
+.obs-panel[data-collapsed='true'] {
+  flex: 0 0 auto;
+}
+.obs-panel[data-collapsed='true'] > :not(.obs-panel-head) {
+  display: none;
+}
+.obs-panel-head {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  padding: 0 2px 5px;
+  border: 0;
+  border-bottom: 1px solid var(--rule-soft);
+  background: none;
+  font: 700 12px var(--stamp);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  cursor: var(--cursor-link, pointer);
+}
+.obs-panel-head kbd {
+  margin-left: auto;
+}
+.obs-panel[data-collapsed='true'] .obs-panel-head {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+.obs-panel-body {
+  flex: 1 1 auto;
+  min-height: 0;
+  margin: 6px 0 0;
+  padding: 0 2px;
+  overflow: auto;
+  list-style: none;
+}
+/* Wraps when the side column is narrower than the three tabs (phones, small windows). */
+.obs-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding-top: 6px;
+}
+.obs-tabs .btn {
+  flex: 1;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+}
+.obs h3 {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 2px 0 4px;
+  font: 700 12px var(--stamp);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--side-ink, var(--ink-soft));
+}
+.obs p {
+  margin: 2px 0;
+}
+.obs-side-detail + .obs-side-detail,
+.obs-agent-side + .obs-agent-side {
+  margin-top: 8px;
+  padding-top: 6px;
+  border-top: 1px dotted var(--rule-soft);
+}
+.obs-queue,
+.obs-comp,
+.obs-seats {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.obs-row {
+  display: grid;
+  grid-template-columns: 18px minmax(0, 1fr) 46px auto;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  padding: 2px 4px;
+  border: 0;
+  border-left: 3px solid var(--accent, var(--side-ink));
+  background: var(--overlay-face-hi, var(--paper-hi));
+  text-align: left;
+  color: var(--ink);
+}
+button.obs-row {
+  cursor: var(--cursor-link, pointer);
+}
+.obs-row.done {
+  grid-template-columns: 18px minmax(0, 1fr) auto;
+  color: var(--good);
+}
+.obs-row-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.obs-row small {
+  font: 11px var(--mono);
+  color: var(--muted);
+}
+.obs-progress {
+  display: block;
+  height: 5px;
+  border-radius: 2px;
+  background: linear-gradient(var(--side-ink), var(--side-ink)) left / var(--p, 0%) 100% no-repeat, var(--paper-deep);
+}
+.obs-army-total {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font: 600 12px var(--mono);
+}
+.obs-comp li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 3px;
+  padding-left: 4px;
+  border-left: 3px solid var(--accent);
+}
+.obs-comp-plane {
+  display: inline-flex;
+  color: color-mix(in srgb, var(--accent) 60%, var(--ink));
+}
+.obs-unit.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 1px 6px;
+  font: 600 12px var(--mono);
+  font-style: normal;
+  cursor: var(--cursor-default, default);
+  color: var(--side-ink);
+}
+.obs-overview {
+  display: flex;
+  height: clamp(150px, 26vh, 290px);
+  margin-top: 6px;
+}
+
+/* ------------------------------------------------------------------ timeline */
+.obs-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.obs-moment.ev {
+  width: 100%;
+  align-items: center;
+  border: 0;
+  border-left: 4px solid var(--side-ink);
+  text-align: left;
+  color: var(--ink);
+}
+.obs-moment .ev-t {
+  font: 600 12px/1 var(--mono);
+}
+.obs-moment .ev-text {
+  display: -webkit-box;
+  min-width: 0;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+}
+.obs-moment .ev-text b {
+  color: var(--side-ink);
+}
+.obs-moment.spire .icon:not(.ev-p .icon) {
+  color: var(--bad);
+}
+.obs-empty {
+  font-size: 12px;
+}
+
+/* ------------------------------------------------------------------ agents */
+.obs-seats li {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  min-width: 0;
+}
+.obs-seat-plane {
+  display: inline-flex;
+  color: color-mix(in srgb, var(--accent) 60%, var(--ink));
+}
+.obs-seats .agent-button {
+  min-width: 0;
+  max-width: 100%;
+}
+.obs-agent-stats {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1px 8px;
+  margin: 5px 0;
+  font-size: 11px;
+}
+.obs-agent-stats dt {
+  color: var(--muted);
+}
+.obs-agent-stats dd {
+  margin: 0;
+  font: 11px var(--mono);
+  text-align: right;
+}
+.obs-chatter {
+  margin-top: 4px;
+}
+.obs-chat {
+  display: grid;
+  grid-template-columns: 14px auto minmax(0, 1fr);
+  align-items: baseline;
+  gap: 5px;
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+.obs-chat small {
+  font: 11px var(--mono);
+  color: var(--muted);
+}
+
+/* ------------------------------------------------------------------ dock */
+.obs-dock {
+  grid-area: dock;
+  justify-self: center;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  max-width: 100%;
+  padding: 10px 8px 5px;
+}
+.obs-dock .btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.obs-seg {
+  display: inline-flex;
+  gap: 3px;
+}
+.obs-plane {
+  border-bottom: 3px solid var(--accent);
+}
+.obs-plane kbd {
+  margin-left: 0;
+}
+.obs-vision .btn[style] {
+  border-left: 3px solid var(--side-ink);
+}
+.obs-dock-label {
+  display: inline-flex;
+  margin-left: 4px;
+  color: var(--muted);
+}
+.obs-dock [data-state='held'] {
+  border-style: dashed;
+  color: var(--warn);
+}
+.obs-dock [data-state='off'] {
+  color: var(--muted);
+}
+.obs-status {
+  flex-basis: 100%;
+  /* The status line never widens the dock: it takes the width the controls give it. */
+  contain: inline-size;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: center;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+/* ------------------------------------------------------------------ help */
+.obs-help {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 2;
+  width: min(560px, calc(100% - 40px));
+  padding: 16px 18px 12px;
+  transform: translate(-50%, -50%);
+  background: linear-gradient(var(--brand-gold), var(--brand-amber)) top / 100% 5px no-repeat, var(--paper);
+}
+.obs-help h2 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 10px;
+  font: 700 15px var(--stamp);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.obs-help dl {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 4px 14px;
+  margin: 0 0 12px;
+}
+.obs-help dt {
+  font: 600 12px var(--mono);
+  color: var(--ink-soft);
+}
+.obs-help dd {
+  margin: 0;
+}
+
+/* ------------------------------------------------------------------ end card: the HUD outcome card over the field
+   (never over the scoreboard); folded, a one-line banner under it. The winner's ink titles it. */
+.obs-end {
+  grid-area: 3 / 1 / 4 / -1;
+  z-index: 3;
+  justify-self: center;
+  align-self: center;
+  max-width: 100%;
+  max-height: 100%;
+  min-height: 0;
+  display: flex;
+}
+.obs-end[data-state='banner'] {
+  align-self: start;
+}
+.obs-end-card {
+  width: min(620px, calc(100vw - 20px));
+  max-height: 100%;
+  padding: 16px 22px 14px;
+}
+/* Beats the HUD card's result colours (`.outcome-card.win .outcome-title`): the winner's ink, or the draw colour. */
+.obs .outcome-card.obs-end-card .outcome-title {
+  color: var(--side-ink);
+}
+.obs-end-card .outcome-title {
+  font-size: 44px;
+}
+.obs-end-head {
+  position: relative;
+  padding-right: 36px;
+}
+.obs-end-fold {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.obs-end-ranks {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr) max-content max-content max-content;
+  gap: 4px 12px;
+  margin: 12px 0 8px;
+  padding: 10px 0 0;
+  border-top: 3px double var(--rule);
+  list-style: none;
+}
+.obs-end-ranks li {
+  display: contents;
+}
+.obs-end-place {
+  font: 400 16px var(--stamp);
+  letter-spacing: 0.08em;
+}
+.obs-end-name {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  font: 700 14px/1.2 var(--stamp);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--side-ink);
+}
+.obs-end-name span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.obs-end-result {
+  font: 400 13px var(--stamp);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--bad);
+}
+[data-outcome='win'] > .obs-end-result {
+  color: var(--good);
+}
+[data-outcome='draw'] > .obs-end-result {
+  color: var(--warn);
+}
+.obs-end-stat {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+  font: 600 14px var(--mono);
+  font-variant-numeric: tabular-nums lining-nums;
+}
+.obs-end-stat .icon {
+  color: var(--muted);
+}
+.obs-end-note {
+  min-height: 1.3em;
+  margin: 2px 0 8px;
+  font-size: 13px;
+  color: var(--muted);
+}
+.obs-end-note:empty {
+  min-height: 0;
+  margin: 0;
+}
+.obs-end-actions {
+  flex-wrap: wrap;
+}
+.obs-end-actions .btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+}
+/* Banner: title, meta and actions on one line; the standings wait behind the unfold control. */
+.obs-end[data-state='banner'] .obs-end-card {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 14px;
+  width: auto;
+  max-width: min(900px, calc(100vw - 20px));
+  padding: 10px 14px 8px;
+  animation: none;
+}
+.obs-end[data-state='banner'] .obs-end-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-right: 0;
+}
+.obs-end[data-state='banner'] .obs-end-fold {
+  position: static;
+  order: 1;
+}
+.obs-end[data-state='banner'] .outcome-kicker,
+.obs-end[data-state='banner'] .obs-end-ranks {
+  display: none;
+}
+.obs-end[data-state='banner'] .outcome-title {
+  margin: 0;
+  padding: 2px 8px 0;
+  font-size: 20px;
+  border-width: 3px;
+}
+.obs-end[data-state='banner'] .obs-end-note {
+  margin: 0;
+}
+
+/* ------------------------------------------------------------------ stream mode: scoreboard and badge only (and the
+   result: a clean caster card without controls; the featured countdown stays as text) */
+.obs[data-stream] > :not(.obs-board):not(.obs-end) {
+  display: none !important;
+}
+.obs[data-stream] .obs-end-fold,
+.obs[data-stream] .obs-end-actions {
+  display: none;
+}
+
+/* ------------------------------------------------------------------ smaller viewports */
+@media (max-width: 1440px) {
+  .obs-stat.hud-chip {
+    min-width: 70px;
+  }
+  .obs-stat b {
+    font-size: 16px;
+  }
+  .obs-clock {
+    font-size: 24px;
+  }
+  .obs-spire.hud-chip {
+    grid-template-columns: repeat(4, 24px);
+  }
+}
+@media (max-width: 1100px) {
+  .obs {
+    grid-template-columns: 200px minmax(0, 1fr) 220px;
+  }
+  .obs-stat.army {
+    display: none;
+  }
+}
+@media (max-height: 820px) {
+  .obs {
+    gap: 6px;
+    padding: 6px 8px 8px;
+  }
+  .obs-overview {
+    height: clamp(120px, 22vh, 200px);
+  }
+}
+
+/* The music player (music-player.css) is pinned top-right just below the scoreboard row: the right column starts
+   beneath it, as the game HUD's field column does. */
+.obs-right {
+  margin-top: 64px;
+}
+/* Four armies wrap their chips onto a second row: the docked player moves down under the taller scoreboard. */
+html:has(.obs[data-armies='4']:not([data-compact])) .music-player:not(.placed) {
+  top: 124px;
+}
+
+/* Phone portrait: the side columns can't flank the battlefield (their minimums alone outgrow 390 px), so they split
+   the width over the top half and the field stays clear below; the scoreboard stacks the clock over the two sides. */
+@media (max-width: 600px) {
+  .obs {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-areas: 'board board' 'series series' 'left right' 'dock dock';
+    gap: 6px;
+    padding: 6px;
+  }
+  .obs-series {
+    max-width: 100%;
+  }
+  .obs-col {
+    align-self: start;
+    max-height: 50%;
+    min-width: 0;
+  }
+  .obs-right {
+    margin-top: 0;
+  }
+  .obs-board {
+    justify-self: stretch;
+  }
+  .obs-board-sides {
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 6px;
+  }
+  .obs-center {
+    order: -1;
+    flex: 1 0 100%;
+    min-width: 0;
+  }
+  .obs-side {
+    flex: 1 1 0;
+  }
+  .obs-stats {
+    flex-wrap: wrap;
+  }
+  .obs-stat.hud-chip {
+    min-width: 0;
+  }
+  .obs-spire.hud-chip {
+    grid-template-columns: repeat(4, 20px);
+  }
+}
+
+
+/* ------------------------------------------------------------------ phone (`isPhone`, observer.ts `compact`): the
+   battlefield under one strip, the scoreboard (sides and clock) and a dock of planes, vision, More and Leave; stacked
+   in portrait, side by side in landscape. More adds the side stats, the director and the status line. Panels, the
+   overview, caster tools and the music player stay off the phone. 34 px tap targets. Every sheet keeps the HUD's bevel
+   clearance (`--sheet-pad-block`, style.css) inside its gold and shade bands, and spacing follows the `--gap-*` scale. */
+.obs[data-compact] {
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto auto minmax(0, 1fr);
+  grid-template-areas: 'board' 'dock' '.';
+  gap: var(--gap-sm);
+  padding: max(var(--gap-sm), env(safe-area-inset-top)) max(var(--gap-sm), env(safe-area-inset-right)) var(--gap-sm) max(var(--gap-sm), env(safe-area-inset-left));
+}
+.obs[data-compact] > .obs-col,
+.obs[data-compact] > .obs-series,
+.obs[data-compact] > .obs-help,
+.obs[data-compact] .obs-desk,
+.obs[data-compact]:not([data-more]) .obs-extra,
+.obs[data-compact]:not([data-more]) .obs-stats,
+.obs[data-compact] .obs-match-label,
+.obs[data-compact] .obs-plane kbd,
+.obs[data-compact] .obs-vision .icon {
+  display: none !important;
+}
+body:has(.obs[data-compact]) .music-player {
+  display: none;
+}
+.obs[data-compact] .obs-board {
+  justify-self: stretch;
+  padding: var(--sheet-pad-block) var(--gap-md);
+}
+/* One row of sides, clock and badge; a Sudden death or match point banner wraps to a full-width line below it. */
+.obs[data-compact] .obs-board-sides {
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--gap-sm);
+}
+.obs[data-compact] .obs-center {
+  display: contents;
+}
+.obs[data-compact] .sudden-death {
+  order: 1;
+  flex: 1 0 100%;
+  justify-content: center;
+}
+.obs[data-compact] .obs-side {
+  flex: 1 1 0;
+}
+.obs[data-compact] .obs-side-name {
+  font-size: 12px;
+}
+.obs[data-compact] .obs-clock {
+  font-size: 17px;
+}
+.obs[data-compact] .observer-live {
+  padding: 1px var(--gap-sm);
+  font-size: 11px;
+}
+.obs[data-compact][data-more] .obs-board-sides {
+  align-items: flex-start;
+}
+/* Four armies (FFA): the strip names each army by its initial (as the vision buttons do; the column's aria-label keeps
+   the name). A flex item is a block, so ::first-letter applies; the rest of the name renders at size 0. More puts the
+   clock row on top and the side stats, full names included, two by two beneath it. */
+.obs[data-compact][data-armies='4']:not([data-more]) .obs-side-name b {
+  font-size: 0;
+}
+.obs[data-compact][data-armies='4']:not([data-more]) .obs-side-name b::first-letter {
+  font-size: 12px;
+}
+.obs[data-compact][data-armies='4'][data-more] .obs-center {
+  display: flex;
+  flex: 1 0 100%;
+  order: -1;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-sm);
+}
+.obs[data-compact][data-armies='4'][data-more] .obs-side {
+  flex-basis: calc(50% - var(--gap-sm));
+}
+.obs[data-compact] .obs-stats {
+  flex-wrap: wrap;
+  gap: var(--gap-xs);
+}
+.obs[data-compact] .obs-stat.hud-chip {
+  min-width: 0;
+  padding: var(--gap-xs) var(--gap-sm);
+}
+.obs[data-compact] .obs-stat b {
+  font-size: 13px;
+}
+.obs[data-compact] .obs-spire.hud-chip {
+  grid-template-columns: repeat(4, 16px);
+  padding: var(--gap-xs) var(--gap-sm);
+}
+.obs[data-compact] .obs-dock {
+  justify-self: stretch;
+  flex-wrap: wrap;
+  gap: var(--gap-sm);
+  padding: var(--sheet-pad-block) var(--gap-md);
+}
+.obs[data-compact] .obs-dock .btn {
+  justify-content: center;
+  min-width: 34px;
+  min-height: 34px;
+  padding: 2px var(--gap-sm);
+}
+.obs[data-compact] .obs-status {
+  font-size: 10px;
+}
+.obs[data-compact] .obs-end-card {
+  padding: calc(var(--sheet-pad-block) + var(--gap-xs)) var(--gap-lg);
+}
+@media (orientation: landscape) {
+  .obs[data-compact] {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-rows: auto minmax(0, 1fr);
+    grid-template-areas: 'board dock' '. .';
+  }
+  .obs[data-compact] .obs-end {
+    grid-area: 2 / 1 / 3 / -1;
+  }
+  /* The row is as tall as the taller sheet: the scoreboard centres its content between its bands. */
+  .obs[data-compact] .obs-board {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  /* Landscape has the width: the banner stays in the row between the clock and the badge. */
+  .obs[data-compact] .sudden-death {
+    order: 0;
+    flex: 0 1 auto;
+    min-width: 0;
+  }
+}

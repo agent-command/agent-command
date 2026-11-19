@@ -1,0 +1,172 @@
+/* Home-screen flair (home-flair.ts): social badges beside the menu panel, the PlayerThree credit in the screen's
+   bottom-left corner and the splash line on the logo. */
+@font-face {
+  font-family: 'Bangers';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('@fontsource/bangers/files/bangers-latin-400-normal.woff2') format('woff2');
+}
+
+/* ---------------------------------------------------------------- splash: absolutely placed, so no layout shift */
+/* The wrapper takes the logo's box (lobby.css sizes); the splash then pins to the logo's corner, not the panel's. */
+.lobby-toon .hero-mark {
+  position: relative;
+  width: min(100%, 380px);
+  margin-inline: auto;
+}
+.lobby-toon .hero-mark .hero-logo { width: 100%; }
+.home-splash {
+  position: absolute;
+  right: 0;
+  bottom: 14%;
+  z-index: 1;
+  width: max-content;
+  max-width: 170px;
+  margin: 0;
+  transform: translateX(30%) rotate(-15deg);
+  pointer-events: none;
+  color: var(--splash-ink);
+  font: 400 19px/1.02 'Bangers', 'Arial Black', sans-serif;
+  letter-spacing: 0.04em;
+  text-align: center;
+  -webkit-text-stroke: 4px var(--chrome-black);
+  paint-order: stroke fill;
+  text-shadow: 2px 3px 0 var(--chrome-black);
+}
+.home-splash > span {
+  display: inline-block;
+  animation: home-splash-pulse 0.85s ease-in-out infinite alternate;
+}
+@keyframes home-splash-pulse {
+  to { transform: scale(1.09); }
+}
+
+/* ---------------------------------------------------------------- social badges: outer edge of the panel */
+/* Beside the card, not inside it: the card scrolls (overflow-y: auto), which would clip anything past its edge. */
+.lobby-toon .lobby-inner { position: relative; }
+.pm-home-shell { position: relative; }
+.home-social {
+  position: absolute;
+  top: 22px;
+  left: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-left: 14px;
+  /* `.lobby` is click-through; only the card opts back in, so the badges beside it must too. */
+  pointer-events: auto;
+}
+.home-social-link {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  color: var(--brand-gold);
+  background: var(--paper);
+  border: 3px solid var(--chrome-black);
+  border-radius: 14px;
+  box-shadow: inset 0 0 0 2px var(--brand-gold), 0 4px 0 var(--chrome-black), 0 8px 18px color-mix(in srgb, var(--chrome-black) 40%, transparent);
+  transition: transform 0.12s ease-out, box-shadow 0.12s ease-out, color 0.12s;
+}
+.home-social-link:hover,
+.home-social-link:focus-visible {
+  color: var(--ink);
+  transform: translateY(-3px);
+  box-shadow: inset 0 0 0 2px var(--brand-gold), 0 7px 0 var(--chrome-black), 0 12px 22px color-mix(in srgb, var(--chrome-black) 44%, transparent);
+}
+.home-social-link:active {
+  transform: translateY(2px);
+  box-shadow: inset 0 0 0 2px var(--brand-gold), 0 2px 0 var(--chrome-black);
+}
+.home-social-link:focus-visible {
+  outline: 3px solid var(--ink);
+  outline-offset: 3px;
+}
+
+/* ---------------------------------------------------------------- PlayerThree credit: screen corner, never the card */
+/* Quiet on purpose: a small translucent chip, full strength only on hover or focus. */
+.home-p3 {
+  position: fixed;
+  left: max(16px, env(safe-area-inset-left));
+  bottom: max(16px, env(safe-area-inset-bottom));
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 10px 4px 4px;
+  color: var(--ink-soft);
+  font: 12px/1 Arial, Helvetica, sans-serif;
+  text-decoration: none;
+  background: color-mix(in srgb, var(--paper) 55%, transparent);
+  border-radius: 10px;
+  opacity: 0.8;
+  pointer-events: auto;
+  transition: opacity 0.12s;
+}
+.home-p3:hover,
+.home-p3:focus-visible { opacity: 1; }
+.home-p3:focus-visible {
+  outline: 3px solid var(--ink);
+  outline-offset: 3px;
+}
+.home-p3-mark { display: block; width: auto; height: 28px; }
+.home-p3-text b { font-weight: 800; }
+
+/* ---------------------------------------------------------------- version: the bottom-right corner, mirroring the credit */
+.home-version {
+  position: fixed;
+  right: max(16px, env(safe-area-inset-right));
+  bottom: max(16px, env(safe-area-inset-bottom));
+  z-index: 2;
+  padding: 3px 8px;
+  color: var(--ink-soft);
+  font: 11px/1.2 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  background: color-mix(in srgb, var(--paper) 55%, transparent);
+  border-radius: 8px;
+  opacity: 0.6;
+  pointer-events: auto;
+  transition: opacity 0.12s;
+}
+.home-version:hover,
+.home-version:focus-visible { opacity: 1; }
+.home-version:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+/* Beside a narrower card the corner only has room for the logo. */
+@media (max-width: 999px) {
+  .home-p3 { padding: 4px; }
+  .home-p3-text { display: none; }
+}
+/* Phones held landscape: the music player docks in the bottom-left corner, so the logo sits above it. */
+@media (pointer: coarse) and (max-height: 500px) {
+  .home-p3 { left: max(8px, env(safe-area-inset-left)); bottom: calc(max(8px, env(safe-area-inset-bottom)) + 56px); }
+}
+@media (max-width: 760px) {
+  /* Badges in normal flow, left-aligned directly under the card; clear of the plane picker and music player. */
+  /* The card gives up the badge row (52px) plus the bottom band where the plane picker and music player dock (80px). */
+  .pm-home-shell { display: grid; justify-items: center; margin-bottom: 80px; }
+  .lobby-toon .pm-home-shell > .pm-home { max-height: calc(100dvh - 164px); }
+  .home-social {
+    position: static;
+    justify-self: start;
+    flex-direction: row;
+    gap: 10px;
+    margin: 10px 0 0;
+  }
+  .home-social-link { width: 42px; height: 42px; }
+  /* The card spans the screen; the bottom edge belongs to the music player, the badges and the plane picker. */
+  .home-p3 { display: none; }
+  /* The plane picker docks along the bottom edge here: the version sits just above it. */
+  .home-version { bottom: calc(max(14px, env(safe-area-inset-bottom)) + 64px); }
+}
+@media (max-width: 540px) {
+  .lobby-toon .hero-mark { width: min(100%, 270px); }
+  .home-splash { max-width: 130px; font-size: 15px; transform: translateX(22%) rotate(-15deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .home-splash > span { animation: none; }
+  .home-social-link, .home-p3, .home-version { transition: none; }
+}

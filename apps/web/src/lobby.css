@@ -1,0 +1,428 @@
+/* Pre-match screens (lobby.ts): Home, Lobby (public games), Commanders and the game room. Every screen fits one
+   viewport from 1280×800 up; lists and long panels scroll inside their own column, never the page.
+   Spacing comes only from the --gap-* scale (style.css), so every pane, card and control shares one rhythm. */
+
+/* ---------------------------------------------------------------- shared controls */
+.lobby-toon .btn,
+.lobby-toon .seg-ctl button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-md);
+  min-height: 40px;
+}
+.lobby-toon .seg-ctl button.on {
+  background: var(--brand-gold);
+  color: var(--chrome-black);
+  border-color: var(--chrome-black);
+}
+.lobby-toon .seg-ctl { display: flex; width: 100%; flex-wrap: wrap; }
+.lobby-toon .seg-ctl button { flex: 1; padding-inline: var(--gap-md); }
+.lobby-toon .btn.primary {
+  background: var(--brand-gold);
+  color: var(--chrome-black);
+  border: 2px solid var(--chrome-black);
+  box-shadow: 0 3px 0 var(--chrome-black);
+}
+.lobby-toon .btn.primary:hover { background: var(--brand-amber); }
+.lobby-toon .btn:focus-visible,
+.lobby-toon button:focus-visible,
+.lobby-toon input:focus-visible,
+.lobby-toon select:focus-visible,
+.lobby-toon summary:focus-visible,
+.lobby-toon [tabindex]:focus-visible {
+  outline: 3px solid var(--ink);
+  outline-offset: 3px;
+}
+.lobby-toon select,
+.lobby-toon input:not([type='checkbox'], [type='range'], .mp-seed-input) {
+  min-height: 36px;
+  min-width: 0;
+  max-width: 100%;
+  padding: var(--gap-sm) var(--gap-md);
+  color: var(--ink);
+  background: var(--paper-shade);
+  border: 2px solid var(--rule);
+  border-radius: 8px;
+}
+.lobby-toon h2,
+.lobby-toon h3,
+.lobby-toon .lobby-plane-strip > span,
+.lobby-toon .lobby-key-help > summary { display: flex; align-items: center; gap: var(--gap-sm); }
+.lobby-toon h3 { margin: 0; font-size: 14px; }
+.lobby-toon .lobby-msg { min-height: 18px; margin: 0; font: 600 13px/1.4 Arial, sans-serif; }
+.pm-empty { margin: auto; color: var(--ink-soft); }
+.pm-check { display: inline-flex; align-items: center; gap: var(--gap-sm); white-space: nowrap; }
+
+/* ---------------------------------------------------------------- shell */
+.lobby.prematch { display: grid; place-items: center; padding: 16px; }
+.prematch[aria-busy='true'] { cursor: progress; }
+.prematch .pm-frame,
+.prematch .lobby-inner {
+  --overlay-face: color-mix(in srgb, var(--paper) var(--overlay-alpha), transparent);
+  --overlay-face-hi: color-mix(in srgb, var(--paper-hi) var(--overlay-alpha), transparent);
+  pointer-events: auto;
+  color: var(--ink);
+  /* Translucent like the HUD: the live backdrop shows through the menu. */
+  background: var(--overlay-face);
+  border: 3px solid var(--chrome-black);
+  border-radius: 22px;
+  box-shadow: inset 0 4px 0 var(--brand-gold), inset 0 -4px 0 var(--brand-shade), 0 7px 0 var(--chrome-black), 0 16px 42px color-mix(in srgb, var(--chrome-black) 40%, transparent);
+  transform: none;
+  animation: none;
+}
+
+/* ---------------------------------------------------------------- home */
+.lobby-toon .pm-home {
+  position: relative;
+  width: min(600px, 92vw);
+  gap: var(--gap-lg);
+  padding: var(--gap-xl) var(--gap-xl) var(--gap-lg);
+  max-height: calc(100dvh - 32px);
+  overflow-y: auto;
+}
+.pm-home-corner { position: absolute; top: var(--gap-lg); right: var(--gap-lg); z-index: 2; }
+.lobby-toon .hero { border: 0; margin: 0; padding: 0; }
+.lobby-toon .hero-logo { width: min(100%, 380px); height: auto; margin-inline: auto; }
+.lobby-toon .lobby-actions { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap-lg); }
+.lobby-toon .pm-tile {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  justify-content: start;
+  justify-items: start;
+  gap: var(--gap-lg);
+  min-height: 68px;
+  padding: var(--gap-md) var(--gap-lg);
+  text-align: left;
+  white-space: normal;
+}
+.lobby-toon .pm-tile.primary { grid-column: 1 / -1; min-height: 84px; justify-content: center; }
+.pm-tile-text { display: grid; gap: 2px; }
+.pm-tile-text b { font-size: 17px; font-weight: 800; }
+.pm-tile.primary .pm-tile-text b { font-size: 24px; }
+.pm-tile-text small { font-size: 12px; opacity: 0.8; }
+.lobby-toon .pm-benchmarks {
+  display: flex; align-items: center; justify-content: center; gap: var(--gap-md);
+  width: 100%; min-height: 48px; padding: var(--gap-md) var(--gap-lg);
+  border-color: var(--brand-gold); border-inline-start-width: 4px;
+  background: linear-gradient(100deg, color-mix(in srgb, var(--brand-gold) 12%, transparent), color-mix(in srgb, var(--brand-gold) 3%, transparent)); text-decoration: none;
+}
+.lobby-toon .pm-benchmarks:focus-visible { outline: 3px solid var(--brand-gold); outline-offset: 3px; }
+.lobby-toon .pm-resume { width: 100%; min-height: 48px; border-color: var(--brand-gold); }
+.pm-resume code { font: 12px var(--mono); color: var(--ink-soft); }
+.lobby-toon .lobby-plane-strip { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--gap-lg); color: var(--ink-soft); }
+.lobby-toon .lobby-key-help > summary { cursor: var(--cursor-link, pointer); min-height: 28px; color: var(--muted); font-size: 12px; }
+
+/* ---------------------------------------------------------------- sub-screen frame */
+.pm-frame {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  gap: var(--gap-md);
+  width: min(1680px, 100%);
+  height: min(100%, 1080px);
+  min-height: 0;
+  padding: var(--gap-lg) var(--gap-xl) 0;
+}
+.pm-head { display: flex; align-items: center; gap: var(--gap-lg); min-width: 0; padding-bottom: var(--gap-md); border-bottom: 2px solid var(--rule-soft); }
+/* Inner screens carry the brand as a compact mark; the full hero belongs to Home only. */
+.pm-logo { flex: none; width: auto; height: 40px; }
+.lobby-toon .pm-title { flex: none; margin: 0; font-size: 22px; font-weight: 900; letter-spacing: 0.02em; }
+.lobby-toon .pm-title:focus,
+.lobby-toon .pm-title:focus-visible { outline: none; box-shadow: none; }
+.pm-head-tools { display: flex; align-items: center; gap: var(--gap-md); min-width: 0; margin-left: auto; }
+.pm-body { display: grid; min-height: 0; overflow: hidden; }
+/* The foot carries the status line on the left and docks the floating music player on the right, so the
+   full-viewport frame never sits under it. */
+.pm-foot { display: flex; align-items: center; min-height: 64px; padding-right: 290px; }
+html:has(.pm-frame) .music-player:not(.placed) { top: auto; bottom: 26px; right: 36px; }
+/* The home backdrop's plane picker belongs to Home; full-screen frames cover the backdrop. */
+html:has(.pm-frame) .home-planes { display: none; }
+/* Peek: the setup frame fades out so the chosen battlefield is seen as it really renders; the plane picker returns so
+   every plane of it can be inspected, and one button (or Esc) brings the setup back. */
+.prematch .pm-frame { transition: opacity 0.18s ease; }
+.prematch.pm-peek .pm-frame { opacity: 0; pointer-events: none; }
+html:has(.prematch.pm-peek) .home-planes:not([hidden]) { display: flex; }
+/* `.lobby` itself is click-through (pointer-events: none); the exit button must opt back in. */
+.lobby.prematch .pm-peek-exit { display: none; position: fixed; left: 50%; bottom: 28px; z-index: 4; transform: translateX(-50%); pointer-events: auto; }
+.lobby.prematch.pm-peek .pm-peek-exit { display: inline-flex; }
+.pm-col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-md);
+  min-width: 0;
+  min-height: 0;
+  padding: var(--gap-md) var(--gap-lg);
+  background: var(--overlay-face-hi);
+  border: 2px solid var(--rule);
+  border-radius: 14px;
+  box-shadow: var(--slip-shadow);
+}
+.pm-col-title { display: flex; align-items: center; gap: var(--gap-sm); padding: 0; font-weight: 800; font-size: 14px; }
+
+/* ---------------------------------------------------------------- lobby: the public games list */
+.pm-browse-tools { display: flex; align-items: center; gap: var(--gap-lg); min-width: 0; }
+.lobby-toon .pm-filter { width: 180px; }
+.lobby-toon .lobby-join-form { display: flex; align-items: center; gap: var(--gap-sm); }
+.lobby-join-form > label { font-size: 12px; font-weight: 700; color: var(--ink-soft); white-space: nowrap; }
+.lobby-toon .lobby-join-form input { width: 190px; }
+.pm-games { display: grid; grid-template-rows: auto auto minmax(0, 1fr); gap: var(--gap-md); min-height: 0; }
+.pm-games-status { display: flex; align-items: center; gap: var(--gap-md); margin: 0; color: var(--ink-soft); font-size: 13px; }
+.pm-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--muted); }
+.pm-dot.live { background: var(--good); box-shadow: 0 0 6px var(--good); }
+.pm-dot.disconnected { background: var(--bad); }
+.pm-games-head,
+.match-card {
+  display: grid;
+  grid-template-columns: minmax(170px, 1fr) minmax(320px, 2.2fr) minmax(170px, 1fr) auto;
+  align-items: center;
+  gap: var(--gap-lg);
+}
+.pm-games-head { padding-inline: var(--gap-lg); color: var(--muted); font: 700 11px/1 var(--stamp); letter-spacing: 0.12em; text-transform: uppercase; }
+.pm-games-list { display: grid; align-content: start; gap: var(--gap-sm); min-height: 0; overflow: auto; padding-right: var(--gap-sm); }
+.match-card {
+  padding: var(--gap-md) var(--gap-lg);
+  background: var(--overlay-face-hi);
+  border: 2px solid var(--rule);
+  border-radius: 12px;
+  box-shadow: var(--slip-shadow);
+}
+.match-card:hover { border-color: var(--brand-bronze); }
+.match-card-map { display: grid; gap: 2px; min-width: 0; }
+.match-card-map b { font-size: 15px; }
+.match-card-detail { color: var(--ink-soft); font-size: 12px; }
+.match-card-roster { display: flex; align-items: center; gap: var(--gap-md); min-width: 0; }
+.match-card-side { display: flex; flex-wrap: wrap; align-items: center; gap: var(--gap-xs); flex: 1; min-width: 0; padding-left: var(--gap-md); border-left: 4px solid var(--side, var(--rule-soft)); }
+.match-card-side[data-colour='blue'] { --side: var(--army-blue); }
+.match-card-side[data-colour='red'] { --side: var(--army-red); }
+.match-card-side[data-colour='green'] { --side: var(--army-green); }
+.match-card-side[data-colour='violet'] { --side: var(--army-violet); }
+.match-card-seat { display: inline-flex; align-items: center; gap: 2px; }
+.match-card-meta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--gap-md); color: var(--ink-soft); font-size: 12px; }
+.match-card-meta > span { display: inline-flex; align-items: center; gap: 3px; }
+.match-card-meta .open { color: var(--brand-gold); font-weight: 800; }
+.match-card-code { font: 11px var(--mono); color: var(--muted); }
+.match-card-actions { display: flex; gap: var(--gap-sm); }
+.pm-vs { align-self: center; color: var(--brand-gold); font: 900 13px/1 var(--stamp); letter-spacing: 0.08em; }
+.lobby-toon .lobby-empty {
+  display: grid;
+  justify-items: center;
+  gap: var(--gap-md);
+  padding: var(--gap-xl) var(--gap-lg);
+  border: 2px dashed var(--rule-soft);
+  border-radius: 12px;
+  color: var(--ink-soft);
+}
+.lobby-empty p { margin: 0; }
+
+/* ---------------------------------------------------------------- commanders (CmdUI's screen fills the body) */
+.pm-commanders { display: grid; min-height: 0; height: 100%; overflow: hidden; }
+
+/* ---------------------------------------------------------------- the game room: battlefield | sides | setup */
+.lobby-room-head { display: flex; align-items: center; gap: var(--gap-md); min-width: 0; }
+.lobby-toon .invite-box { display: flex; align-items: center; gap: var(--gap-sm); }
+.lobby-toon .invite-box input { width: clamp(140px, 16vw, 300px); font: 11px var(--mono); }
+.lobby-live-status {
+  margin: 0;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: var(--paper-deep);
+  color: var(--ink-soft);
+  font: 700 11px/1.4 var(--stamp);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.lobby-live-status[data-phase='countdown'],
+.lobby-live-status[data-phase='started'] { color: var(--chrome-black); background: var(--brand-gold); }
+.pm-room {
+  display: grid;
+  grid-template-columns: minmax(270px, 1fr) minmax(460px, 1.7fr) minmax(290px, 1fr);
+  gap: var(--gap-lg);
+  min-height: 0;
+}
+.pm-room[data-loading] .pm-field,
+.pm-room[data-loading] .pm-setup { opacity: 0.55; }
+
+/* Battlefield: a large live preview of the exact map/seed/size, then the card gallery (scrolls) and size/seed. */
+.pm-preview { position: relative; flex: none; width: min(100%, 32vh); aspect-ratio: 1; margin: 0 auto; cursor: var(--cursor-view, zoom-in); }
+.pm-preview-peek { position: absolute; top: 8px; right: 8px; display: grid; place-items: center; width: 30px; height: 30px; border-radius: 8px; background: color-mix(in srgb, var(--chrome-black) 70%, transparent); color: var(--brand-gold); opacity: 0.7; transition: opacity 0.15s; }
+.pm-preview:hover .pm-preview-peek, .pm-preview:focus-visible .pm-preview-peek { opacity: 1; }
+.pm-preview-map {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 2px solid var(--brand-gold);
+  border-radius: 10px;
+  background: var(--paper-deep);
+  image-rendering: pixelated;
+  box-shadow: 0 4px 0 var(--chrome-black);
+}
+.pm-preview-caption {
+  position: absolute;
+  inset: auto 2px 2px;
+  display: grid;
+  padding: var(--gap-lg) var(--gap-md) var(--gap-sm);
+  border-radius: 0 0 8px 8px;
+  background: linear-gradient(transparent, color-mix(in srgb, var(--chrome-black) 85%, transparent));
+}
+.pm-preview-caption b { font-size: 15px; }
+.pm-preview-caption span { color: var(--ink-soft); font-size: 11px; }
+.lobby-battlefield { display: flex; flex-direction: column; flex: 1; min-height: 0; min-width: 0; margin: 0; padding: 0; border: 0; }
+.lobby-battlefield > legend { margin-bottom: var(--gap-sm); }
+.lobby-battlefield[disabled] .map-picker { opacity: 0.75; }
+.lobby-battlefield .map-picker { display: grid; grid-template-rows: minmax(0, 1fr) auto; flex: 1; min-height: 0; margin: 0; }
+.lobby-battlefield .mp-cards { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); align-content: start; min-height: 0; overflow: auto; padding: 2px; }
+/* The column is narrow at 1280: the seed field drops under the size switch rather than truncating the seed. */
+.lobby-battlefield .mp-row { flex-wrap: wrap; }
+.lobby-battlefield .mp-seed { min-width: 150px; }
+
+/* Sides: one army card per slot (a duel faces off across VS; four armies share a 2×2 grid without it); each is a
+   whole-army slot plus four plane seats, all commander drop targets. */
+.pm-sides { flex: 1; min-height: 0; overflow: auto; }
+.lobby-armies { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: start; gap: var(--gap-md); }
+.lobby-armies:not([data-armies='2']) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+/* Pinned beside the army headers (sticky while the sides scroll), never centred on whichever army is taller. */
+.lobby-armies > .pm-vs { align-self: start; position: sticky; top: var(--gap-lg); margin-top: var(--gap-lg); font-size: 20px; }
+/* Open/Closed are availability, not occupants: such cards read as empty, dashed and dimmed, and become solid only
+   once a human, bot or commander occupies a seat. Controls inside stay full-contrast. */
+.lobby-army { --side: var(--rule-soft); display: grid; gap: var(--gap-md); align-content: start; min-width: 0; padding: var(--gap-md); border: 2px solid var(--rule); border-radius: 12px; background: var(--overlay-face); box-shadow: inset 0 5px 0 var(--side), var(--slip-shadow); }
+.lobby-army[data-colour='blue'] { --side: var(--army-blue); }
+.lobby-army[data-colour='red'] { --side: var(--army-red); }
+.lobby-army[data-colour='green'] { --side: var(--army-green); }
+.lobby-army[data-colour='violet'] { --side: var(--army-violet); }
+.lobby-army:not([data-slot-state='active']) { border-style: dashed; border-color: var(--rule-soft); background: color-mix(in srgb, var(--paper) 45%, transparent); box-shadow: inset 0 5px 0 var(--side); }
+.lobby-army-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--gap-sm); padding-top: var(--gap-xs); }
+.lobby-army:not([data-slot-state='active']) .lobby-army-head { color: var(--muted); }
+.lobby-army-corner { margin-left: var(--gap-xs); color: var(--ink-soft); font: 400 11px var(--stamp); letter-spacing: 0.08em; text-transform: uppercase; }
+.lobby-army-ready { color: var(--ink-soft); font-size: 11px; font-weight: 700; }
+/* The colour picker: four swatches; the army's own is ringed, colours other armies hold are dimmed and inert. */
+.lobby-colours { display: inline-flex; gap: 4px; }
+.lobby-colour { width: 18px; height: 18px; padding: 0; border: 2px solid var(--paper); border-radius: 50%; background: var(--swatch); box-shadow: 0 0 0 1px var(--rule); cursor: var(--cursor-link, pointer); }
+.lobby-colour[data-colour='blue'] { --swatch: var(--army-blue); }
+.lobby-colour[data-colour='red'] { --swatch: var(--army-red); }
+.lobby-colour[data-colour='green'] { --swatch: var(--army-green); }
+.lobby-colour[data-colour='violet'] { --swatch: var(--army-violet); }
+.lobby-colour[aria-checked='true'] { box-shadow: 0 0 0 2px var(--ink); }
+.lobby-colour:disabled { cursor: var(--cursor-default, default); }
+.lobby-colour:disabled:not([aria-checked='true']) { opacity: 0.3; }
+.lobby-whole-army,
+.lobby-seat { position: relative; display: grid; gap: var(--gap-sm); min-width: 0; padding: var(--gap-md); border: 2px solid transparent; border-radius: 10px; background: var(--paper-shade); }
+.lobby-whole-army > .agent-button { justify-self: start; max-width: 100%; }
+/* Shown only while the planes differ: the army selector applies one pick to all four. */
+.lobby-slot-scope { color: var(--ink-soft); font: 400 11px var(--stamp); letter-spacing: 0.08em; text-transform: uppercase; }
+/* Seat mode: one control for the whole army, or one per plane; only that mode's editor shows. */
+.lobby-seat-mode { justify-self: stretch; }
+.lobby-seat-mode > button { flex: 1; justify-content: center; }
+/* Per-plane rows: plane icon (ready dot) beside a full-width body; the name is a caption, so selects keep the width. */
+.lobby-seat { grid-template-columns: 28px minmax(0, 1fr); align-items: start; gap: var(--gap-sm); padding: var(--gap-sm); }
+.lobby-seat-icon { position: relative; display: grid; place-items: center; width: 28px; height: 28px; margin-top: 2px; border-radius: 8px; background: var(--overlay-face); color: var(--ink); }
+.lobby-seat-icon::after { content: ''; position: absolute; right: -2px; bottom: -2px; width: 8px; height: 8px; border: 2px solid var(--paper-shade); border-radius: 50%; background: var(--ink-soft); }
+/* Agent seats: offline (grey) → online (connected, gold) → ready (green light); humans go straight to ready. */
+.lobby-seat-icon[data-ready='online']::after { background: var(--brand-gold); }
+.lobby-seat-icon[data-ready='ready']::after { background: var(--good); }
+.lobby-seat-icon[data-ready='open']::after { display: none; }
+.lobby-seat:not([data-slot-state='active']) > .lobby-seat-icon { opacity: 0.6; }
+.lobby-seat-body { display: grid; gap: 2px; min-width: 0; }
+.lobby-seat-name { color: var(--ink-soft); font: 400 11px var(--stamp); letter-spacing: 0.08em; text-transform: uppercase; }
+.lobby-seat > .pm-place { grid-column: 1 / -1; }
+/* Drag states: compatible editable slots invite the drop; incompatible ones step back. */
+[data-drop='ok'] { border-style: dashed; border-color: var(--brand-gold); }
+[data-drop='no'] { opacity: 0.4; }
+.drop-over { border-style: solid; border-color: var(--brand-gold); background: color-mix(in srgb, var(--brand-gold) 18%, var(--paper-shade)); }
+.lobby-toon .pm-place { border-color: var(--brand-gold); color: var(--brand-gold); }
+
+.pm-people { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap-md); padding-top: var(--gap-md); border-top: 2px solid var(--rule-soft); }
+.lobby-members,
+.lobby-observers { display: flex; flex-wrap: wrap; align-content: start; align-items: center; gap: var(--gap-sm); min-width: 0; }
+.lobby-members > h3,
+.lobby-observers > h3 { flex-basis: 100%; color: var(--ink-soft); }
+.lobby-member { display: inline-flex; align-items: center; gap: 2px; }
+
+/* The roster dock: my commanders as draggable chips (roster-dock.ts), or the way to connect some. */
+.pm-dock {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--gap-md);
+  padding: var(--gap-md);
+  border: 2px dashed var(--rule-soft);
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--paper-deep) 60%, transparent);
+}
+.pm-dock > h3 { color: var(--ink-soft); }
+.pm-dock > .roster-dock { display: flex; flex-wrap: wrap; gap: var(--gap-sm); flex: 1; min-width: 0; max-height: 84px; overflow: auto; }
+.pm-dock [data-commander-id] { cursor: grab; }
+.pm-dock [data-commander-id]:active { cursor: grabbing; }
+.pm-dock-empty { flex: 1; margin: 0; }
+.pm-dock > .btn { margin-left: auto; }
+
+/* Setup: Match / Rules / Series tabs over one scrolling panel, with Start pinned at the bottom. */
+.pm-tabs { display: flex; gap: var(--gap-xs); border-bottom: 2px solid var(--rule-soft); }
+.pm-tab {
+  position: relative;
+  display: inline-flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-sm);
+  min-height: 38px;
+  padding: 0 var(--gap-md);
+  color: var(--ink-soft);
+  font-weight: 700;
+  background: none;
+  border: 0;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -2px;
+  cursor: var(--cursor-link, pointer);
+}
+.pm-tab:hover { color: var(--ink); }
+.pm-tab[aria-selected='true'] { color: var(--brand-gold); border-bottom-color: var(--brand-gold); }
+.pm-tab[data-changed]::after { content: ''; position: absolute; top: 7px; right: 8px; width: 7px; height: 7px; border-radius: 50%; background: var(--brand-gold); }
+.pm-panel { display: grid; flex: 1; align-content: start; gap: var(--gap-lg); min-height: 0; overflow: auto; padding: var(--gap-sm) 2px; }
+.pm-panel[hidden] { display: none; }
+.pm-panel p { margin: 0; }
+.pm-field-row { display: grid; gap: var(--gap-xs); min-width: 0; }
+.pm-field-row > span,
+.lobby-series-form label > span,
+.lobby-series-form legend { color: var(--ink-soft); font-size: 12px; font-weight: 700; }
+.pm-field-row select,
+.pm-field-row input { width: 100%; }
+.lobby-practice-badge { display: flex; gap: var(--gap-md); align-items: center; padding: var(--gap-md); color: var(--brand-gold); background: var(--paper-deep); border: 1px solid var(--brand-gold); border-radius: 8px; }
+.lobby-rules-hash { overflow-wrap: anywhere; }
+.lobby-series-form { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--gap-md); }
+.lobby-series-form label { display: grid; gap: var(--gap-xs); min-width: 0; }
+.lobby-series-form .pm-check { display: flex; }
+.lobby-series-form .pm-wide,
+.lobby-series-form > output { grid-column: 1 / -1; }
+.lobby-series-form fieldset { display: flex; flex-wrap: wrap; gap: var(--gap-sm) var(--gap-lg); margin: 0; padding: var(--gap-sm) var(--gap-md); border: 1px solid var(--rule-soft); border-radius: 8px; }
+.lobby-series-form fieldset label { display: inline-flex; align-items: center; gap: var(--gap-xs); font-size: 13px; }
+.lobby-series-count { font-weight: 800; color: var(--brand-gold); }
+.lobby-series-limits > summary { display: flex; align-items: center; gap: var(--gap-sm); color: var(--ink-soft); font-size: 12px; cursor: var(--cursor-link, pointer); }
+.pm-start { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: var(--gap-md); padding-top: var(--gap-md); border-top: 2px solid var(--rule-soft); }
+.pm-start:empty { display: none; }
+.pm-queue { flex-basis: 100%; margin: 0; color: var(--ink-soft); }
+.lobby-countdown { font-weight: 800; color: var(--brand-gold); }
+.lobby-countdown:empty { display: none; }
+.lobby-toon .pm-go { flex: 1 1 55%; min-height: 54px; font-size: 20px; font-weight: 900; letter-spacing: 0.06em; text-transform: uppercase; }
+
+/* Below the supported desktop size the columns stack and the room scrolls as one. */
+@media (max-width: 1100px) {
+  .pm-room { grid-template-columns: 1fr; overflow: auto; }
+  .pm-col { overflow: visible; }
+  .pm-head { flex-wrap: wrap; }
+  .pm-head-tools { flex-wrap: wrap; margin-left: 0; }
+  .pm-games-head { display: none; }
+  .match-card { grid-template-columns: 1fr; }
+}
+@media (max-width: 540px) {
+  .lobby.prematch { padding: 8px; }
+  .lobby-toon .pm-home { padding: var(--gap-lg); }
+  .lobby-toon .hero-logo { width: min(100%, 270px); }
+  .lobby-toon .lobby-actions { grid-template-columns: 1fr; }
+  .lobby-armies { grid-template-columns: 1fr; }
+  .pm-people { grid-template-columns: 1fr; }
+}
+/* A phone held landscape is shorter than Home: scroll it instead of clipping the lower tiles out of reach. */
+@media (max-height: 600px) {
+  .lobby.prematch[data-lobby-route='home'] { place-items: safe center; overflow-y: auto; }
+}

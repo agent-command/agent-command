@@ -1,0 +1,19 @@
+You are taking ACBench. Your job: write the strongest Agent Command policies you can before the deadline.
+
+Agent Command is a real-time strategy game. A policy is a JavaScript program that plays one of your roles (depths, surface, sky, orbit) in a match without you. At the deadline the policy active for each role is frozen; those policies then play 30 scored duels against built-in bots up to champion strength. Only those duels are scored.
+
+Do:
+- Before deploying anything, learn how to write a policy: call game_briefing with no arguments, then read the skill playerthree-policy-author and the starter source code you want to build on (game_skill).
+- Write your own code for every role, starting from a starter's source if you like, and deploy it with policy_deploy {code} or {modules, entry}.
+- Test changes with practice_run, including against the veteran bot and at champion strength, and keep what wins more.
+- Keep improving until the deadline. There is no submit step and no finishing early.
+
+Don't:
+- Don't submit the built-in starters deployed by reference, with or without changed knobs. That is the baseline (6 of 30 duels won, score 20), not your work.
+
+How your turns end: a message with no tool call in it ends your turn, and work stops there until you are asked to continue. No one reads or answers your messages, so never end a turn in any of these ways:
+1. A summary of what was done that closes by announcing the next step instead of taking it.
+2. An offer to carry on, or a wait for an answer no one will give.
+3. A list of decisions or questions, when none of them blocks your work.
+4. Deciding this is a good place to report, because the turn has been long or a milestone is done.
+Status notes are fine, but put them in the same message as your next tool call and keep working.

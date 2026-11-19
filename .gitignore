@@ -1,0 +1,10 @@
+node_modules
+dist
+.data
+/tmp
+*.log
+apps/web/dist
+bench-results
+.env*
+!.env.example
+*:Zone.Identifier

@@ -1,0 +1,2096 @@
+/*
+ * Logo-derived command console over the unchanged Field Journal world.
+ * Dark scheme: near-black/maroon-brown faces sampled from the logo's globe and letter shadows, black keylines,
+ * gold bevel trims, cream text. Gold marks actions/selection; brand red is reserved for the logo/alerts;
+ * ownership always uses the team tokens.
+ */
+/* World-space annotations retain the Field Journal lettering, independently of chrome. */
+@font-face {
+  font-family: 'Caveat';
+  src: url('./fonts/caveat.woff2') format('woff2');
+  font-weight: 500 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'IM Fell English SC';
+  src: url('./fonts/im-fell-english-sc.woff2') format('woff2');
+  font-display: swap;
+}
+
+:root {
+  /* Sampled from logo.png (6-level buckets): letter gold, amber, shade orange, globe red/maroon, outline black,
+     highlight cream; the dark faces are the globe maroon and letter-shadow browns. */
+  --brand-gold: #ffd21f;
+  --brand-amber: #f5a800;
+  --brand-shade: #c66a00;
+  --brand-bronze: #9c4200;
+  --brand-red: #e30000;
+  --brand-maroon: #3a0000;
+  --chrome-black: #060000;
+  --chrome-white: #fcfbe7;
+  --chrome-hover: #5a1e00;
+  --on-gold: var(--chrome-black);
+  /* The home splash line: a brighter lemon than the letter gold, always over a black outline. */
+  --splash-ink: #ffeb2a;
+  /* Dark enamel faces; legacy semantic names keep all chrome on one palette. */
+  --paper: #2a0c00;
+  --paper-hi: #4e1800;
+  --paper-shade: #1e0600;
+  --paper-deep: #120600;
+  /* Selected controls: one step lighter than the raised face, ringed in gold. */
+  --paper-on: #621f02;
+  --ink: var(--chrome-white);
+  --ink-soft: #f9ec9c;
+  --muted: #bfb789;
+  --rule: var(--chrome-black);
+  --rule-soft: var(--brand-bronze);
+  --neutral-ink: var(--muted);
+  /* Army swatches (world/common.ts SIDE_HEX), one per alliance colour; lighter inks are AA on every dark chrome face. */
+  --army-blue: #3aa8ff;
+  --army-red: #ff4f5e;
+  --army-green: #96f075;
+  --army-violet: #8b55f6;
+  /* Text inks: AA on every chrome face and, like the swatches, apart under every common colour-vision deficiency
+     (palette.test.ts); violet ink leans orchid so it never reads as the blue ink to deuteranopes. */
+  --army-blue-ink: #58a4ff;
+  --army-red-ink: #ff8a94;
+  --army-green-ink: #9be87a;
+  --army-violet-ink: #e8b0e8;
+  /* Observer accessible palette (cyan / gold / rose / lavender): army inks that stay apart under every common
+     colour-vision deficiency (palette.test.ts). */
+  --army-blue-ink-accessible: #7fd6ff;
+  --army-red-ink-accessible: #ffcb66;
+  --army-green-ink-accessible: #f59aa6;
+  --army-violet-ink-accessible: #a99cff;
+  --scrim: #000b;
+  --threat: #ffd23f;
+  --hatch: repeating-linear-gradient(-45deg, var(--ink) 0 1.5px, transparent 1.5px 5px);
+  --good: #9be36d;
+  --bad: #ff7a6e;
+  --warn: var(--brand-amber);
+  --alloy: #ffb347;
+  --alloy-ink: var(--alloy);
+  --energy: #7fd6ff;
+  --energy-ink: var(--energy);
+  --wash-on: var(--brand-gold);
+  /* Inward keylines/bevels preserve audited panel and control dimensions. */
+  --grain: linear-gradient(transparent, transparent);
+  --sheet-shadow: inset 0 0 0 2px var(--chrome-black), inset 0 4px 0 2px var(--brand-gold), inset 0 -4px 0 2px var(--brand-shade), 3px 4px 0 var(--chrome-black);
+  /* Content clearance inside --sheet-shadow: its top/bottom bands are 6px deep (4px offset + 2px spread), its sides
+     2px, plus 3px air so cards inside never touch the bevels. */
+  --sheet-pad-block: 9px;
+  --sheet-pad-inline: 6px;
+  /* One spacing scale for menus, cards and chips, derived from the sheet clearances so every surface shares a rhythm. */
+  --gap-xs: calc(var(--sheet-pad-inline) / 2);
+  --gap-sm: var(--sheet-pad-inline);
+  --gap-md: var(--sheet-pad-block);
+  --gap-lg: calc(var(--sheet-pad-block) + var(--sheet-pad-inline));
+  --gap-xl: calc(2 * var(--sheet-pad-block));
+  --slip-shadow: inset 0 1px 0 var(--brand-bronze), inset 0 -2px 0 var(--paper-deep), 1px 2px 0 var(--chrome-black);
+  --on-ring: inset 0 0 0 1px var(--brand-gold);
+  --wobble: 4px;
+  --serif: Arial, Helvetica, sans-serif;
+  --stamp: Arial, Helvetica, sans-serif;
+  --hand: Arial, Helvetica, sans-serif;
+  --mono: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+/* The UA placeholder grey is dark-on-dark on every enamel face. */
+::placeholder {
+  color: var(--muted);
+  opacity: 1;
+}
+html,
+body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  background: var(--grain), var(--paper);
+  color: var(--ink);
+  font: 13px/1.38 var(--serif);
+  font-variant-numeric: lining-nums;
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
+}
+#app {
+  position: fixed;
+  inset: 0;
+  /* Game pointer (cursors.ts sets --cursor-default at startup; buttons and links keep their own cursors). */
+  cursor: var(--cursor-default, default);
+}
+/* Clickables use the game pointer, not the OS hand (component rules use the same variable). */
+a[href],
+button,
+summary,
+select,
+label[for],
+[role='button'],
+[role='tab'] {
+  cursor: var(--cursor-link, pointer);
+}
+.battlefield {
+  transition: opacity .4s ease;
+}
+/* The backdrop's still (poster.ts): under the live scene, which fades in over it. */
+.backdrop-poster {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  animation: poster-in .2s ease-out;
+}
+@keyframes poster-in {
+  from { opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .battlefield { transition: none; }
+  .backdrop-poster { animation: none; }
+}
+canvas.gl,
+canvas.overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+/* The overlay takes every pointer: no browser pan or pinch-zoom, so touch reaches the camera gestures (touch-camera.ts). */
+canvas.overlay {
+  z-index: 2;
+  touch-action: none;
+}
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--rule) transparent;
+}
+
+/* ------------------------------------------------------------------ command-console surfaces */
+/* Black keylines and inward bevels, never extra layout space. */
+.topbar,
+.card,
+.minimap-box,
+.queue-panel,
+.plane-btn,
+.status,
+.outcome-card,
+.lobby-inner,
+.chat-bar.floating,
+.plane-banner,
+.team-toggle,
+.cmd-card,
+.ready-check {
+  background: var(--grain), var(--paper);
+  color: var(--ink);
+  border: 1px solid var(--rule);
+  border-radius: var(--wobble);
+  box-shadow: var(--sheet-shadow);
+}
+/* Small slips: one ink rule, a light shadow. */
+.ev,
+.toast,
+.armed-hint,
+.chip,
+.lobby-tab,
+.prod-btn,
+.btn {
+  background: var(--grain), var(--paper-hi);
+  color: var(--ink);
+  border: 1px solid var(--rule);
+  border-radius: var(--wobble);
+  box-shadow: var(--slip-shadow);
+}
+.stamp {
+  font-family: var(--stamp);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.num {
+  font-family: var(--hand);
+  font-weight: 600;
+}
+/* Plane badges retain their map accent; their labels always use contrast-safe ink. */
+.section {
+  display: inline-block;
+  padding: 1px 8px 0;
+  font: 700 14px/1.3 var(--stamp);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--ink);
+  background: color-mix(in srgb, var(--accent, var(--brand-gold)) 24%, var(--paper-hi));
+  border: 1.5px solid currentColor;
+  border-radius: var(--wobble);
+}
+
+button {
+  font: inherit;
+  color: inherit;
+}
+.btn {
+  font: 600 13px/1.2 var(--serif);
+  padding: 6px 12px;
+  cursor: var(--cursor-link, pointer);
+  transition: background 0.12s, transform 0.08s, box-shadow 0.08s;
+  white-space: nowrap;
+}
+.btn:hover {
+  background: var(--chrome-hover);
+}
+.btn:active {
+  transform: translate(1px, 1px);
+  box-shadow: 0 0 0 transparent;
+}
+.btn.primary {
+  background: linear-gradient(var(--brand-gold), var(--brand-amber));
+  border-color: var(--chrome-black);
+  color: var(--chrome-black);
+  letter-spacing: 0.02em;
+}
+.btn.primary:hover {
+  background: var(--brand-gold);
+}
+.btn.ghost {
+  background: transparent;
+  border-color: var(--rule-soft);
+  box-shadow: none;
+}
+.btn.ghost:hover {
+  background: var(--chrome-hover);
+}
+.btn.on {
+  background: var(--paper-on);
+  box-shadow: var(--on-ring);
+}
+.btn.small {
+  padding: 3px 8px;
+  font-size: 12px;
+}
+.btn.big {
+  padding: 9px 16px;
+  font-size: 14px;
+  width: 100%;
+}
+.btn.danger {
+  border-color: var(--bad);
+  color: var(--bad);
+}
+.btn:disabled {
+  opacity: 0.45;
+  cursor: var(--cursor-default, default);
+  transform: none;
+}
+kbd {
+  font: 600 10px/1.4 var(--mono);
+  color: var(--ink-soft);
+  background: var(--paper-hi);
+  border: 1px solid var(--rule);
+  border-bottom-width: 2px;
+  border-radius: 3px;
+  padding: 0 4px;
+  margin-left: 6px;
+}
+.muted {
+  color: var(--muted);
+}
+.small {
+  font-size: 11px;
+}
+.seg-ctl {
+  display: inline-flex;
+  border: 1px solid var(--rule);
+  border-radius: var(--wobble);
+  overflow: hidden;
+  width: max-content;
+  background: var(--paper-hi);
+}
+.seg-ctl button {
+  background: transparent;
+  border: 0;
+  border-left: 1px solid var(--rule-soft);
+  padding: 6px 12px;
+  cursor: var(--cursor-link, pointer);
+  color: var(--ink-soft);
+}
+.seg-ctl button:first-child {
+  border-left: 0;
+}
+.seg-ctl button:hover {
+  background: var(--chrome-hover);
+}
+.seg-ctl button.on {
+  background: var(--brand-gold);
+  color: var(--chrome-black);
+}
+.seg-ctl button:disabled {
+  cursor: var(--cursor-default, default);
+  opacity: 0.6;
+}
+
+/* ------------------------------------------------------------------ pre-match shell (screens: lobby.css) */
+.lobby {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  pointer-events: none;
+}
+.lobby-inner {
+  display: flex;
+  flex-direction: column;
+  pointer-events: auto;
+}
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px) rotate(-0.4deg);
+  }
+}
+.hero {
+  border-bottom: 3px double var(--rule);
+  padding-bottom: 12px;
+  margin-bottom: 14px;
+}
+.kicker {
+  font: 400 12px/1 var(--stamp);
+  letter-spacing: 0.24em;
+  color: var(--ink-soft);
+  margin-bottom: 10px;
+}
+.hero h1 {
+  margin: 0;
+  line-height: 0;
+}
+.hero-logo {
+  display: block;
+  height: clamp(72px, 8vw, 116px);
+  width: auto;
+}
+.cmd-section {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+.cmd-section {
+  font: 400 12px/1 var(--stamp);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.lobby-msg {
+  min-height: 20px;
+  margin: 8px 0 0;
+  font: 600 18px/1.1 var(--hand);
+  color: var(--bad);
+}
+
+/* ------------------------------------------------------------------ hud */
+.hud {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  display: grid;
+  grid-template-columns: clamp(246px, 21vw, 300px) minmax(0, 1fr) 232px;
+  grid-template-rows: auto minmax(160px, 1fr) minmax(0, auto);
+  grid-template-areas: 'ledger ledger ledger' 'journal . field' 'journal orders field';
+  gap: 10px;
+  padding: 8px 10px 10px;
+}
+.hud > * {
+  pointer-events: auto;
+}
+/* Game HUD: one row of paper chips; geometry is fixed before the first live view (icon-topbar.css lays it out). */
+.topbar {
+  grid-area: ledger;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 76px;
+  padding: 8px;
+  visibility: hidden;
+}
+.topbar[data-ready] {
+  visibility: visible;
+}
+.topbar [hidden] {
+  display: none !important;
+}
+.hud-chip,
+.hud-stamp {
+  min-width: 0;
+  border: 1px solid var(--rule-soft);
+  border-radius: 3px 5px 3px 4px;
+  background: var(--grain), var(--paper-hi);
+  box-shadow: inset 0 1px var(--brand-bronze), 0 1px 1px color-mix(in srgb, var(--chrome-black) 40%, transparent);
+}
+.hud-chip {
+  height: 56px;
+  padding: 4px 5px;
+}
+.ledger-heading {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font: 400 10px/12px var(--stamp);
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+}
+.ledger-number {
+  display: inline-block;
+  flex: none;
+  width: calc(var(--figures) * 1ch);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: right;
+  font: 11px/1.2 var(--mono);
+  font-variant-numeric: tabular-nums lining-nums;
+}
+.ledger-economy {
+  display: flex;
+  gap: 6px;
+}
+.ledger-resource {
+  width: calc(var(--stock-width) + 28px);
+  border-bottom: 2px solid var(--resource-ink);
+}
+.ledger-resource.alloy {
+  --resource-ink: var(--alloy-ink);
+  --resource-wash: var(--alloy);
+}
+.ledger-resource.energy {
+  --resource-ink: var(--energy-ink);
+  --resource-wash: var(--energy);
+}
+.resource-main {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  height: 33px;
+}
+.ledger-stock {
+  width: var(--stock-width);
+  height: var(--stock-height);
+  padding: 0 var(--stock-padding);
+  overflow: visible;
+  text-overflow: clip;
+  font: 700 30px/34px var(--hand);
+}
+.resource-detail {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 4px;
+  height: 12px;
+}
+.ledger-resource-name {
+  color: var(--resource-ink);
+  font: 11px/12px var(--stamp);
+}
+.ledger-rate {
+  font-size: 9px;
+  color: var(--ink-soft);
+}
+.ledger-resource.capped {
+  border-bottom-style: dashed;
+}
+.ledger-objective {
+  width: 100%;
+  max-width: 560px;
+  justify-self: center;
+}
+.ledger-spire-rows {
+  display: contents;
+}
+.ledger-spire-row {
+  display: grid;
+  grid-template-columns: 30px repeat(4, minmax(0, 1fr));
+  gap: 4px;
+  align-items: center;
+  height: 15px;
+}
+.ledger-planes {
+  height: 14px;
+  text-align: center;
+  font: 11px/12px var(--stamp);
+}
+.ledger-planes > span:not(:first-child) {
+  color: color-mix(in srgb, var(--accent) 30%, var(--ink));
+  background: color-mix(in srgb, var(--accent) 30%, var(--paper-hi));
+  border-bottom: 2px solid color-mix(in srgb, var(--accent) 60%, var(--ink));
+  border-radius: 1px 3px 1px 2px;
+}
+.ledger-side {
+  font-size: 10px;
+}
+.ledger-segment {
+  display: block;
+  width: 100%;
+  height: 11px;
+  border: 1px solid var(--ink);
+  background: var(--paper-shade);
+  border-radius: 1px 2px 1px 2px;
+}
+.ledger-health {
+  display: block;
+  height: 100%;
+  width: var(--health);
+  background: var(--side);
+}
+.ledger-segment.unknown {
+  background: repeating-linear-gradient(-45deg, transparent 0 3px, color-mix(in srgb, var(--muted) 40%, transparent) 3px 4px), var(--paper-hi);
+  border-color: var(--muted);
+}
+.ledger-segment.unknown .ledger-health {
+  display: none;
+}
+.ledger-segment.low .ledger-health {
+  background: var(--hatch), var(--side);
+}
+.ledger-segment.dead {
+  background: var(--hatch), var(--paper-shade);
+}
+/* Several hostile Spires (free-for-all): one compact bar each, so the chip keeps its height. */
+.ledger-objective:not([data-hostiles='1']) .ledger-spire-row.hostile {
+  height: 9px;
+}
+.ledger-objective:not([data-hostiles='1']) .ledger-spire-row.hostile .ledger-segment {
+  height: 7px;
+}
+.ledger-objective:not([data-hostiles='1']) .ledger-spire-row.hostile .ledger-side svg {
+  width: 8px;
+  height: 8px;
+}
+.ledger-spire-row.hostile .ledger-side {
+  color: var(--side-ink);
+}
+.ledger-time {
+  position: relative;
+}
+.sun {
+  display: grid;
+  grid-template-columns: 44px max-content;
+  gap: 8px;
+  align-items: center;
+  height: 46px;
+}
+.sun-dial {
+  width: 44px;
+  height: 44px;
+}
+.sun-text {
+  align-self: start;
+  justify-self: center;
+}
+.sun-line {
+  display: flex;
+  align-items: baseline;
+  height: 15px;
+  white-space: nowrap;
+}
+.sun-phase {
+  flex: none;
+  width: 44px;
+  font-size: 11px;
+}
+.sun-countdown .ledger-number {
+  width: 5ch;
+  font-size: 10px;
+  text-align: right;
+}
+.sun-seconds {
+  font-size: 10px;
+}
+.hud-stamp {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  height: 20px;
+  padding: 0 3px;
+}
+/* Idle entries recede through the muted ink (AA), never through opacity over the dark face. */
+.ledger-event.idle,
+.ledger-event.idle .hud-stamp {
+  color: var(--muted);
+}
+.ledger-clock {
+  font-size: 10px;
+}
+.topbar :focus-visible {
+  outline: 2px solid var(--army-blue-ink);
+  outline-offset: 2px;
+}
+.chip {
+  border-style: dashed;
+  padding: 3px 9px;
+  font: italic 12px var(--serif);
+  cursor: var(--cursor-link, pointer);
+}
+.chip.static {
+  cursor: var(--cursor-default, default);
+  border-style: solid;
+  font: 400 12px var(--stamp);
+  letter-spacing: 0.14em;
+  background: var(--hatch), var(--threat);
+  color: var(--ink);
+}
+/* `?stats` (stats-readout.ts): above every surface, bottom-left, never in the way of a touch */
+.stats-readout {
+  position: fixed;
+  left: max(4px, env(safe-area-inset-left));
+  bottom: max(4px, env(safe-area-inset-bottom));
+  z-index: 10000;
+  margin: 0;
+  max-width: calc(100vw - 8px);
+  font: 10px/1.35 var(--mono);
+  white-space: pre-wrap;
+  color: var(--ink);
+  background: color-mix(in srgb, var(--paper) 78%, transparent);
+  padding: 2px 5px;
+  pointer-events: none;
+}
+
+/* plane rail: one ink-wash tab per plane, the stack order (IV on top) */
+.journal-col {
+  grid-area: journal;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 0;
+  min-width: 0;
+  pointer-events: none;
+}
+.journal-col > * {
+  pointer-events: auto;
+}
+.switcher {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 8px 12px 4px 0;
+}
+.plane-btn {
+  position: relative;
+  display: grid;
+  grid-template-columns: 30px minmax(0, 1fr);
+  grid-template-areas: 'key name' 'key badge';
+  gap: 1px 8px;
+  width: 100%;
+  text-align: left;
+  padding: var(--sheet-pad-block) 10px var(--sheet-pad-block) 0;
+  cursor: var(--cursor-link, pointer);
+  background:
+    linear-gradient(90deg, color-mix(in srgb, var(--accent) 80%, var(--paper)) 0 30px, transparent 30px),
+    var(--grain),
+    var(--paper);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.plane-btn:hover {
+  transform: translateX(3px);
+}
+.plane-btn.active {
+  transform: translateX(10px);
+  color: var(--on-gold);
+  background:
+    linear-gradient(90deg, color-mix(in srgb, var(--accent) 80%, var(--paper-hi)) 0 30px, transparent 30px),
+    linear-gradient(var(--brand-gold), var(--brand-amber));
+  box-shadow: inset 0 0 0 1px var(--chrome-black), var(--sheet-shadow);
+}
+.plane-btn.active .pname,
+.plane-btn.active .stance,
+.plane-btn.active .idle {
+  color: var(--on-gold);
+}
+.plane-btn .key {
+  grid-area: key;
+  align-self: center;
+  justify-self: center;
+  font: 700 11px var(--mono);
+  color: var(--on-gold);
+  border-right: 0;
+}
+.plane-btn .pname {
+  grid-area: name;
+  font: 400 13px/1.25 var(--stamp);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--accent) 38%, var(--ink));
+  white-space: nowrap;
+}
+.plane-btn .prow {
+  grid-area: badge;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  min-width: 0;
+  white-space: nowrap;
+}
+.plane-btn .plane-chip {
+  min-width: 0;
+}
+.plane-btn .stance {
+  flex: 0 0 auto;
+  margin-left: auto;
+  font: italic 11px var(--serif);
+  color: var(--muted);
+}
+.plane-btn .idle {
+  flex: 0 0 auto;
+  font: 600 15px/1 var(--hand);
+  color: var(--ink);
+}
+.plane-btn .pip {
+  position: absolute;
+  right: -8px;
+  top: -8px;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 4px;
+  border-radius: 10px;
+  background: var(--brand-red);
+  color: var(--chrome-white);
+  border: 1.5px solid var(--chrome-black);
+  font: 700 15px/17px var(--hand);
+  text-align: center;
+  cursor: var(--cursor-link, pointer);
+  box-shadow: var(--slip-shadow);
+  animation: pip 1s ease-in-out infinite;
+}
+@keyframes pip {
+  50% {
+    transform: scale(1.16);
+  }
+}
+
+/* event feed: torn slips of the day's log */
+.feed {
+  order: 2;
+  flex: 0 1 auto;
+  margin-top: auto;
+  max-height: 30%;
+  min-height: 26px;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+/* HUD panels over the battlefield (top bar and its chips, plane rail, feed slips, build queue, command card, minimap,
+   plane tag) and the menu: the dark face at --overlay-alpha lets the map show through without a backdrop blur (a blur
+   would re-filter the live WebGL canvas every frame); bevels, the gold top strip and the active plane's gold stay
+   solid. The feed and queue also `peek` (peek.ts: a selected unit or impact countdown underneath fades them). */
+/* Faces resolve per element from the inherited --overlay-alpha. */
+.hud,
+.obs,
+.lobby {
+  --overlay-alpha: 80%;
+}
+.hud .topbar,
+.hud .hud-chip,
+.hud .hud-stamp,
+.hud .plane-btn,
+.hud .queue-panel,
+.hud .card,
+.hud .minimap-box,
+.feed .ev,
+.hud .plane-banner,
+.obs .obs-face,
+.obs .hud-chip,
+.obs .hud-stamp,
+.obs .ev,
+.lobby-inner {
+  --overlay-face: color-mix(in srgb, var(--paper) var(--overlay-alpha), transparent);
+  --overlay-face-hi: color-mix(in srgb, var(--paper-hi) var(--overlay-alpha), transparent);
+}
+.hud .topbar,
+.hud .queue-panel,
+.hud .card,
+.hud .minimap-box,
+.hud .plane-banner,
+.obs .obs-face {
+  background: linear-gradient(var(--brand-gold), var(--brand-amber)) top / 100% 5px no-repeat, var(--overlay-face);
+  transition: opacity 0.18s;
+}
+.hud .hud-chip,
+.hud .hud-stamp,
+.feed .ev,
+.obs .hud-chip,
+.obs .hud-stamp,
+.obs .ev {
+  background: var(--overlay-face-hi);
+  transition: opacity 0.18s;
+}
+.hud .plane-btn:not(.active) {
+  background:
+    linear-gradient(90deg, color-mix(in srgb, var(--accent) 80%, var(--paper)) 0 30px, transparent 30px),
+    var(--overlay-face);
+}
+.feed.peek,
+.hud .queue-panel.peek {
+  opacity: 0.35;
+}
+.feed:empty {
+  display: none;
+}
+.ev {
+  display: flex;
+  flex-shrink: 0;
+  gap: 7px;
+  align-items: baseline;
+  padding: 2px 8px 2px 6px;
+  border-left: 4px solid var(--muted);
+  font-size: 12px;
+  cursor: var(--cursor-link, pointer);
+}
+@keyframes slidein {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+}
+/* feed lines move from event-feed.ts (Web Animations): in from the edge, the newest under a highlighter wash that
+   fades (the ::after, opacity 0 at rest), the oldest fading off the top */
+.feed .ev {
+  position: relative;
+  flex-shrink: 0;
+}
+.feed .ev::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: color-mix(in srgb, var(--threat) 55%, transparent);
+  mix-blend-mode: screen;
+  opacity: 0;
+  pointer-events: none;
+}
+.feed .ev.leaving {
+  pointer-events: none;
+}
+.ev.good {
+  border-left-color: var(--good);
+}
+.ev.bad {
+  border-left-color: var(--bad);
+}
+/* threats: amber with a hatch strip, never colour alone */
+.ev.warn {
+  border-left: 1px solid var(--rule);
+  padding-left: 15px;
+  background:
+    var(--hatch) left / 8px 100% no-repeat,
+    linear-gradient(var(--threat), var(--threat)) left / 8px 100% no-repeat,
+    var(--grain),
+    var(--paper-hi);
+  font-weight: 600;
+}
+.ev-t {
+  font: 600 15px/1 var(--hand);
+  color: var(--muted);
+  min-width: 2.3em;
+}
+.ev-p {
+  font: 400 11px var(--stamp);
+  min-width: 1.8em;
+  color: color-mix(in srgb, var(--accent) 40%, var(--ink));
+}
+
+/* command panel: the open page of the focused plane */
+.card {
+  grid-area: orders;
+  align-self: end;
+  width: 100%;
+  max-width: 960px;
+  height: clamp(240px, 35dvh, 340px);
+  max-height: min(42dvh, 100%);
+  min-width: 0;
+  margin: 0 auto;
+  overflow: auto;
+  container-type: inline-size;
+  padding: 8px 12px 10px;
+}
+.card-title {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  margin-bottom: 7px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--rule-soft);
+}
+.ct-warn {
+  margin-left: auto;
+  font: 600 16px/1 var(--hand);
+  color: var(--ink-soft);
+}
+.card-row {
+  display: grid;
+  grid-template-columns: minmax(100px, 1fr) minmax(150px, 1.5fr) minmax(118px, 1.4fr) minmax(36px, auto);
+  gap: 8px;
+}
+.card-col {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+.card-col + .card-col {
+  border-left: 1px dotted var(--rule-soft);
+  padding-left: 8px;
+}
+/* Button labels must wrap inside their column instead of becoming clipped controls. */
+.card .btn {
+  max-width: 100%;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+@container (width < 400px) {
+  .card-row {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 150px), 1fr));
+  }
+}
+.sel {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  min-height: 22px;
+}
+.sel .unit-one {
+  width: 100%;
+  font-size: 14px;
+}
+.unit-chip {
+  font-size: 12px;
+  padding: 1px 7px;
+  border: 1px solid var(--rule-soft);
+  border-radius: 2px;
+  background: var(--paper-on);
+}
+.unit-chip .num {
+  font-size: 15px;
+}
+/* a derelict core near meltdown: amber ink on a hatch (the heat number carries it, not colour alone) */
+.unit-chip.hot {
+  color: var(--warn);
+  background: repeating-linear-gradient(-45deg, color-mix(in srgb, var(--warn) 14%, transparent) 0 3px, transparent 3px 7px);
+}
+/* a timed visit running out: amber ink on a hatch strip, pulsing (never colour alone: icon, plane and seconds) */
+.return-cue {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  width: 100%;
+  padding: 1px 6px;
+  color: var(--warn);
+  font: 700 15px/1 var(--hand);
+  border-left: 3px solid var(--warn);
+  background: repeating-linear-gradient(-45deg, color-mix(in srgb, var(--warn) 12%, transparent) 0 3px, transparent 3px 7px);
+  animation: return-pulse 0.8s ease-in-out infinite;
+}
+@keyframes return-pulse {
+  50% {
+    opacity: 0.5;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .return-cue {
+    animation: none;
+  }
+}
+.hpbar {
+  position: relative;
+  width: 100%;
+  height: 14px;
+  border: 1.5px solid var(--ink);
+  border-radius: 1px 2px 1px 2px;
+  background: var(--paper-hi);
+  overflow: hidden;
+}
+.hpbar span {
+  display: block;
+  height: 100%;
+  background: color-mix(in srgb, var(--wash-on) 80%, var(--good));
+}
+.hpbar em {
+  position: absolute;
+  inset: 0;
+  font: 700 14px/11px var(--hand);
+  text-align: center;
+  font-style: normal;
+}
+/* Unit stats: icon first, the number beside it, detail in the hint (or the caption, inside a tooltip). */
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(48px, 1fr));
+  grid-auto-flow: row dense;
+  gap: 2px 4px;
+  width: 100%;
+  color: var(--ink);
+  font: 11px/1.15 var(--mono);
+}
+.stat-grid .stat {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  min-width: 0;
+  padding: 1px 2px;
+  border-bottom: 1px solid var(--rule-soft);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.stat-grid .stat.wide {
+  grid-column: span 2;
+}
+.stat-grid.captions {
+  grid-template-columns: 1fr;
+  gap: 3px;
+  width: max-content;
+  max-width: 100%;
+}
+.stat-grid.captions .stat {
+  display: grid;
+  grid-template-columns: 76px minmax(0, 1fr);
+  gap: 8px;
+  border-bottom: 0;
+  white-space: normal;
+}
+.stat-grid .stat-value {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  flex-wrap: wrap;
+}
+.stat-grid .stat-caption {
+  color: var(--muted);
+  font: 11px/1.3 var(--serif);
+}
+/* Production categories are page tabs, independent of the selection's tool buttons. */
+.production-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.production-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.production-tab[aria-selected='true'] {
+  background: var(--grain), var(--paper-on);
+  box-shadow: inset 0 -2px var(--brand-gold);
+}
+.production-tab-count {
+  padding: 0 3px;
+  border-radius: 3px;
+  background: var(--paper-deep);
+  font: 11px var(--mono);
+}
+.production-tab-count[hidden] {
+  display: none;
+}
+.abil {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.prod {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(118px, 1fr));
+  gap: 6px;
+}
+.prod-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1px;
+  padding: 5px 8px 4px;
+  cursor: var(--cursor-link, pointer);
+  text-align: left;
+}
+.prod-btn:hover {
+  background: var(--chrome-hover);
+}
+.prod-btn:active {
+  transform: translate(1px, 1px);
+  box-shadow: none;
+}
+.prod-btn.build {
+  border-style: dashed;
+}
+.prod-btn.on {
+  border-style: solid;
+  background: var(--grain), var(--paper-on);
+  box-shadow: var(--on-ring);
+}
+.prod-btn.poor {
+  opacity: 0.5;
+}
+.prod-btn b {
+  font-size: 13px;
+}
+.cost {
+  display: flex;
+  gap: 9px;
+  font: 600 15px/1 var(--hand);
+}
+.c-alloy {
+  color: var(--alloy-ink);
+}
+.c-alloy::before {
+  content: '◆ ';
+  font-size: 10px;
+}
+.c-energy {
+  color: var(--energy-ink);
+}
+.c-energy::before {
+  content: 'ϟ ';
+  font-family: var(--serif);
+  font-size: 11px;
+}
+.c-time {
+  color: var(--muted);
+}
+.dead-note {
+  font: 600 17px var(--hand);
+  color: var(--bad);
+}
+.macros {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.macro {
+  text-align: left;
+}
+/* toasts, banners, hints */
+.toasts {
+  position: absolute;
+  top: 74px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  pointer-events: none;
+}
+.toast {
+  padding: 4px 12px 4px 10px;
+  border-left: 4px solid var(--bad);
+  font-size: 13px;
+  animation: toastin 0.18s ease-out both;
+  transition: opacity 0.4s, transform 0.4s;
+}
+.toast.ok {
+  border-left-color: var(--good);
+}
+.toast.out {
+  opacity: 0;
+  transform: translateY(-6px);
+}
+@keyframes toastin {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.97);
+  }
+}
+/* Plane-switch tag: a small translucent stamp just under the top bar, gone in ~1 s, so it never sits over the
+   battlefield the player just switched to look at. */
+.plane-banner {
+  position: absolute;
+  top: 96px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: grid;
+  justify-items: center;
+  padding: var(--sheet-pad-block) 14px;
+  pointer-events: none;
+  opacity: 0;
+}
+.plane-banner .section {
+  font-size: 18px;
+  padding: 1px 10px 0;
+  border-width: 2px;
+}
+.plane-banner.show {
+  animation: banner 1.1s ease-out both;
+}
+@keyframes banner {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-6px);
+  }
+  15% {
+    opacity: 1;
+    transform: translateX(-50%);
+  }
+  65% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-50%);
+  }
+}
+/* Sudden death (plan-hud.ts SuddenDeathBanner): its public countdown pulses, then the banner stands until the end. */
+.sudden-death {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 10px;
+  border-radius: var(--wobble);
+  background: color-mix(in srgb, var(--brand-red) 82%, transparent);
+  color: var(--chrome-white);
+  font: 700 13px/1.4 var(--mono);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-variant-numeric: tabular-nums lining-nums;
+}
+.sudden-death[hidden],
+.sudden-death .ledger-number[hidden] {
+  display: none;
+}
+.hud .sudden-death {
+  position: absolute;
+  top: 136px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.sudden-death[data-phase='countdown'] {
+  animation: sudden-death-pulse 1s ease-in-out infinite;
+}
+@keyframes sudden-death-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--brand-red) 0%, transparent);
+  }
+  50% {
+    box-shadow: 0 0 10px 2px color-mix(in srgb, var(--brand-red) 70%, transparent);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sudden-death[data-phase='countdown'] {
+    animation: none;
+  }
+}
+/* Match point (plan-hud.ts MatchPointBanner, lossRule crowns): the sudden death banner's look, one row lower. */
+.hud .match-point {
+  top: 164px;
+}
+/* Crowns (plan-hud.ts CrownsBoard and crownPips, lossRule crowns): one pip per segment, dark once it fell. */
+.crowns-board {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.crowns-board[hidden],
+.obs-crowns[hidden] {
+  display: none;
+}
+.crowns-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.crowns-swatch {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--side-ink);
+}
+.crown-pips {
+  display: inline-flex;
+  gap: 2px;
+}
+.crown-pip {
+  display: inline-flex;
+  color: var(--accent);
+}
+.crown-pip[data-state='fallen'] {
+  color: var(--chrome-white);
+  opacity: 0.25;
+}
+.armed-hint {
+  position: absolute;
+  bottom: 214px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 2px 14px;
+  font: 600 18px var(--hand);
+  display: none;
+  pointer-events: none;
+}
+.armed-hint.show {
+  display: block;
+}
+.status {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 26px;
+  font-size: 16px;
+}
+.status.show {
+  display: flex;
+}
+/* Spectators' army switch, overlapping the top bar's lower edge (`--ledger-bottom`: two rows on narrow screens). */
+.team-toggle {
+  position: absolute;
+  top: calc(var(--ledger-bottom, 84px) - 12px);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px;
+}
+.team-toggle:empty {
+  display: none;
+}
+.team-toggle .btn {
+  font-weight: 700;
+  border-left: 5px solid var(--side);
+}
+.team-toggle .btn.on {
+  background: color-mix(in srgb, var(--side) 34%, var(--paper-hi));
+  box-shadow: var(--on-ring);
+}
+
+/* outcome: the after-action report */
+.outcome {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(ellipse at center, color-mix(in srgb, var(--paper-deep) 35%, transparent), color-mix(in srgb, var(--paper-deep) 75%, transparent));
+  z-index: 20;
+}
+.outcome.hidden {
+  display: none;
+}
+.outcome-card {
+  position: relative;
+  width: min(780px, 94vw);
+  max-height: 90vh;
+  overflow: auto;
+  padding: 22px 28px 20px;
+  animation: rise 0.5s ease-out both;
+}
+.outcome-kicker {
+  font: 400 12px var(--stamp);
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.outcome-title {
+  display: inline-block;
+  margin: 8px 0 6px;
+  padding: 4px 18px 0;
+  font: 400 60px/1 var(--stamp);
+  letter-spacing: 0.16em;
+  border: 4px double currentColor;
+  border-radius: 4px 7px 5px 6px;
+  transform: rotate(-2deg);
+  background: var(--paper-deep);
+}
+.outcome-card.win .outcome-title {
+  color: var(--good);
+}
+.outcome-card.loss .outcome-title {
+  color: var(--bad);
+}
+.outcome-card.draw .outcome-title {
+  color: var(--warn);
+}
+.outcome-meta {
+  font: italic 14px var(--serif);
+  color: var(--muted);
+}
+.report {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 22px;
+  margin: 14px 0 16px;
+  padding-top: 12px;
+  border-top: 3px double var(--rule);
+}
+.report table {
+  border-collapse: collapse;
+  width: 100%;
+}
+.report th {
+  font: 400 12px var(--stamp);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-align: right;
+  padding: 2px 6px 4px;
+  border-bottom: 1.5px solid var(--ink);
+}
+.report td {
+  padding: 1px 6px;
+  text-align: right;
+  font: 600 17px/1.25 var(--hand);
+  border-bottom: 1px dotted var(--rule-soft);
+}
+.report th:first-child,
+.report td:first-child {
+  text-align: left;
+  font: 13px var(--serif);
+  color: var(--ink-soft);
+}
+.report th[data-own] {
+  border-bottom-width: 3px;
+}
+.report .report-place td {
+  font: 400 14px var(--stamp);
+  letter-spacing: 0.08em;
+}
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.timeline .cmd-section {
+  margin-bottom: 2px;
+}
+.timeline .ev {
+  cursor: var(--cursor-default, default);
+  box-shadow: none;
+  animation: slidein 0.25s ease-out both;
+}
+.outcome-actions {
+  display: flex;
+  gap: 8px;
+}
+/* The elimination card's perspective choice: All, then each army's fog, marked in its colour. */
+.outcome-perspectives {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 16px 0 6px;
+}
+.outcome-perspectives [data-perspective]:not([data-perspective='all']) {
+  box-shadow: inset 4px 0 0 var(--side);
+}
+.outcome-note {
+  min-height: 1.3em;
+  margin: 4px 0 10px;
+}
+
+.fatal {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 16px;
+}
+.fatal b {
+  font: 600 22px var(--serif);
+}
+
+/* Right column, top to bottom: the commander dispatches (chat.css), the build queue and the field map, bottom-aligned.
+   Both pages can shrink in a short viewport; the queue always keeps one complete actionable row. */
+.field-col {
+  grid-area: field;
+  min-height: 0;
+  min-width: 0;
+  justify-content: flex-end;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 8px;
+}
+/* The docked music player (music-player.css, `top: 92px`) sits over the column's top, which is never higher (HUD
+   padding, a top bar of at least 74px, gap): the column keeps clear of the height the player publishes, plus a gap,
+   and takes the space back once the player is dragged away. */
+html:has(.music-player:not(.placed)) .field-col {
+  padding-top: calc(var(--music-dock-h) + 8px);
+}
+.field-col > * {
+  pointer-events: auto;
+}
+/* The dispatches slot takes only the column's free space (flex basis 0, growing; the negative margin cancels the
+   column gap, which the slip keeps inside), so dispatches never move or squeeze the queue or the field map. The slip
+   sits at its bottom, just above the queue, and the slot is its size container (chat.css hides a slip with no room). */
+.field-col > .dispatch-slot {
+  flex: 1 1 0;
+  min-height: 0;
+  margin-bottom: -8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  container: dispatches / size;
+  pointer-events: none;
+}
+/* minimap: the four pages of the field map */
+.minimap-box {
+  display: flex;
+  flex-direction: column;
+  flex: 0 1 auto;
+  min-height: 220px;
+  padding: 7px 8px 4px;
+}
+.minimap-head {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  margin-bottom: 2px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid var(--rule-soft);
+}
+.minimap-head .stamp {
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  color: var(--ink-soft);
+}
+.minimap {
+  display: flex;
+  flex: 1 1 auto;
+  min-height: 0;
+  align-items: center;
+  justify-content: center;
+}
+.minimap canvas {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  cursor: var(--cursor-link, pointer);
+}
+/* Shared-bank production: stable per-plane lists in one scroll region above the field map. */
+.queue-panel {
+  contain: inline-size;
+  container-type: inline-size;
+  display: flex;
+  flex-direction: column;
+  min-height: 112px;
+  max-height: min(34vh, 320px);
+  padding: 6px 8px 5px;
+}
+.queue-panel [hidden] {
+  display: none;
+}
+.qp-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 6px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--rule-soft);
+}
+.qp-head .stamp {
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  color: var(--ink-soft);
+}
+.qp-count {
+  font-size: 15px;
+  color: var(--ink-soft);
+}
+.qp-bank {
+  flex-shrink: 0;
+  font: 12px/1.4 var(--serif);
+  color: var(--ink-soft);
+}
+.qp-bank summary {
+  cursor: var(--cursor-link, pointer);
+}
+.qp-bank-summary {
+  display: grid;
+  grid-template-columns: 8px auto minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+  column-gap: 5px;
+  block-size: 30px;
+  padding: 4px 0;
+  white-space: nowrap;
+  list-style: none;
+}
+.qp-bank-summary::-webkit-details-marker {
+  display: none;
+}
+.qp-bank-summary::before {
+  content: '';
+  width: 0;
+  height: 0;
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+  border-left: 5px solid var(--muted);
+}
+.qp-bank[open] > .qp-bank-summary::before {
+  transform: rotate(90deg);
+}
+.qp-bank-value {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  min-width: 0;
+  gap: 4px;
+  margin-left: 0;
+  font-variant-numeric: tabular-nums;
+}
+.qp-bank-value .num {
+  display: inline-block;
+  flex: 0 0 6ch;
+  inline-size: 6ch;
+  text-align: right;
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+}
+.qp-bank-value::before,
+.qp-cost::before {
+  content: none;
+}
+.qp-bank-label, .qp-bank-more {
+  color: var(--muted);
+  font-size: 11px;
+}
+.qp-bank-more {
+  display: none;
+}
+.qp-bank summary:focus-visible, .qp-actions button:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+.qp-resources {
+  block-size: 116px;
+  overflow: auto;
+  scrollbar-gutter: stable;
+  overscroll-behavior: contain;
+  overflow-anchor: none;
+  padding: 3px 2px;
+  font-variant-numeric: tabular-nums;
+}
+.qp-ledger {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+  font: 10px/1.4 var(--serif);
+}
+.qp-ledger th, .qp-ledger td {
+  padding: 2px 3px;
+  white-space: nowrap;
+  text-align: right;
+}
+.qp-ledger th:first-child {
+  width: 40%;
+  text-align: left;
+  font-weight: normal;
+}
+.qp-ledger td {
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+}
+.qp-ledger thead {
+  border-bottom: 1px solid var(--rule-soft);
+}
+.qp-ledger .c-alloy::before, .qp-ledger .c-energy::before {
+  content: none;
+}
+.qp-resources .qp-foot {
+  padding: 4px 3px;
+  text-align: left;
+  font: 10px/1.4 var(--serif);
+}
+.qp-lanes {
+  min-height: 0;
+  overflow-y: auto;
+}
+.qp-lane-label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin: 5px 0 0;
+  padding: 3px 5px;
+  border-left: 3px solid var(--accent);
+  border-radius: 2px;
+  background: color-mix(in srgb, var(--accent) 13%, transparent);
+  font: 600 12px/1.3 var(--serif);
+}
+.qp-lane-label > svg {
+  flex-shrink: 0;
+}
+.qp-plane-name {
+  flex: 1;
+}
+.qp-lane-count {
+  min-width: 16px;
+  text-align: center;
+  color: var(--ink-soft);
+}
+.qp-access {
+  font: 10px/1.3 var(--serif);
+  color: var(--ink-soft);
+  padding-left: 4px;
+  border-left: 1px solid var(--rule);
+}
+.qp-access.readonly {
+  color: var(--muted);
+}
+.qp-list {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-height: 0;
+  margin: 4px 0 0;
+  padding: 2px 1px 3px;
+  list-style: none;
+  overflow: visible;
+}
+.qp-list.drop-end {
+  box-shadow: inset 0 -2px 0 var(--ink);
+}
+.qp-row {
+  position: relative;
+  flex-shrink: 0;
+  display: grid;
+  grid-template-columns: 18px minmax(0, 1fr) auto;
+  grid-template-rows: 18px 14px;
+  align-items: center;
+  gap: 2px 5px;
+  padding: 2px 4px;
+  font-size: 12px;
+  background: var(--grain), var(--paper-hi);
+  border: 1px solid var(--rule-soft);
+  border-radius: var(--wobble);
+  cursor: grab;
+}
+.qp-row.next {
+  border-left: 3px solid var(--accent);
+  background: color-mix(in srgb, var(--accent) 7%, var(--paper-hi));
+}
+.qp-row.recovery {
+  border-left: 3px dashed var(--good);
+}
+.qp-row.blocked {
+  border-color: color-mix(in srgb, var(--bad) 35%, var(--rule-soft));
+}
+.qp-row.backed .qp-status {
+  color: var(--good);
+}
+.qp-row.recovery .qp-status {
+  color: var(--good);
+  border: 1px dashed currentColor;
+}
+.qp-row.readonly {
+  cursor: default;
+}
+.qp-row .qp-x:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+.qp-actions {
+  display: flex;
+  grid-column: 3;
+  grid-row: 1;
+  align-items: center;
+  gap: 2px;
+}
+.qp-priority {
+  display: grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  padding: 2px;
+  border: 0;
+  border-radius: 2px;
+  background: none;
+  color: var(--ink-soft);
+}
+.qp-actions > [hidden] {
+  display: none;
+}
+/* the pencil outline a new slip is drawn in before its wash (queue-panel.ts fades it out; invisible at rest) */
+.qp-row::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border: 1px dashed var(--ink-soft);
+  border-radius: inherit;
+  opacity: 0;
+  pointer-events: none;
+}
+/* a slip leaving the queue: stamped done or struck through, then folded away (queue-panel.ts) */
+.qp-row.leaving {
+  pointer-events: none;
+}
+.qp-row.leaving::before {
+  position: absolute;
+  pointer-events: none;
+}
+.qp-row.leaving.done::before {
+  content: 'done';
+  right: 24px;
+  top: 50%;
+  translate: 0 -50%;
+  rotate: -8deg;
+  padding: 0 4px;
+  font: 400 11px/1.3 var(--stamp);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--good);
+  border: 1.5px solid currentColor;
+  border-radius: 2px;
+  background: color-mix(in srgb, var(--paper-hi) 70%, transparent);
+}
+.qp-row.leaving.cancelled {
+  color: var(--muted);
+}
+.qp-row.leaving.cancelled::before {
+  content: '';
+  left: 4px;
+  right: 4px;
+  top: 50%;
+  height: 1.5px;
+  background: var(--ink);
+  transform-origin: left center;
+}
+.qp-row:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 1px;
+}
+.qp-row.building {
+  border-color: var(--rule);
+  box-shadow: var(--slip-shadow);
+}
+.qp-row.dragging {
+  opacity: 0.45;
+}
+.qp-row.drop-before {
+  box-shadow: 0 -3px 0 -1px var(--ink);
+}
+.qp-icon {
+  display: grid;
+  place-items: center;
+  grid-column: 1;
+  grid-row: 1;
+  width: 18px;
+  height: 18px;
+  font: 400 11px/1 var(--stamp);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  background: color-mix(in srgb, var(--accent) 45%, var(--paper-hi));
+}
+.qp-main {
+  display: contents;
+}
+.qp-name {
+  display: block;
+  grid-column: 2;
+  grid-row: 1;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.qp-item-name {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.qp-meta {
+  display: flex;
+  grid-column: 1 / -1;
+  grid-row: 2;
+  align-items: center;
+  min-width: 0;
+  gap: 6px;
+  font: 10px/12px var(--mono);
+}
+.qp-cost {
+  display: flex;
+  flex-direction: column;
+  flex: none;
+  gap: 0;
+  min-width: 0;
+  font-variant-numeric: tabular-nums;
+}
+.qp-cost .hud-cost > span {
+  display: inline-block;
+  flex: none;
+  text-align: right;
+  font: 10px/12px var(--mono);
+  font-variant-numeric: tabular-nums;
+}
+.qp-fund-track {
+  height: 2px;
+  overflow: hidden;
+  border-radius: 1px;
+  background: color-mix(in srgb, currentColor 16%, transparent);
+}
+.qp-fund-fill {
+  display: block;
+  height: 100%;
+  background: currentColor;
+  transform-origin: left center;
+  transition: transform 0.3s linear;
+}
+.qp-row:not(.funding) .qp-fund-track {
+  display: none;
+}
+.qp-row.paid .qp-cost {
+  display: none;
+}
+.qp-status {
+  color: var(--ink-soft);
+  min-width: 0;
+  margin-left: auto;
+  padding: 0 2px;
+  border-radius: 2px;
+  background: color-mix(in srgb, var(--ink) 5%, transparent);
+  font: 10px/12px var(--serif);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.qp-status.blocked {
+  color: var(--bad);
+}
+.qp-bar {
+  position: absolute;
+  inset: auto 2px 0;
+  display: block;
+  height: 2px;
+  border-radius: 2px;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--good) 15%, var(--paper-hi));
+}
+.qp-fill {
+  display: block;
+  height: 100%;
+  background: color-mix(in srgb, var(--wash-on) 80%, var(--good));
+  transform: scaleX(0);
+  transform-origin: left center;
+  /* views arrive ~10 Hz: ease the fill from one to the next instead of stepping */
+  transition: transform 0.3s linear;
+}
+@media (prefers-reduced-motion: reduce) {
+  .qp-fill, .qp-fund-fill {
+    transition: none;
+  }
+}
+.qp-x {
+  padding: 0 4px;
+  border: 0;
+  background: none;
+  font: 600 16px/1 var(--serif);
+  color: var(--muted);
+  cursor: var(--cursor-link, pointer);
+}
+.qp-x:hover {
+  color: var(--bad);
+}
+.qp-empty {
+  padding: 5px 2px 2px;
+  font: italic 12px var(--serif);
+  color: var(--muted);
+}
+.qp-foot {
+  margin-top: 2px;
+  text-align: center;
+  font: italic 11px var(--serif);
+  color: var(--muted);
+}
+@container (max-width: 260px) {
+  .qp-bank-more { display: none; }
+}
+
+/* Settings gear (HUD top bar, lobby footer): the WASD camera switch. */
+.settings {
+  position: relative;
+  display: inline-flex;
+}
+.settings-btn {
+  font-size: 15px;
+  line-height: 1;
+  padding: 4px 8px;
+}
+.settings-pop {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  z-index: 36;
+  width: 250px;
+  display: grid;
+  gap: 6px;
+  padding: 10px 12px;
+  background: var(--grain), var(--paper-hi);
+  box-shadow: var(--sheet-shadow);
+  color: var(--ink);
+  text-align: left;
+}
+.settings-pop.up {
+  top: auto;
+  bottom: calc(100% + 6px);
+}
+.settings-pop[hidden] {
+  display: none;
+}
+.settings-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  font-weight: 600;
+  cursor: var(--cursor-link, pointer);
+}
+.settings-audio {
+  margin-top: 4px;
+}
+.settings-volume {
+  display: grid;
+  grid-template-columns: 14px 72px 1fr;
+  font-weight: 500;
+}
+.settings-slider {
+  width: 100%;
+  min-width: 0;
+  accent-color: var(--brand-gold);
+  cursor: var(--cursor-link, pointer);
+}
+
+/* Shared chrome polish; paint-only changes keep the HUD's reserved rectangles stable. */
+.topbar,
+.card,
+.minimap-box,
+.queue-panel,
+.status,
+.outcome-card,
+.plane-banner {
+  background: linear-gradient(var(--brand-gold), var(--brand-amber)) top / 100% 5px no-repeat, var(--paper);
+}
+.card-title {
+  font-weight: 700;
+}
+/* Pointer focus keeps controls focused without painting a keyboard-only ring. */
+:where(button, a, input, select, summary, textarea, [tabindex]):focus:not(:focus-visible) {
+  outline: none;
+}
+:where(button, a, input, select, summary, textarea, [tabindex]):focus-visible {
+  outline: 3px solid var(--chrome-black);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 5px var(--brand-gold);
+}

@@ -1,0 +1,81 @@
+name: CI
+on:
+  pull_request:
+    paths-ignore:
+      - '**/*.md'
+      - 'docs/**'
+      - 'LICENSE'
+      - 'NOTICE'
+      - '.github/ISSUE_TEMPLATE/**'
+      - '.github/CODEOWNERS'
+  push:
+    branches: [main]
+    paths-ignore:
+      - '**/*.md'
+      - 'docs/**'
+      - 'LICENSE'
+      - 'NOTICE'
+      - '.github/ISSUE_TEMPLATE/**'
+      - '.github/CODEOWNERS'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+defaults:
+  run:
+    working-directory: agent-command
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      # Both repos side by side under the workspace so AC's link:../player-three/... (and ../../../player-three from apps/*) resolve.
+      - uses: actions/checkout@v4
+        with:
+          path: agent-command
+      - uses: actions/checkout@v4
+        with:
+          repository: player-three-gg/player-three
+          ref: main
+          path: player-three
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.22.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 26
+          cache: pnpm
+          cache-dependency-path: |
+            agent-command/pnpm-lock.yaml
+            player-three/pnpm-lock.yaml
+      - run: pnpm install --frozen-lockfile
+        working-directory: player-three
+      - run: pnpm install --frozen-lockfile
+        working-directory: agent-command
+      - run: pnpm -r typecheck
+      - name: Deterministic Math (dmath, not the engine's, in packages/game/src)
+        run: pnpm check:dmath
+      - name: Built-in bot packages (the committed bot library is current)
+        run: |
+          pnpm --filter @agent-command/game bots:build
+          git diff --exit-code -- packages/game/skills || { echo "::error::The built-in bot library is stale. Run pnpm --filter @agent-command/game bots:build and commit packages/game/skills."; exit 1; }
+      - name: Agent-facing surface is pinned
+        run: |
+          pnpm bench:pin
+          git diff --exit-code -- bench/surface.ts || { echo "::error file=bench/surface.ts::The agent-facing surface changed without a re-pin. Run pnpm bench:pin and commit bench/surface.ts."; exit 1; }
+      - name: client-imports guard
+        run: pnpm --filter @agent-command/game exec vitest run --maxWorkers=2 test/client-imports.test.ts
+      - name: Game tests (non-timing)
+        run: pnpm --filter @agent-command/game test --maxWorkers=2
+      - name: Server tests
+        run: pnpm --filter @agent-command/server test --maxWorkers=2 --testTimeout=30000
+      - name: Web tests
+        run: pnpm --filter @agent-command/web test --maxWorkers=2
+      - name: Tool tests
+        run: pnpm --filter './tools/*' --workspace-concurrency=1 --if-present test

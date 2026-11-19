@@ -1,0 +1,87 @@
+{
+  "campaign": ".data/bench/acbench-v1/opencode-skeleton-45m-1r-crossfire+twin_fords+crown-1s-novice+standard+veteran+elite+champion",
+  "moments": {
+    "gpt-6.2-astra": {
+      "release": "acbench-v0-1",
+      "model": "gpt-6.2-astra",
+      "run": "gpt-6.2-astra/results/run-1",
+      "matchId": "298e0c41-6ed7-4f0c-9926-67d739857979_trial-28_1",
+      "from": 6658,
+      "to": 6838,
+      "plane": "surface",
+      "camera": { "x": 41.6, "y": 41.6, "dist": 17, "yaw": 5.4978, "pitch": 0.95 },
+      "end": { "x": 42.4, "y": 42.4, "dist": 15, "yaw": 5.4978, "pitch": 0.95 },
+      "caption": "GPT-6.2 Astra's tank line finishes the Champion's Surface Spire on Crown at 5 min 42 s."
+    },
+    "gpt-6-astra": {
+      "release": "acbench-v0-1",
+      "model": "gpt-6-astra",
+      "run": "gpt-6-astra/results/run-1",
+      "matchId": "2c593d29-02ed-4e25-b017-ec3f4504897d_trial-6_1",
+      "from": 7658,
+      "to": 7838,
+      "plane": "sky",
+      "camera": { "x": 9, "y": 7, "dist": 22 },
+      "end": { "x": 6.5, "y": 5, "dist": 19 },
+      "caption": "The Elite's air wing reaches GPT-6 Astra's Spire, and the Spire itself shoots down four interceptors in nine seconds."
+    },
+    "qwen4-max": {
+      "release": "acbench-v0-1",
+      "model": "qwen4-max",
+      "run": "qwen4-max/results/run-1",
+      "matchId": "0a93595b-68b7-4f86-a581-7a0272503dd6_trial-10_1",
+      "from": 35660,
+      "to": 35840,
+      "plane": "surface",
+      "camera": { "x": 43, "y": 43, "dist": 15, "yaw": 5.4978, "pitch": 0.95 },
+      "caption": "A tunnel collapse under the Novice's Spire on Twin Fords brings it down eight seconds before the time cap."
+    },
+    "gpt-6.2-sol": {
+      "release": "acbench-v0-1",
+      "model": "gpt-6.2-sol",
+      "run": "gpt-6.2-sol/results/run-1",
+      "matchId": "30ee335b-2801-42bb-9093-e83f39f84586_trial-2_1",
+      "from": 28917,
+      "to": 29097,
+      "plane": "surface",
+      "camera": { "x": 43, "y": 43, "dist": 15, "yaw": 5.4978, "pitch": 0.95 },
+      "end": { "x": 44, "y": 44, "dist": 14, "yaw": 5.4978, "pitch": 0.95 },
+      "caption": "On Crossfire, where its map branches switch on, GPT-6.2 Sol brings down the Standard bot's Surface Spire at 24 min 15 s."
+    },
+    "gpt-6.1-sol": {
+      "release": "acbench-v0-1",
+      "model": "gpt-6.1-sol",
+      "run": "gpt-6.1-sol/results/run-1",
+      "matchId": "5e4371be-1159-4b2e-a97d-43bfc18f504c_trial-6_1",
+      "from": 21219,
+      "to": 21399,
+      "plane": "surface",
+      "camera": { "x": 7.5, "y": 6.5, "dist": 16, "yaw": 5.4978, "pitch": 0.95 },
+      "caption": "The Elite brings down GPT-6.1 Sol's Surface Spire on Crossfire at 17 min 50 s."
+    },
+    "glm-5.3": {
+      "release": "acbench-v0-1",
+      "model": "glm-5.3",
+      "run": "glm-5.3/results/run-1",
+      "matchId": "2f9015d9-bc52-47d9-9028-e5096de971cf_trial-22_1",
+      "from": 22286,
+      "to": 22466,
+      "plane": "surface",
+      "camera": { "x": 43, "y": 43, "dist": 15, "yaw": 5.4978, "pitch": 0.95 },
+      "end": { "x": 44, "y": 44, "dist": 14, "yaw": 5.4978, "pitch": 0.95 },
+      "caption": "GLM 5.3's bomber, escorted by interceptors, brings down the Standard bot's Surface Spire on Crown at 18 min 43 s."
+    },
+    "deepseek-v4.1-flash": {
+      "release": "acbench-v0-1",
+      "model": "deepseek-v4.1-flash",
+      "run": "deepseek-v4.1-flash/results/run-1",
+      "matchId": "976ddcd4-d4fa-48ea-8ffa-3fcf1f35f7af_trial-10_1",
+      "from": 5700,
+      "to": 5880,
+      "plane": "surface",
+      "camera": { "x": 43, "y": 43, "dist": 15, "yaw": 5.4978, "pitch": 0.95 },
+      "end": { "x": 42.5, "y": 42.5, "dist": 13, "yaw": 5.4978, "pitch": 0.95 },
+      "caption": "A tunnel collapses under the Novice's Spire on Twin Fords: the first of nine collapses DeepSeek V4.1 Flash set off that game."
+    }
+  }
+}

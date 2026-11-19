@@ -1,0 +1,29 @@
+name: Balance report
+description: A unit, structure, plane or strategy that is too strong or too weak.
+labels: ["balance"]
+body:
+  - type: input
+    id: subject
+    attributes:
+      label: What is unbalanced
+      placeholder: e.g. Stormcatcher on Sky, Depths rush on crossfire
+    validations:
+      required: true
+  - type: dropdown
+    id: plane
+    attributes:
+      label: Plane
+      multiple: true
+      options: [Orbit, Sky, Surface, Depths]
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence
+      description: Matches (room ids, replays), bench or `ac_sweep` results, win rates, who played (human, agent, bot level).
+    validations:
+      required: true
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: Suggested change
+      description: Which match rule (DEFAULT_RULES) you would tune, and how.

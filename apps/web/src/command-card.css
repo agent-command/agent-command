@@ -1,0 +1,278 @@
+/* Command card orders (command-card.ts). Commands: one compact uniform button. Abilities: framed tiles in the focused
+   plane's accent with a gold top trim, hotkey, cost and cooldown ring. Faces stay translucent; hover only brightens
+   the frame. The column never scrolls: `.compact` shrinks everything before actions move under More. */
+.orders {
+  --cmd: 26px;
+  --tile: 44px;
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+}
+.orders.compact {
+  --cmd: 24px;
+  --tile: 38px;
+  gap: 4px;
+}
+.card-group {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  gap: 3px;
+  min-width: 0;
+}
+.card-group:not(:has(> :not([hidden]))) {
+  display: none;
+}
+.orders .card-group[data-group='abilities'] {
+  gap: 4px;
+}
+/* The rule between the groups only when both are on the card. */
+.orders .card-group[data-group='commands']:has(> :not([hidden])) + .card-group[data-group='abilities'] {
+  padding-top: 5px;
+  border-top: 1px dotted color-mix(in srgb, var(--accent) 60%, transparent);
+}
+.orders.compact .card-group[data-group='commands']:has(> :not([hidden])) + .card-group[data-group='abilities'] {
+  padding-top: 4px;
+}
+
+.cmd,
+.ability {
+  position: relative;
+  flex: none;
+  padding: 0;
+  color: var(--ink);
+  font: inherit;
+  cursor: var(--cursor-link, pointer);
+}
+.cmd:active,
+.ability:active {
+  transform: translate(1px, 1px);
+}
+
+/* commands */
+.cmd {
+  display: inline-grid;
+  place-items: center;
+  width: var(--cmd);
+  height: var(--cmd);
+  background: var(--overlay-face-hi, var(--paper-hi));
+  border: 1px solid var(--rule-soft);
+  border-radius: 3px;
+  box-shadow: inset 0 -2px 0 color-mix(in srgb, var(--paper-deep) 70%, transparent);
+}
+.cmd:hover {
+  border-color: var(--ink-soft);
+}
+.cmd.on {
+  color: var(--brand-gold);
+  border-color: var(--brand-gold);
+  box-shadow: var(--on-ring);
+}
+.cmd.off {
+  opacity: 0.5;
+}
+.cmd[hidden] {
+  display: none;
+}
+.cmd-key {
+  position: absolute;
+  right: 1px;
+  bottom: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--muted);
+  font: 600 8px/1 var(--mono);
+  pointer-events: none;
+}
+.orders.compact .cmd-key {
+  display: none;
+}
+.orders.compact .cmd > svg {
+  width: 14px;
+  height: 14px;
+}
+/* stances and formations: one joined control */
+.cmd-seg {
+  display: inline-flex;
+  flex: none;
+}
+.cmd-seg > .cmd {
+  border-radius: 0;
+}
+.cmd-seg > .cmd + .cmd {
+  margin-left: -1px;
+}
+.cmd-seg > .cmd:first-child {
+  border-radius: 3px 0 0 3px;
+}
+.cmd-seg > .cmd:last-child {
+  border-radius: 0 3px 3px 0;
+}
+.cmd-seg > .cmd.on {
+  z-index: 1;
+}
+
+/* abilities */
+.ability {
+  display: grid;
+  place-items: center;
+  width: var(--tile);
+  height: var(--tile);
+  background: color-mix(in srgb, var(--accent) 18%, var(--overlay-face-hi, var(--paper-hi)));
+  border: 1px solid color-mix(in srgb, var(--accent) 75%, var(--chrome-black));
+  border-radius: 6px;
+  box-shadow: inset 0 2px 0 var(--brand-gold), 1px 2px 0 var(--chrome-black);
+}
+.ability:hover {
+  border-color: var(--accent);
+}
+.ability > * {
+  grid-area: 1 / 1;
+}
+.ability > .icon {
+  position: relative;
+  color: var(--chrome-white);
+}
+.orders.compact .ability > .icon {
+  width: 18px;
+  height: 18px;
+}
+/* The ring runs from empty (just used) to full (ready); a ready ability is a closed gold ring. */
+.ability .ring {
+  width: calc(var(--tile) - 10px);
+  height: calc(var(--tile) - 10px);
+  border-radius: 50%;
+  background: conic-gradient(var(--brand-gold) calc((1 - var(--cd, 0)) * 1turn), color-mix(in srgb, var(--chrome-black) 55%, transparent) 0);
+  mask: radial-gradient(farthest-side, transparent calc(100% - 3px), var(--chrome-black) calc(100% - 2.5px));
+}
+.ability.cooling .ring {
+  background: conic-gradient(var(--accent) calc((1 - var(--cd, 0)) * 1turn), color-mix(in srgb, var(--chrome-black) 55%, transparent) 0);
+}
+.ability.cooling > .icon {
+  opacity: 0.3;
+}
+.ability .cd-left {
+  position: relative;
+  color: var(--chrome-white);
+  font: 700 13px/1 var(--mono);
+  text-shadow: 0 1px 0 var(--chrome-black), 0 0 3px var(--chrome-black);
+}
+.ability.off:not(.cooling) {
+  background: color-mix(in srgb, var(--accent) 6%, var(--overlay-face-hi, var(--paper-hi)));
+}
+.ability.off:not(.cooling) > .icon {
+  opacity: 0.45;
+}
+.ability.off:not(.cooling) .ring {
+  background: color-mix(in srgb, var(--muted) 45%, transparent);
+}
+.ability.on {
+  border-color: var(--brand-gold);
+  box-shadow: inset 0 0 0 2px var(--brand-gold), 1px 2px 0 var(--chrome-black);
+}
+.ability-key {
+  position: relative;
+  place-self: start start;
+  margin: 3px 0 0 3px;
+  padding: 1px 2px;
+  border: 0;
+  border-radius: 2px;
+  background: color-mix(in srgb, var(--chrome-black) 75%, transparent);
+  color: var(--brand-gold);
+  font: 700 9px/1 var(--mono);
+  pointer-events: none;
+}
+.ability-cost {
+  position: relative;
+  place-self: end end;
+  display: inline-flex;
+  align-items: center;
+  gap: 1px;
+  margin: 0 2px 2px 0;
+  padding: 0 1px;
+  border-radius: 2px;
+  background: color-mix(in srgb, var(--chrome-black) 65%, transparent);
+  font: 600 9px/1.1 var(--mono);
+  pointer-events: none;
+}
+.ability-cost::before {
+  content: none;
+}
+.card-badge {
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  min-width: 12px;
+  padding: 0 2px;
+  border-radius: 6px;
+  background: var(--brand-gold);
+  color: var(--on-gold);
+  font: 700 9px/12px var(--mono);
+  text-align: center;
+  pointer-events: none;
+}
+.ability > .card-badge {
+  place-self: start end;
+  position: relative;
+}
+/* Ready again: one gold flash, then nothing (never a looping attention grab). */
+.ability.pulse::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  pointer-events: none;
+  animation: ability-ready 0.8s ease-out 1 forwards;
+}
+.ability.pulse .ring {
+  animation: ability-ring 0.8s ease-out 1;
+}
+@keyframes ability-ready {
+  from {
+    box-shadow: 0 0 0 0 var(--brand-gold), inset 0 0 0 2px var(--brand-gold);
+    opacity: 1;
+  }
+  to {
+    box-shadow: 0 0 0 7px transparent, inset 0 0 0 2px transparent;
+    opacity: 0;
+  }
+}
+@keyframes ability-ring {
+  40% {
+    transform: scale(1.18);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ability.pulse::after,
+  .ability.pulse .ring {
+    animation: none;
+  }
+}
+
+/* More: the overflow popover, in the top layer above the card */
+.card-more {
+  position: fixed;
+  inset: auto;
+  margin: 0;
+  --cmd: 26px;
+  --tile: 44px;
+  --overlay-face-hi: color-mix(in srgb, var(--paper-hi) 88%, transparent);
+  max-width: 236px;
+  padding: 6px;
+  color: var(--ink);
+  background: color-mix(in srgb, var(--paper) 92%, transparent);
+  border: 2px solid var(--chrome-black);
+  border-radius: 6px;
+  box-shadow: inset 0 3px 0 var(--brand-gold), 2px 3px 0 var(--chrome-black);
+}
+.card-more:popover-open {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 4px;
+}
